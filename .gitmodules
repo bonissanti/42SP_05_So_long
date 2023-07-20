@@ -1,0 +1,3 @@
+[submodule "My_libft"]
+	path = My_libft
+	url = git@github.com:Oniss4nt1/My_libft.git
