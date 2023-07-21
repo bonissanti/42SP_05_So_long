@@ -12,7 +12,7 @@ RESET 			= \033[0m
 NAME 			= so_long
 # NAME_BONUS 		= so_long_bonus
 
-SRCS			= ../so_long/src
+SRCS			= ./so_long/src
 OBJS			= $(addprefix ./src/, $(SRC:.c=.o))
 HEADER			= ../so_long/include
 
@@ -33,13 +33,16 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_LIB)
 	@echo "$(BLUE)Compiling So_long...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS)/*.c -I $(HEADER) -L $(LIBFT) -lft -lmlx -framework OpenGL -framework AppKit
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS)/*.c -I $(HEADER) -L $(LIBFT) -lX11 -lXext -lmlx && ./a.out
 	@echo "$(GREEN)So_long compiled$(RESET)"
 
 $(LIBFT_LIB):
 	@echo "$(BLUE)Compiling Libft...$(RESET)"
 	@$(LIBFT_MAKE)
 	@echo "$(GREEN)Libft compiled$(RESET)"
+
+
+#@$(CC) $(CFLAGS) -o $(NAME) $(SRCS)/*.c -I $(HEADER) -L $(LIBFT) -lft -lmlx -framework OpenGL -framework AppKit for macs
 
 ############################# Norm rules ####################################
 
@@ -62,10 +65,12 @@ clean:
 	@echo "$(RED)So_long objects deleted$(RESET)"
 	@$(LIBFT_MAKE) clean
 
-fclean: clean
-	@rm -f $(NAME)
+
+fclean:
+	@rm -f $(LIBFT_LIB)
 	@echo "$(RED)So_long deleted$(RESET)"
 	@$(LIBFT_MAKE) fclean
+
 
 re: fclean all
 
