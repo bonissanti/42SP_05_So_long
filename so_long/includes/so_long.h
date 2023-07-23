@@ -47,8 +47,18 @@
 typedef struct s_data
 {
 	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*window_ptr;
 }			t_data;
+
+typedef struct s_rectangle
+{
+	int x;
+	int y;
+	int width;
+	int height;
+	int color;
+	
+}		t_rectangle;
 
 
 #endif
