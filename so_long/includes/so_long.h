@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <mlx.h>
+#include <stdint.h>
+// #include "libft.h"
+
 
 //########################### WINDOW CONFIG ###################################
 

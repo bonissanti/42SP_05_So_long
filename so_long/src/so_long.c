@@ -20,28 +20,27 @@ int	encode_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-// int is_big_endian(void)
-// {
-// 	uint32_t i = 0x01234567;
+int is_big_endian(void)
+{
+	uint32_t i = 0x01234567;
 
-// 	return (*((uint8_t *)(&i)) == 0x01);
-// }
+	return (*((uint8_t *)(&i)) == 0x01);
+}
 
 void	img_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *pixel;
-	int bpp;
+	int i;
 
-	bpp = img->bits_per_pixel - 8;
+	i = img->bits_per_pixel - 8;
 	pixel = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	while (bpp >= 0)
+	while (i >= 0)
 	{
-		if (img->endian != 0)
-			*pixel++ = (color >> bpp) & 0xFF;
+		if (is_big_endian())
+			*(pixel + i) = color >> (i * 8);
 		else
-			*pixel++ = (color >> (img->bits_per_pixel - 8 - bpp)) & 0xFF;
-		bpp -= 8;
-		
+			*pixel++ = color >> ((img->bits_per_pixel - 8) - i);
+		i -= 8;	
 	}
 }
 
@@ -97,47 +96,64 @@ int	handle_key(int keycode, void *param)
 }
 
 
-
 int render(t_data *data)
 {
+	if (data->window_ptr == NULL)
+		return (EXIT_FAILURE);
 	render_background(data, encode_rgb(65, 72, 104));
 	render_rectangles(data, &(t_rectangle){WIN_WIDTH - 100, WIN_HEIGHT - 100, 100, 100, encode_rgb(255, 0 , 0)});
 	render_rectangles(data, &(t_rectangle){0, 0, 100, 100, encode_rgb(0, 255 , 0)});
 
 	mlx_put_image_to_window(data->mlx_ptr, data->window_ptr, data->img.img_ptr, 0, 0);
+	if (data->window_ptr == NULL)
+		return (EXIT_FAILURE);
+
 	return (0);
 }
-
-
 
 int main(void)
 {
 	t_data data;
-	
+
 	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
+	if (data.mlx_ptr == NULL)
 		return (EXIT_FAILURE);
 
-	data.window_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
-	if (!data.window_ptr)
+	data.window_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Super Mario World | 42 edition");
+	if (data.window_ptr == NULL)
 	{
 		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
 		return (EXIT_FAILURE);
 	}
+
 	data.img.img_ptr = mlx_new_image(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	if (!data.img.img_ptr)
+	if (data.img.img_ptr == NULL)
 	{
 		mlx_destroy_window(data.mlx_ptr, data.window_ptr);
+		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
 		return (EXIT_FAILURE);
 	}
 
-	data.img.addr = mlx_get_data_addr(data.img.img_ptr, &(data.img.bits_per_pixel),
-									&(data.img.line_length), &(data.img.endian));
+	data.img.addr = mlx_get_data_addr(data.img.img_ptr, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
+	if (data.img.addr == NULL)
+	{
+		mlx_destroy_image(data.mlx_ptr, data.img.img_ptr);
+		mlx_destroy_window(data.mlx_ptr, data.window_ptr);
+		mlx_destroy_display(data.mlx_ptr);
+		free(data.mlx_ptr);
+		return (EXIT_FAILURE);
+	}
 
-	mlx_loop_hook(data.mlx_ptr, render, &data);
 	mlx_hook(data.window_ptr, 2, 1L<<0, handle_key, &data);
+	mlx_loop_hook(data.mlx_ptr, render, &data);
 	mlx_loop(data.mlx_ptr);
-	return (EXIT_SUCCESS);
+
+	mlx_destroy_image(data.mlx_ptr, data.img.img_ptr);
+	mlx_destroy_window(data.mlx_ptr, data.window_ptr);
+	mlx_destroy_display(data.mlx_ptr);
+	free(data.mlx_ptr);
+	
+	return (0);
 }
