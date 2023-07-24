@@ -44,10 +44,21 @@
 
 //########################## STRUCTS ##########################################
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img;
+
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*window_ptr;
+	t_img	img;
 }			t_data;
 
 typedef struct s_rectangle
