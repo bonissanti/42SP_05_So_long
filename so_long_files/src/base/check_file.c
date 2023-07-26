@@ -6,12 +6,12 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 13:09:07 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/26 14:02:55 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:07:31 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/so_long.h"
 #include "../../../my_libft/include/libft.h"
+#include "../../include/so_long.h"
 
 // Fuction to check if the map file is .ber
 
@@ -28,22 +28,4 @@ int	check_file(char *file)
 }
 
 // Fuction to check if the map file is valid
-
-int is_valid_map(t_map *map)
-{
-	char **row = map->map_chars;
-	char *col;
-
-	while (row < map->map_chars + map->rows)
-	{
-		col = *row;
-		while (col < *row + map->cols)
-		{
-			
-		}
-	}
-	
-	
-	
-}
 
