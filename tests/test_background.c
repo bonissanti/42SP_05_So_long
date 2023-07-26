@@ -1,6 +1,6 @@
 #include "minunit.h"
 #include <stdio.h>
-#include "../src/example.h"
+#include "../so_long_files/include/so_long.h"
 
 MU_TEST(test_string_format_is_NULL)
 {

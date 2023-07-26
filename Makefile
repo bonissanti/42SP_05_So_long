@@ -12,12 +12,15 @@ RESET 			= \033[0m
 NAME 			= so_long
 # NAME_BONUS 		= so_long_bonus
 
-SRCS			= ./so_long/src
-OBJS			= $(addprefix ./src/, $(SRC:.c=.o))
-HEADER			= ../so_long/include
+# VPATH			= ./so_long_files/src/base ./so_long_files/src/draw
+SRCS			= $(addprefix ./so_long_files/src/base/, color.c keycode.c main.c render.c) \
+				 $(addprefix ./so_long_files/src/draw/, background.c)
+
+OBJS			= $(SRCS:.%.c=.%.o)
+HEADER			= ./so_long/include/
 
 LIBFT			= ./my_libft
-SO_LONG			= ./so_long
+SO_LONG			= ./so_long_files
 
 ############################# Compilation ##################################
 
@@ -33,7 +36,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_LIB)
 	@echo "$(BLUE)Compiling So_long...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS)/*.c -I $(HEADER) -L $(LIBFT) -lX11 -lXext -lmlx && ./a.out
+	@$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -I $(HEADER) -L $(LIBFT) -lX11 -lXext -lmlx
 	@echo "$(GREEN)So_long compiled$(RESET)"
 
 $(LIBFT_LIB):
@@ -41,8 +44,8 @@ $(LIBFT_LIB):
 	@$(LIBFT_MAKE)
 	@echo "$(GREEN)Libft compiled$(RESET)"
 
-
-#@$(CC) $(CFLAGS) -o $(NAME) $(SRCS)/*.c -I $(HEADER) -L $(LIBFT) -lft -lmlx -framework OpenGL -framework AppKit for macs
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 ############################# Norm rules ####################################
 
@@ -55,7 +58,7 @@ norm:
 
 leaks:
 	@echo "$(YELLOW)Valgrind...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/map.ber
+	@valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all --track-origins=yes ./$(NAME)
 	@echo "$(GREEN)Valgrind done$(RESET)"
 
 ############################# Clean rules ###################################

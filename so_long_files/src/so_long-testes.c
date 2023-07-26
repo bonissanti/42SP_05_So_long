@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long-testes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:14:29 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/21 18:20:49 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:10:01 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../include/so_long.h"
 #include <mlx.h>
 #include <stdlib.h>
 #include <stdint.h>
 
-int	encode_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
+
 
 int is_big_endian(void)
 {
