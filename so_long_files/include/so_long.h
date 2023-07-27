@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/26 15:30:31 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:43:00 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,20 @@ typedef struct s_sprites
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	void	*mario_left;
-	void	*mario_right;
-	void	*mario_up;
-	void	*mario_down;
-	void	*wall;
-	void	*collectible;
-	void	*exit;
-	void	*floor;
-	void	*player;
-	void	*enemy;
-	void	*enemy2;
-	void	*clouds;
-	void	*death;
-	
 }			t_sprites;
 
 typedef struct s_map
 {
 	unsigned int	moves;
-	char			**map_chars;
-	char			**collisions;
+	char			**map_matriz;
 	char			*file;
 	int				rows;
 	int				columns;
-	int				player_x;
-	int				player_y;
-	int				collectibles;
-	int				exit_x;
-	int				exit_y;
+	int				player;
+	int				collectible;
+	int				exit;
+	int				empty;
+	int				wall;
 }					t_map;
 
 

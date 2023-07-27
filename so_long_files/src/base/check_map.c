@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:33 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/26 18:30:44 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:39:29 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,125 +16,106 @@
 
 #include "../../include/so_long.h"
 
-typedef struct s_point
+
+
+
+void initialize_map(t_map *map, int rows, int columns, char **map_matriz)
 {
-	int	x;
-	int	y;
-}	t_point;
-
-
-t_point	find_char(t_map *map, char c)
-{
-	t_point	point;
-	char	**row;
-	char	*col;
-
-	row = map->map_chars;
-	point.y = 0;
-	while (row < map->map_chars + map->rows)
-	{
-		col = *row;
-		point.x = 0;
-		while (col < *row + map->columns)
-		{
-			if (*col == c)
-				return (point);
-			col++;
-			point.x++;
-		}
-		row++;
-	}
-	return (point){-1, -1};
+	map->moves = 0;
+	map->map_matriz = map_matriz;
+	map->file = NULL;
+	map->rows = rows;
+	map->columns = columns;
+	map->player = 0;
+	map->collectible = 0;
+	map->exit = 0;
+	map->empty = 0;
+	map->wall = 0;
 }
-
 
 int	is_valid_map(t_map *map)
 {
-	char	**row;
-	char	*col;
+	int		col;
+	int		row;
 
-	row = map->map_chars;
-	while (row < map->map_chars + map->rows)
+	row = 0;
+	while (row < map->rows)
 	{
-		col = *row;
-		while (col < *row + map->columns)
+		col = 0;
+		while (col < map->columns)
 		{
-			if ((row == map->map_chars || row == map->map_chars + map->rows - 1
-				|| col == *row) ||( col == *row + map->columns - 1 && *col != '1'))
+			if ((row == 0 || row == map->rows - 1 || col == 0 || col == map->columns - 1) && map->map_matriz[row][col] != '1')
 				return (0);
-			else if (*col != '0' && *col != '1' && *col != 'C' && *col != 'E'
-				&& *col != 'P')
+			
+			if (map->map_matriz[row][col] != '0' && map->map_matriz[row][col] != '1' && map->map_matriz[row][col] != 'C' && map->map_matriz[row][col] != 'E' && map->map_matriz[row][col] != 'P')
+				return (0);
+			else if (map->map_matriz[row][col] == 'P')
+				map->player++;
+			else if (map->map_matriz[row][col] == 'C')
+				map->collectible++;
+			else if (map->map_matriz[row][col] == 'E')
+				map->exit++;
+			else if (map->map_matriz[row][col] == '0')
+				map->empty++;
+			else if (map->map_matriz[row][col] == '1')
+				map->wall++;
+			else
 				return (0);
 			col++;
 		}
 		row++;
 	}
+	if (map->player != 1)
+		return (0);
+	if (map->collectible < 1)
+		return (0);
+	if (map->exit < 1)
+		return (0);
 	return (1);
+}	
+
+int main(void)
+{
+	t_map	matriz_size;
+
+	char *zone[] = {
+			"11111111111111111111",
+			"100000000E0000000001",
+			"10000000000000000001",
+			"10000000000000000001",
+			"10000000000000000001",
+			"100000C00001P0000001",
+			"10000000000000000001",
+			"10000000000000000001",
+			"100000000C0000000001",
+			"10000000000000000001",
+			"10000000000000000001",
+			"11111111111111111111"
+	};
+
+	matriz_size.map_matriz = zone;
+
+	initialize_map(&matriz_size, 12, 20, zone);	
+	int result = is_valid_map(&matriz_size);
+	if(result == 1)
+		printf("O mapa é válido\n");
+	else
+		printf("O mapa é inválido\n");
+	return (0);
 }
 
 
-int	main() {
-    t_map map;
-    FILE* file;
-    char columns[20]; // Ajuste o tamanho de acordo com o maior número de colunas no mapa
-    int row_count = 0;
-    int i;
-
-    // Ajuste o tamanho de acordo com o maior número de linhas no mapa
-    map.map_chars = (char**)malloc(12 * sizeof(char*));
-	
-    if (map.map_chars == NULL) {
-        printf("Failed to allocate memory for map\n");
-        return -1;
-    }
-	
-    file = fopen("map-test.ber", "r");
-	
-    if(file == NULL) {
-        perror("Error opening file");
-        return -1;
-    }
-
-    while(fgets(columns, sizeof(columns), file)) {
-		// Ajuste o tamanho de acordo com o maior número de colunas no mapa
-        map.map_chars[row_count] = (char*)malloc(20 * sizeof(char));
-		
-        if (map.map_chars[row_count] == NULL) {
-            printf("Failed to allocate memory for row\n");
-            return -1;
-        }
-
-        i = 0;
-        while(columns[i] != '\n' && i < 20) {
-            map.map_chars[row_count][i] = columns[i];
-            i++;
-        }
-        row_count++;
-
-        if(row_count == 12) {
-            break;
-        }
-    }
-	
-    fclose(file);
-
-    map.rows = row_count;
-    map.columns = 20; // Ajuste o tamanho de acordo com o maior número de colunas no mapa
-
-    int result = is_valid_map(&map);
-    if(result == 1){
-        printf("O mapa é válido\n");
-    } else {
-        printf("O mapa é inválido\n");
-    }
-
-    i = 0;
-    while(i < map.rows) {
-        free(map.map_chars[i]);
-        i++;
-    }
-
-    free(map.map_chars);
-
-    return 0;
-}
+// else if (map->map_matriz[row][col] != '0' && map->map_matriz[row][col] != '1' && map->map_matriz[row][col] != 'C' && map->map_matriz[row][col] != 'E' && map->map_matriz[row][col] != 'P')
+// 				return (0);
+// 			else if (map->map_matriz[row][col] == 'P')
+// 				map->player++;
+// 			else if (map->map_matriz[row][col] == 'C')
+// 				map->collectible++;
+// 			else if (map->map_matriz[row][col] == 'E')
+// 				map->exit++;
+// 			else if (map->map_matriz[row][col] == '0')
+// 				map->empty++;
+// 			else if (map->map_matriz[row][col] == '1')
+// 				map->wall++;
+// 			else
+// 				return (0);
