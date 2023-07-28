@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/27 12:43:00 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:11:19 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ typedef struct s_map
 	char			*file;
 	int				rows;
 	int				columns;
+	int				player_x;
+	int				player_y;
 	int				player;
 	int				collectible;
+	int				c_count;
 	int				exit;
 	int				empty;
 	int				wall;
