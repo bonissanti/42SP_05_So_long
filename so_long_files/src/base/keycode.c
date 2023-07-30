@@ -12,11 +12,11 @@
 
 #include "../../include/so_long.h"
 
-int	key_press_esc(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(game->mlx_ptr, game->window_ptr);
+		mlx_destroy_window(game->mlx, game->window);
 		exit(EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);

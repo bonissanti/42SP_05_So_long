@@ -23,9 +23,9 @@ int	check_size(t_map *map)
 	int columns;
 
 	rows = 0;
-	while (map->map_matriz[rows])
+	while (map->matriz[rows])
 	{
-		columns = ft_strlen(map->map_matriz[rows]);
+		columns = ft_strlen(map->matriz[rows]);
 		if (rows == 0)
 			map->columns = columns;
 		else if (map->columns != columns)
@@ -58,7 +58,7 @@ int main(void)
 			NULL
 	};
 
-	matriz_size.map_matriz = zone;
+	matriz_size.matriz = zone;
 
 	if (check_size(&matriz_size) == 1)
 		printf("Map is valid\n");

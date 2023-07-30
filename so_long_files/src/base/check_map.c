@@ -16,13 +16,10 @@
 
 #include "../../include/so_long.h"
 
-
-
-
 void initialize_map(t_map *map, int rows, int columns, char **map_matriz)
 {
 	map->moves = 0;
-	map->map_matriz = map_matriz;
+	map->matriz = map_matriz;
 	map->file = NULL;
 	map->rows = rows;
 	map->columns = columns;
@@ -44,20 +41,20 @@ int	is_valid_map(t_map *map)
 		col = 0;
 		while (col < map->columns)
 		{
-			if ((row == 0 || row == map->rows - 1 || col == 0 || col == map->columns - 1) && map->map_matriz[row][col] != '1')
+			if ((row == 0 || row == map->rows - 1 || col == 0 || col == map->columns - 1) && map->matriz[row][col] != '1')
 				return (0);
 			
-			if (map->map_matriz[row][col] != '0' && map->map_matriz[row][col] != '1' && map->map_matriz[row][col] != 'C' && map->map_matriz[row][col] != 'E' && map->map_matriz[row][col] != 'P')
+			if (map->matriz[row][col] != '0' && map->matriz[row][col] != '1' && map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E' && map->matriz[row][col] != 'P')
 				return (0);
-			else if (map->map_matriz[row][col] == 'P')
+			else if (map->matriz[row][col] == 'P')
 				map->player++;
-			else if (map->map_matriz[row][col] == 'C')
+			else if (map->matriz[row][col] == 'C')
 				map->collectible++;
-			else if (map->map_matriz[row][col] == 'E')
+			else if (map->matriz[row][col] == 'E')
 				map->exit++;
-			else if (map->map_matriz[row][col] == '0')
+			else if (map->matriz[row][col] == '0')
 				map->empty++;
-			else if (map->map_matriz[row][col] == '1')
+			else if (map->matriz[row][col] == '1')
 				map->wall++;
 			else
 				return (0);
@@ -84,16 +81,16 @@ int main(void)
 			"10000000000000000001",
 			"10000000000000000001",
 			"10000000000000000001",
-			"100000C00001P0000001",
+			"100000C00000P0000001",
 			"10000000000000000001",
 			"10000000000000000001",
 			"100000000C0000000001",
-			"10000000000000000001",
+			"11111111111111111111",
 			"10000000000000000001",
 			"11111111111111111111"
 	};
 
-	matriz_size.map_matriz = zone;
+	matriz_size.matriz = zone;
 
 	initialize_map(&matriz_size, 12, 20, zone);	
 	int result = is_valid_map(&matriz_size);
