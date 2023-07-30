@@ -1,19 +1,8 @@
-
-
 #include "../../../my_libft/include/libft.h"
 # include <mlx.h>
 #include "../../include/so_long.h"
 
-void init_game(t_game *game);
-void load_sprites(t_game *game);
-void mario_move_right(t_player *player);
-void mario_move_left(t_player *player);
-void mario_move_down(t_player *player);
-void jump(t_player *player, t_map *map);
-void update_player(t_player *player, t_map *map);
-int key_press(int keycode, t_game *game);
-
-void init_game(t_game *game)
+void init_structs(t_game *game)
 {
     game->mlx = mlx_init();
     game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
@@ -33,15 +22,21 @@ void init_game(t_game *game)
     game->player.on_ground = 1;
 }
 
-void load_sprites(t_game *game)
-{
-    int width = 0;
-    int height = 0;
 
-    game->player.sprites.mario_l = mlx_xpm_file_to_image(game->mlx, "../../sprites/walk-1.xpm", &width, &height);
-    game->player.sprites.mario_r = mlx_xpm_file_to_image(game->mlx, "idle.xpm", &width, &height);
-    game->player.sprites.mario_u = mlx_xpm_file_to_image(game->mlx, "victory.xpm", &width, &height);
-    game->player.sprites.mario_d = mlx_xpm_file_to_image(game->mlx, "victory.xpm", &width, &height);
+void update_player(t_player *player, t_map *map)
+{
+    if (player->jumping)
+    {
+        player->y += player->direction_y;
+        player->direction_y -= 1;
+
+        if (player->y <= 0)
+        {
+            player->y = 0;
+            player->jumping = 0;
+            player->on_ground = 1;
+        }
+    }
 }
 
 void mario_move_right(t_player *player)
@@ -72,51 +67,27 @@ void jump(t_player *player, t_map *map)
     }
 }
 
-void update_player(t_player *player, t_map *map)
-{
-    if (player->jumping)
-    {
-        player->y += player->direction_y;
-        player->direction_y -= 1;
-
-        if (player->y <= 0)
-        {
-            player->y = 0;
-            player->jumping = 0;
-            player->on_ground = 1;
-        }
-    }
-}
-
 void exit_game(t_game *game)
 {
+    mlx_destroy_image(game->mlx, game->player.sprites.background);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_l);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_r);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_u);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_d);
+    free(game->player.sprites.background);
     free(game->player.sprites.mario_l);
     free(game->player.sprites.mario_r);
     free(game->player.sprites.mario_u);
     free(game->player.sprites.mario_d);
 
     mlx_destroy_window(game->mlx, game->window);
+    mlx_destroy_display(game->mlx);
+    free(game->mlx);
 
     exit(0);
 }
 
-int key_press(int keycode, t_game *game)
-{
-    if (keycode == KEY_ESC)
-    {
-        mlx_destroy_window(game->mlx, game->window);
-        exit_game(game);
-    }
-    else if (keycode == KEY_RIGHT)
-        mario_move_right(&game->player);
-    else if (keycode == KEY_LEFT)
-        mario_move_left(&game->player);
-    else if (keycode == KEY_DOWN)
-        mario_move_down(&game->player);
-    else if (keycode == KEY_SPACE)
-        jump(&game->player, &game->map);
-    return (0);
-}
+
 
 void draw_player(t_game *game)
 {
@@ -134,16 +105,16 @@ void draw_player(t_game *game)
     mlx_put_image_to_window(game->mlx, game->window, sprite, game->player.x, game->player.y);
 }
 
-int main()
+int main(void)
 {
     t_game game;
 
     init_game(&game);
     load_sprites(&game);
-
-    mlx_loop_hook(game.mlx, (int (*)(void *))update_player, &game);
     mlx_hook(game.window, 2, 1L << 0, key_press, &game);
+    mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.background, 0, 0);
+
     mlx_loop(game.mlx);
 
-    return 0;
+    return (0);
 }

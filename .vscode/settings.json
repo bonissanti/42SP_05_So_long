@@ -5,7 +5,8 @@
         "string_view": "c",
         "so_long.h": "c",
         "stdlib.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "mlx.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

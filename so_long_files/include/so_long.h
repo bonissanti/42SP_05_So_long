@@ -74,6 +74,7 @@ typedef struct s_sprites
 	void	*collectible;
 	void	*exit;
 	void	*victory;
+	void	*background;
 }			t_sprites;
 
 typedef struct s_player
@@ -192,14 +193,26 @@ typedef struct s_game
 
 
 //########################## FUNCTIONS ########################################
-//########################## BASE #############################################
+//########################## INIT GAME ########################################
 
-int		color_rgb(int r, int g, int b, int a);
-int		key_press_esc(int keycode, t_game *data);
-void	img_pixel_put(t_sprites *sprites, int x, int y, int color);
-int		render(t_game *game);
+void	init_game(t_game *game, t_map *map);
+void	load_sprites(t_game *game, t_map *map);
+void 	draw_map(t_game *game, t_map *map);
+// void	draw_player(t_game *game);
+void mlx_hooks(t_game *game);
 
-//########################## DRAW #############################################
+
+//########################## CONTROLS #########################################
+
+int		key_press(int keycode, t_game *game);
+void	close_window(t_game *game);
+void	exit_game(t_game *game);
+void	jump(t_player *player, t_map *map);
+void	mario_move_up(t_player *player);
+void	mario_move_down(t_player *player);
+void	mario_move_left(t_player *player);
+void	mario_move_right(t_player *player);
+
 
 int	draw_background(t_game *game, int color);
 

@@ -17,7 +17,7 @@ int	draw_background(t_game *game, int color)
 	int	x_pos;
 	int	y_pos;
 
-	if (game->window_ptr == NULL)
+	if (game->window == NULL)
 		return (EXIT_FAILURE);
 	x_pos = 0;
 	while (x_pos < WIN_WIDTH)
@@ -25,7 +25,7 @@ int	draw_background(t_game *game, int color)
 		y_pos = 0;
 		while (y_pos < WIN_HEIGHT)
 		{
-			img_pixel_put(&(game->sprites), x_pos, y_pos, color);
+			img_pixel_put(game->window, x_pos, y_pos, color);
 			y_pos++;
 		}
 		x_pos++;
