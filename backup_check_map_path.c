@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../my_libft/include/libft.h"
-#include "../../include/so_long.h"
+#include "../../my_libft/include/libft.h"
+#include "../include/so_long.h"
 #include "../../../my_libft/src/ft_strlen.c"
 
 //Algorithm 'flood fill' to check if the 'P' is able to reach the 'E' in the map
