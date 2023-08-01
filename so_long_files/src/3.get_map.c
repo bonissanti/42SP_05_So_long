@@ -4,108 +4,83 @@
 #include "../../my_libft/src/get_next_line_utils.c"
 #include "../../my_libft/src/ft_strlen.c"
 
-// int count_lines(t_map *map)
-// {
-//     int fd;
-//     char buffer[4096];
-//     int bytes_read;
-//     int line_count;
-//     int i;
 
-//     fd = open(map->file, O_RDONLY);
-//     if (fd < 0)
-//     {
-//         printf("Error opening file\n");
-//         exit(1);
-//     }
-
-//     line_count = 0;
-//     while ((bytes_read = read(fd, buffer, 4096)))
-//     {
-//         i = 0;
-//         while (i < bytes_read)
-//         {
-//             if (buffer[i] == '\n' || buffer[i] == '\0')
-//                 line_count++;
-//             i++;
-//         }
-//     }
-//     close(fd);
-//     return (line_count);
-// }
-
-void get_map(t_map *map)
+int count_lines(t_map *map)
 {
-    int i;
     int fd;
-    char *line;
+    char buffer[4096];
+    int bytes_read;
+    int line_count;
+    int i;
 
-    i = 0;
-    map->rows = 0;
     fd = open(map->file, O_RDONLY);
     if (fd < 0)
     {
         printf("Error opening file\n");
         exit(1);
     }
-    
-    while (1)
+
+    line_count = 0;
+    while ((bytes_read = read(fd, buffer, 4096)))
     {
-        line = get_next_line(fd);
-        if (!line || line[0] == '\0')
-            break;
-        map->rows++;
-        free(line);
+        i = 0;
+        while (i < bytes_read)
+        {
+            if (buffer[i] == '\n' || buffer[i] == '\0')
+                line_count++;
+            i++;
+        }
     }
-
     close(fd);
-    map->matriz = malloc(sizeof(char *) * (map->rows));
+    return (line_count);
+}
 
+void get_map(t_map *map)
+{
+    int fd;
+    char *line;
+    int i;
+
+    map->rows = count_lines(map);
+    map->matriz = malloc(sizeof(char *) * (map->rows));
     if (!map->matriz)
     {
         printf("Error allocating memory\n");
         exit(1);
     }
     fd = open(map->file, O_RDONLY);
+    if (fd < 0)
+    {
+        printf("Error opening file\n");
+        exit(1);
+    }
+    i = 0;
     while (i < map->rows)
     {
         map->matriz[i] = get_next_line(fd);
         i++;
-
     }
-    close(fd);
-
-
+    map->columns = ft_strlen(map->matriz[0]);
+    close (fd);
 }
 
 // Function to check size of map
-int	check_size(t_map *map)
+int check_size(t_map *map)
 {
-	int row;
+    int row;
     int col;
 
     row = 0;
     while (row < map->rows)
     {
         col = 0;
-        while (col < map->columns)
-        {
-            if (map->matriz[row][col] == '\n')
-            {
-                col++;
-                continue;
-            }
-            if (map->matriz[row][col] != '1' && map->matriz[row][col] != '0' && map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E' && map->matriz[row][col] != 'P')
-            {
-                printf("Error: Invalid character\n");
-                return (0);
-            }
+        while (map->matriz[row][col] != '\0')
             col++;
-        }
+        if (col != map->columns)
+            return (0);
         row++;
     }
     return (1);
-
 }
 
 int check_wall(t_map *map)
@@ -157,6 +132,7 @@ int main(void)
     if (!check_size(map))
     {
         printf("Error: Invalid map size\n");
+        printf("Last row: %s", map->matriz[map->rows - 1]);
         return (1);
     }
     if (!check_wall(map))
