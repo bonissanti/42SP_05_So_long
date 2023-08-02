@@ -12,6 +12,7 @@ void free_map(t_map *map)
         row++;
     }
     free(map->matriz);
+    free(map);
 }
 
 void free_sprites(t_game *game)

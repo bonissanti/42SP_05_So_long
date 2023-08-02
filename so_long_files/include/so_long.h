@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/28 16:11:19 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:27:49 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,12 @@ typedef struct s_map
 	int				exit;
 	int				empty;
 	int				wall;
+	int				player_x;
+	int 			player_y;
+	int				target;
+	int				replacement;
+	int				count;
+	int				**visited;
 }					t_map;
 
 typedef struct s_game

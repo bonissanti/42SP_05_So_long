@@ -5,7 +5,7 @@
 #include "../../my_libft/src/ft_strlen.c"
 
 
-int count_lines(t_map *map)
+int count_lines(t_map *map) //Function ok
 {
     int fd;
     char buffer[4096];
@@ -35,7 +35,7 @@ int count_lines(t_map *map)
     return (line_count);
 }
 
-void get_map(t_map *map)
+void get_map(t_map *map) //Function ok
 {
     int fd;
     char *line;
@@ -65,7 +65,7 @@ void get_map(t_map *map)
 }
 
 // Function to check size of map
-int check_size(t_map *map)
+int check_size(t_map *map) // Function ok
 {
     int row;
     int col;
@@ -83,7 +83,7 @@ int check_size(t_map *map)
     return (1);
 }
 
-int check_wall(t_map *map)
+int check_wall(t_map *map) // Function ok
 {
     int row;
     int col;
@@ -113,6 +113,40 @@ int check_wall(t_map *map)
     }
     return (1); 
 }
+
+t_player *find_player(t_map *map)
+{
+    int row;
+    int col;
+    t_player *player;
+
+    player = malloc(sizeof(t_player));
+    if (!player)
+    {
+        printf("Error allocating memory\n");
+        exit(1);
+    }
+    row = 0;
+    while (row < map->rows)
+    {
+        col = 0;
+        while (col < map->columns)
+        {
+            if (map->matriz[row][col] == 'P')
+            {
+                player->x = col;
+                player->y = row;
+                return (player);
+            }
+            col++;
+        }
+        row++;
+    }
+    free(player);
+    return (NULL);
+}
+
+
 
 void free_map(t_map *map)
 {
@@ -151,6 +185,12 @@ int main(void)
     if (!check_wall(map))
     {
         printf("Error: Invalid map wall\n");
+        return (1);
+    }
+
+    if (!find_player(map))
+    {
+        printf("Error: Invalid map\n");
         return (1);
     }
     i = 0;
