@@ -114,6 +114,19 @@ int check_wall(t_map *map)
     return (1); 
 }
 
+void free_map(t_map *map)
+{
+    int i;
+
+    i = 0;
+    while (i < map->rows)
+    {
+        free(map->matriz[i]);
+        i++;
+    }
+    free(map->matriz);
+    free(map);
+}
 
 int main(void)
 {
@@ -146,13 +159,8 @@ int main(void)
         printf("%s", map->matriz[i]);
         i++;
     }
-    while (i < map->rows)
-    {
-        free(map->matriz[i]);
-        i++;
-    }
-    free(map);
-    
+    free_map(map);
+    return (0);
 }
 
 
