@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:21:26 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 14:54:05 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:32:52 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,35 +174,36 @@ int	valid_char(t_map *map)
 
 //#################################### CHECK PATH ####################################
 
-int	flood_fill(t_game *game, int x, int y, char target, char replacement, int *count, int **visited)
+int	flood_fill(t_game *game, int x, int y, int **visited)
 {
-	char	original;
-	int		result;
+	char original;
+	int result;
 
 	if (x < 0 || x >= game->map.rows || y < 0 || y >= game->map.columns)
 		return (0);
+
 	if (visited[x][y])
 		return (0);
+
 	visited[x][y] = 1;
 	if (game->map.matriz[x][y] == 'E')
 	{
-		if (*count < game->map.collectible)
+		if (game->map.c_count < game->map.collectible)
 			return (0);
 		else
 			return (1);
 	}
 	original = game->map.matriz[x][y];
 	if (original == 'C')
-		*count += 1;
+		game->map.c_count += 1;
 	if (original == '1' || original == 'E' || original == 'X')
 		return (0);
-	game->map.matriz[x][y] = replacement;
-	result = flood_fill(game, x + 1, y, target, replacement, count, visited) ||
-		flood_fill(game, x, y + 1, target, replacement, count, visited) ||
-		flood_fill(game, x - 1, y, target, replacement, count, visited) ||
-		flood_fill(game, x, y - 1, target, replacement, count, visited);
+	game->map.matriz[x][y] = 'X';
+	result = flood_fill(game, x + 1, y, visited) || flood_fill(game, x, y + 1, visited) || flood_fill(game, x - 1, y, visited) || flood_fill(game, x, y - 1, visited);
 	game->map.matriz[x][y] = original;
 	return (result);
+	
+	
 }
 
 void	find_start_position(t_map *map, int *player_x, int *player_y)
@@ -315,7 +316,7 @@ int	main(void)
 	int		result;
 
 	map = &game.map;
-	map->file = "../maps/map-test.ber";
+	map->file = "../maps/map-test3.ber";
 	get_map(map);
 	// map->matriz = copy_matriz(map->matriz, map->rows, map->columns);
 	if (!check_size(map))
@@ -337,8 +338,7 @@ int	main(void)
 	count_collectibles(map);
 	map->c_count = 0;
 	visited = visited_matriz(map->rows, map->columns);
-	result = flood_fill(&game, game.player.x, game.player.y, 'E', 'X',
-			&map->c_count, visited);
+	result = flood_fill(&game, game.player.x, game.player.y, visited);
 	if (result)
 		printf("True: P can reach E and collect all C\n");
 	else
@@ -377,4 +377,35 @@ int	main(void)
 // 	free(game.map.matriz);
 
 // 	print_result(result);
+// }
+
+// int	flood_fill(t_game *game, int x, int y, char target, char replacement, int *count, int **visited)
+// {
+// 	char	original;
+// 	int		result;
+
+// 	if (x < 0 || x >= game->map.rows || y < 0 || y >= game->map.columns)
+// 		return (0);
+// 	if (visited[x][y])
+// 		return (0);
+// 	visited[x][y] = 1;
+// 	if (game->map.matriz[x][y] == 'E')
+// 	{
+// 		if (*count < game->map.collectible)
+// 			return (0);
+// 		else
+// 			return (1);
+// 	}
+// 	original = game->map.matriz[x][y];
+// 	if (original == 'C')
+// 		*count += 1;
+// 	if (original == '1' || original == 'E' || original == 'X')
+// 		return (0);
+// 	game->map.matriz[x][y] = replacement;
+// 	result = flood_fill(game, x + 1, y, target, replacement, count, visited) ||
+// 		flood_fill(game, x, y + 1, target, replacement, count, visited) ||
+// 		flood_fill(game, x - 1, y, target, replacement, count, visited) ||
+// 		flood_fill(game, x, y - 1, target, replacement, count, visited);
+// 	game->map.matriz[x][y] = original;
+// 	return (result);
 // }
