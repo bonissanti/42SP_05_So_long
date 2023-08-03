@@ -6,34 +6,13 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:33:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 14:33:59 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:02:07 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../my_libft/include/libft.h"
 # include <mlx.h>
 #include "../include/so_long.h"
-
-void init_structs(t_game *game)
-{
-    game->mlx = mlx_init();
-    game->window = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
-    game->state = PLAYING;
-    game->map.moves = 0;
-    game->map.player = 0;
-    game->map.collectible = 0;
-    game->map.c_count = 0;
-    game->map.exit = 0;
-    game->map.empty = 0;
-    game->map.wall = 0;
-    game->player.x = 0;
-    game->player.y = 0;
-    game->player.direction_x = 0;
-    game->player.direction_y = 0;
-    game->player.jumping = 0;
-    game->player.on_ground = 1;
-}
-
 
 void update_player(t_player *player, t_map *map)
 {
@@ -51,7 +30,7 @@ void update_player(t_player *player, t_map *map)
     }
 }
 
-void mario_move_right(t_player *player)
+void mario_move_right(t_player *player) // Juntar os 3 movimentos numa função só
 {
     player->x += 5;
     player->direction_y = 0;
@@ -79,6 +58,54 @@ void jump(t_player *player, t_map *map)
         player->on_ground = 0;
     }
 }
+
+
+// void update_player(t_player *player, t_map *map)
+// {
+//     if (player->jumping)
+//     {
+//         player->y += player->direction_y;
+//         player->direction_y -= 1;
+
+//         if (player->y >= GROUND_HEIGHT)
+//         {
+//             player->y = GROUND_HEIGHT;
+//             player->jumping = 0;
+//             player->on_ground = 1;
+//         }
+//     }
+// }
+
+// void mario_move_right(t_map *map, t_player *player)
+// {
+//     if (map->matriz[player->y][player->x + 1] != '1')
+//         player->x += 5;
+//     player->direction_y = 0;    
+// }
+
+// void mario_move_left(t_map *map, t_player *player)
+// {
+//     if (map->matriz[player->y][player->x - 1] != '1')
+//         player->x -= 5;
+//     player->direction_y = 0;
+// }
+
+// void mario_move_down(t_map *map, t_player *player)
+// {
+//     if (map->matriz[player->y + 1][player->x] != '1')
+//         player->y += 5;
+//     player->direction_y = 1;
+// }
+
+// void jump(t_map *map, t_player *player)
+// {
+//     if (map->matriz[player->y - 1][player->x] != '1' && player->on_ground)
+//     {
+//         player->direction_y = -10;
+//         player->jumping = 5;
+//         player->on_ground = 0;
+//     }
+// }
 
 void exit_game(t_game *game)
 {

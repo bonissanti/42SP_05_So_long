@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 14:52:15 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:22:01 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
-//########################### MAP CONFIG ######################################
+//########################### GAME CONFIG #####################################
 
 # define SPRITE_SIZE 64
+# define GRAVITY 1
+# define GROUND_HEIGHT 9
 
 //########################### SPRITES #########################################
 
@@ -139,6 +141,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*window;
+	// int			moves;
 	t_map		map;
 	t_player	player;
 	t_game_state state;
@@ -153,76 +156,7 @@ typedef struct s_color
 	int a;
 }               t_color;
 
-// typedef struct s_sprites
-// {
-// 	void	*img_ptr;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// 	void	*mario_l;
-// 	void	*mario_r;
-// 	void	*mario_u;
-// 	void	*mario_d;
-// 	void	*wall;
-// 	void	*collectible;
-// 	void	*exit;
-// 	void	*victory;
-// }			t_sprites;
 
-// typedef struct s_player
-// {
-// 	int x;
-// 	int y;
-// 	int direction_x;
-// 	int direction_y;
-// 	t_sprites sprites;
-// 	int jumping;
-// 	int on_ground;
-// }		t_player;
-
-// typedef struct s_map
-// {
-// 	unsigned int	moves;
-// 	char			**map_matriz;
-// 	char			*file;
-// 	int				rows;
-// 	int				columns;
-// 	int				player_x;
-// 	int				player_y;
-// 	int				collectible;
-// 	int				c_count;
-// 	int				exit;
-// 	int				empty;
-// 	int				wall;
-// }					t_map;
-
-
-
-
-
-
-// typedef struct  s_tile
-// {
-//     char    type;          // ' ', '#', 'C', 'E'...
-//     int     has_collectible;   // 0 for NO, 1 for YES
-//     int     has_player;        // 0 for NO, 1 for YES
-//     t_sprites sprites;  // pointer to the sprites related to this tile
-//     int     is_wall;      // 0 for NO, 1 for YES
-//     int     is_empty;     // 0 for NO, 1 for YES 
-//     int     is_exit;      // 0 for NO, 1 for YES   
-// }               t_tile;
-
-
-
-// typedef struct s_game
-// {
-// 	void		*mlx;
-// 	void		*window;
-// 	int			steps;
-// 	t_sprites	sprites;
-// 	t_map		map;
-// }			t_game;
 
 
 //########################## FUNCTIONS ########################################
@@ -243,17 +177,18 @@ int 	game_loop(t_game *game);				//TEMPORARIO
 int		key_press(int keycode, t_game *game);
 int 	close_window(t_game *game);
 void	exit_game(t_game *game);
-void	jump(t_player *player, t_map *map);
+void 	jump(t_player *player, t_map *map);
 void	mario_move_up(t_player *player);
-void	mario_move_down(t_player *player);
-void	mario_move_left(t_player *player);
-void	mario_move_right(t_player *player);
+void 	mario_move_down(t_player *player);
+void 	mario_move_left(t_player *player);
+void 	mario_move_right(t_player *player);
 void 	update_player(t_player *player, t_map *map);
 
 //########################## MAP ##############################################
 
 int		count_lines(t_map *map);
 void 	get_map(t_map *map);
+void 	call_checks(t_map *map);
 int 	check_size(t_map *map);
 int 	check_wall(t_map *map);
 void	count_collectibles(t_map *map);

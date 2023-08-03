@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_flood_fill.c                                    :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:21:26 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 15:32:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:13:45 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,189 +18,40 @@
 
 //#################################### GET MAP ####################################
 
-int	count_lines(t_map *map)
-{
-	int fd;
-	char buffer[4096];
-	int bytes_read;
-	int line_count;
-	int i;
 
-	fd = open(map->file, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error opening file\n");
-		exit(1);
-	}
-
-	line_count = 0;
-	while ((bytes_read = read(fd, buffer, 4096)))
-	{
-		i = 0;
-		while (i < bytes_read)
-		{
-			if (buffer[i] == '\n' || buffer[i] == '\0')
-				line_count++;
-			i++;
-		}
-	}
-	close(fd);
-	return (line_count);
-}
-
-void	get_map(t_map *map) //Function ok
-{
-	int fd;
-	char *line;
-	int i;
-
-	map->rows = count_lines(map);
-	map->matriz = malloc(sizeof(char *) * (map->rows));
-	if (!map->matriz)
-	{
-		printf("Error allocating memory\n");
-		exit(1);
-	}
-	fd = open(map->file, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error opening file\n");
-		exit(1);
-	}
-	i = 0;
-	while (i < map->rows)
-	{
-		map->matriz[i] = get_next_line(fd);
-		i++;
-	}
-	map->columns = ft_strlen(map->matriz[0]);
-	close(fd);
-}
-
-//#################################### BASIC CHECKS ####################################
-
-int	check_size(t_map *map) // Function ok
-{
-	int row;
-	int col;
-
-	row = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (map->matriz[row][col] != '\0')
-			col++;
-		if (col != map->columns)
-			return (0);
-		row++;
-	}
-	return (1);
-}
-
-int	check_wall(t_map *map) // Function ok
-{
-	int row;
-	int col;
-
-	row = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (col < map->columns)
-		{
-			if (map->matriz[row][col] == '\n')
-			{
-				col++;
-				continue ;
-			}
-			if ((row == 0 || row == map->rows - 1 || col == 0
-					|| col == map->columns - 1))
-			{
-				if (map->matriz[row][col] != '1')
-				{
-					printf("Last row: %d\n", map->rows - 1);
-					return (0);
-				}
-			}
-			col++;
-		}
-		row++;
-	}
-	return (1);
-}
-
-void	count_collectibles(t_map *map)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	map->collectible = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (col < map->columns)
-		{
-			if (map->matriz[row][col] == 'C')
-				map->collectible++;
-			col++;
-		}
-		row++;
-	}
-}
-
-int	valid_char(t_map *map)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (col < map->columns)
-		{
-			if (map->matriz[row][col] != '0' && map->matriz[row][col] != '1'
-				&& map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E'
-				&& map->matriz[row][col] != 'P'
-				&& map->matriz[row][col] != '\n')
-				return (0);
-			col++;
-		}
-		row++;
-	}
-	return (1);
-}
 
 //#################################### CHECK PATH ####################################
 
-int	flood_fill(t_game *game, int x, int y, int **visited)
+int	flood_fill(t_map *map, int x, int y)
 {
 	char original;
 	int result;
 
-	if (x < 0 || x >= game->map.rows || y < 0 || y >= game->map.columns)
+	if (x < 0 || x >= map->rows || y < 0 || y >= map->columns)
 		return (0);
 
-	if (visited[x][y])
+	if (map->visited[x][y])
 		return (0);
 
-	visited[x][y] = 1;
-	if (game->map.matriz[x][y] == 'E')
+	map->visited[x][y] = 1;
+	if (map->matriz[x][y] == 'E')
 	{
-		if (game->map.c_count < game->map.collectible)
-			return (0);
-		else
+		if (map->c_count == map->collectible)
 			return (1);
+		else
+			return (0);
 	}
-	original = game->map.matriz[x][y];
+	original = map->matriz[x][y];
 	if (original == 'C')
-		game->map.c_count += 1;
+		map->c_count += 1;
 	if (original == '1' || original == 'E' || original == 'X')
 		return (0);
-	game->map.matriz[x][y] = 'X';
-	result = flood_fill(game, x + 1, y, visited) || flood_fill(game, x, y + 1, visited) || flood_fill(game, x - 1, y, visited) || flood_fill(game, x, y - 1, visited);
-	game->map.matriz[x][y] = original;
+	map->matriz[x][y] = 'X';
+	result = flood_fill(map, x + 1, y) ||
+		flood_fill(map, x, y + 1) ||
+		flood_fill(map, x - 1, y) ||
+		flood_fill(map, x, y - 1);
+	map->matriz[x][y] = original;
 	return (result);
 	
 	
@@ -308,43 +159,42 @@ void	print_map(t_game game)
 	}
 }
 
-int	main(void)
-{
-	t_game	game;
-	t_map	*map;
-	int		**visited;
-	int		result;
+// int	main(void)
+// {
+// 	t_game	game;
+// 	t_map	*map;
+// 	int		result;
 
-	map = &game.map;
-	map->file = "../maps/map-test3.ber";
-	get_map(map);
-	// map->matriz = copy_matriz(map->matriz, map->rows, map->columns);
-	if (!check_size(map))
-	{
-		printf("Error\nMap must be rectangular\n");
-		return (0);
-	}
-	if (!check_wall(map))
-	{
-		printf("Error\nMap must be surrounded by walls\n");
-		return (0);
-	}
-	if (!valid_char(map))
-	{
-		printf("Error\nMap must have valid characters\n");
-		return (0);
-	}
-	find_start_position(map, &game.player.x, &game.player.y);
-	count_collectibles(map);
-	map->c_count = 0;
-	visited = visited_matriz(map->rows, map->columns);
-	result = flood_fill(&game, game.player.x, game.player.y, visited);
-	if (result)
-		printf("True: P can reach E and collect all C\n");
-	else
-		printf("False: P can't reach E or didn't collect all C\n");
-	print_map(game);
-}
+// 	map = &game.map;
+// 	map->file = "../maps/map-test.ber";
+// 	get_map(map);
+// 	// map->matriz = copy_matriz(map->matriz, map->rows, map->columns);
+// 	if (!check_size(map))
+// 	{
+// 		printf("Error\nMap must be rectangular\n");
+// 		return (0);
+// 	}
+// 	if (!check_wall(map))
+// 	{
+// 		printf("Error\nMap must be surrounded by walls\n");
+// 		return (0);
+// 	}
+// 	if (!valid_char(map))
+// 	{
+// 		printf("Error\nMap must have valid characters\n");
+// 		return (0);
+// 	}
+// 	find_start_position(map, &game.player.x, &game.player.y);
+// 	count_collectibles(map);
+// 	map->c_count = 0;
+// 	map->visited = visited_matriz(map->rows, map->columns);
+// 	result = flood_fill(map, game.player.x, game.player.y);
+// 	if (result)
+// 		printf("True: P can reach E and collect all C\n");
+// 	else
+// 		printf("False: P can't reach E or didn't collect all C\n");
+// 	print_map(game);
+// }
 
 // int main(void)
 // {

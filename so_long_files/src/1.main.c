@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   1.main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:00:47 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/27 10:49:31 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:22:15 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int main(void)
 
     game.map = map;
 
-    // map.file = argv[1];
-    // read_map(&map);
-    // is_valid_map(&map);
+    map.file = "../maps/map-test.ber";
+    get_map(&map);
+    call_checks(&map);
     init_game(&game, &map);
     load_sprites(&game, &map);
     // draw_map(&game, &map);

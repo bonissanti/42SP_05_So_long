@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2.system_controls.c                                :+:      :+:    :+:   */
+/*   3..system_controls.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 11:40:18 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/02 11:53:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:13:57 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int key_press(int keycode, t_game *game)
         exit(EXIT_SUCCESS);
     }
     else if (keycode == KEY_UP)
-        jump(&game->player, &game->player);
+        jump(&game->player, &game->map);
     else if (keycode == KEY_RIGHT)
         mario_move_right(&game->player);
     else if (keycode == KEY_LEFT)
@@ -30,6 +30,23 @@ int key_press(int keycode, t_game *game)
         mario_move_down(&game->player);
     return (0);
 }
+// int key_press(int keycode, t_game *game)
+// {
+//     if (keycode == KEY_ESC)
+//     {
+//         mlx_destroy_window(game->mlx, game->window);
+//         exit(EXIT_SUCCESS);
+//     }
+//     else if (keycode == KEY_UP)
+//         jump(&game->map, &game->player);
+//     else if (keycode == KEY_RIGHT)
+//         mario_move_right(&game->map, &game->player);
+//     else if (keycode == KEY_LEFT)
+//         mario_move_left(&game->map, &game->player);
+//     else if (keycode == KEY_DOWN)
+//         mario_move_down(&game->map, &game->player);
+//     return (0);
+// }
 
 int game_loop(t_game *game)
 {

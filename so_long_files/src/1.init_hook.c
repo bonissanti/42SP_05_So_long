@@ -80,7 +80,7 @@ void draw_map(t_game *game, t_map *map)
                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, col * SPRITE_SIZE, row * SPRITE_SIZE);
             else if (map->matriz[row][col] == 'E')
                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * SPRITE_SIZE, row * SPRITE_SIZE);
-            else if (map->matriz[row][col] == 'P')
+            if (map->matriz[row][col] == 'P')
             {
                 game->player.x = col * SPRITE_SIZE;
                 game->player.y = row * SPRITE_SIZE;
