@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/02 15:27:49 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:52:15 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,13 +252,19 @@ void 	update_player(t_player *player, t_map *map);
 
 //########################## MAP ##############################################
 
-int	is_valid_map(t_map *map);
+int		count_lines(t_map *map);
+void 	get_map(t_map *map);
+int 	check_size(t_map *map);
+int 	check_wall(t_map *map);
+void	count_collectibles(t_map *map);
+int		valid_char(t_map *map);
 
 //########################## MEMORY ###########################################
 
 void	free_map(t_map *map);
 void	free_sprites(t_game *game);
 void	free_game(t_game *game, t_map *map);
+
 
 //########################## UTILS ############################################
 
