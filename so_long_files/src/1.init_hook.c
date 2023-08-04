@@ -51,22 +51,30 @@ void draw_game(t_game *game, t_map *map)
     int col;
 
     row = 0;
-    while (row <
+    mlx_clear_window(game->mlx, game->window);
+    while (row <= map->rows)
+    {
+        col = 0;
+        while (col <= map->columns)
+        {
+            mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, col * BG_SIZE, row * BG_SIZE);
+            col++;
+        }
+        row++;
+    }
 
-
+    row = 0;
     while (row < map->rows)
     {
         col = 0;
         while (col < map->columns)
         {
-            if (map->matriz[row][col] == '0')
-                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, col * BG_SIZE, row * BG_SIZE);
-            else if (map->matriz[row][col] == '1')
+            if (map->matriz[row][col] == '1')
                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.wall, col * SPRITE_SIZE, row * SPRITE_SIZE);
             else if (map->matriz[row][col] == 'C')
                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, col * SPRITE_SIZE, row * SPRITE_SIZE);
             else if (map->matriz[row][col] == 'E')
-                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * MARIO_SIZE, row * MARIO_SIZE);
+                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * SPRITE_SIZE, row * SPRITE_SIZE);
             else if (map->matriz[row][col] == 'P')
             {
                 game->player.x = col * MARIO_SIZE;

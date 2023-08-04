@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 18:20:32 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:33:50 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 
 //########################### GAME CONFIG #####################################
 
+# define BG_SIZE 2
 # define SPRITE_SIZE 44
-# define MARIO_SIZE 100
-# define BG_SIZE 10
+# define MARIO_SIZE 0
 # define GRAVITY 1
 # define GROUND_HEIGHT 9
 
