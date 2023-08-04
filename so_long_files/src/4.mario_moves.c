@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:33:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 19:02:07 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:36:55 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,23 @@ void update_player(t_player *player, t_map *map)
     }
 }
 
-void mario_move_right(t_player *player) // Juntar os 3 movimentos numa função só
+void mario_move_right(t_map *map, t_player *player) // juntar os 3 movimentos em uma função só
 {
+    // if (map->matriz[player->y][player->x + 1] != '1')
     player->x += 5;
-    player->direction_y = 0;
-    
+    player->direction_y = 0;    
 }
 
-void mario_move_left(t_player *player)
+void mario_move_left(t_map *map, t_player *player)
 {
+    // if (map->matriz[player->y][player->x - 1] != '1')
     player->x -= 5;
     player->direction_y = 0;
 }
 
-void mario_move_down(t_player *player)
+void mario_move_down(t_map *map, t_player *player)
 {
+    // if (map->matriz[player->y + 1][player->x] != '1')
     player->y += 5;
     player->direction_y = 1;
 }
@@ -76,26 +78,7 @@ void jump(t_player *player, t_map *map)
 //     }
 // }
 
-// void mario_move_right(t_map *map, t_player *player)
-// {
-//     if (map->matriz[player->y][player->x + 1] != '1')
-//         player->x += 5;
-//     player->direction_y = 0;    
-// }
 
-// void mario_move_left(t_map *map, t_player *player)
-// {
-//     if (map->matriz[player->y][player->x - 1] != '1')
-//         player->x -= 5;
-//     player->direction_y = 0;
-// }
-
-// void mario_move_down(t_map *map, t_player *player)
-// {
-//     if (map->matriz[player->y + 1][player->x] != '1')
-//         player->y += 5;
-//     player->direction_y = 1;
-// }
 
 // void jump(t_map *map, t_player *player)
 // {

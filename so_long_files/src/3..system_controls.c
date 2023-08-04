@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 11:40:18 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 17:13:57 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:13:43 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int key_press(int keycode, t_game *game)
     else if (keycode == KEY_UP)
         jump(&game->player, &game->map);
     else if (keycode == KEY_RIGHT)
-        mario_move_right(&game->player);
+        mario_move_right(&game->map, &game->player);
     else if (keycode == KEY_LEFT)
-        mario_move_left(&game->player);
+        mario_move_left(&game->map, &game->player);
     else if (keycode == KEY_DOWN)
-        mario_move_down(&game->player);
+        mario_move_down(&game->map, &game->player);
     return (0);
 }
 // int key_press(int keycode, t_game *game)

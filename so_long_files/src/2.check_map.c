@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 18:15:10 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:03:35 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,25 @@ void call_checks(t_map *map)
 	}
 }
 
+void check_path(t_map *map)
+{
+	find_start_position(map, &map->player_x, &map->player_y);
+	if (map->player_x == -1 || map->player_y == -1)
+	{
+		printf("Error\nMap must have one player\n");
+		exit(1);
+	}
+
+	map->c_count = 0;
+	map->visited = visited_matriz(map->rows, map->columns);
+
+	if (!flood_fill(map, map->player_x, map->player_y))
+	{
+		printf("Error\nMap must have a path from P to C and E\n");
+		exit(1);
+	}
+}
+
 int	check_size(t_map *map) // Function ok
 {
 	int row;
@@ -193,4 +212,115 @@ int	valid_char(t_map *map)
 		row++;
 	}
 	return (1);
+}
+
+
+int	flood_fill(t_map *map, int x, int y)
+{
+	char original;
+	int result;
+
+	if (x < 0 || x >= map->rows || y < 0 || y >= map->columns)
+		return (0);
+
+	if (map->visited[x][y])
+		return (0);
+
+	map->visited[x][y] = 1;
+	if (map->matriz[x][y] == 'E')
+	{
+		if (map->c_count == map->collectible)
+			return (1);
+		else
+			return (0);
+	}
+	original = map->matriz[x][y];
+	if (original == 'C')
+		map->c_count += 1;
+	if (original == '1' || original == 'E' || original == 'X')
+		return (0);
+	map->matriz[x][y] = 'X';
+	result = flood_fill(map, x + 1, y) ||
+		flood_fill(map, x, y + 1) ||
+		flood_fill(map, x - 1, y) ||
+		flood_fill(map, x, y - 1);
+	map->matriz[x][y] = original;
+	return (result);
+	
+	
+}
+
+void	find_start_position(t_map *map, int *player_x, int *player_y)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < map->rows)
+	{
+		col = 0;
+		while (col < map->columns)
+		{
+			if (map->matriz[row][col] == 'P')
+			{
+				*player_x = row;
+				*player_y = col;
+				return ;
+			}
+			col++;
+		}
+		row++;
+	}
+}
+
+char	**copy_matriz(char **original, int rows, int columns)
+{
+	char	**copy;
+	int		x;
+	int		y;
+
+	x = 0;
+	copy = (char **)malloc(sizeof(char *) * rows);
+	if (!copy)
+		return (NULL);
+	while (x < rows)
+	{
+		copy[x] = (char *)malloc(sizeof(char) * columns);
+		if (!copy[x])
+			return (NULL);
+		y = 0;
+		while (y < columns)
+		{
+			copy[x][y] = original[x][y];
+			y++;
+		}
+		x++;
+	}
+	return (copy);
+}
+
+int	**visited_matriz(int rows, int columns)
+{
+	int	**visited;
+	int	x;
+	int	y;
+
+	x = 0;
+	visited = (int **)malloc(sizeof(int *) * rows);
+	if (!visited)
+		return (NULL);
+	while (x < rows)
+	{
+		visited[x] = (int *)malloc(sizeof(int) * columns);
+		if (!visited[x])
+			return (NULL);
+		y = 0;
+		while (y < columns)
+		{
+			visited[x][y] = 0;
+			y++;
+		}
+		x++;
+	}
+	return (visited);
 }

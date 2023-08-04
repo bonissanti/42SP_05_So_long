@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:00:47 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 17:22:15 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:14:26 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,19 @@ int main(void)
     map.file = "../maps/map-test.ber";
     get_map(&map);
     call_checks(&map);
+    check_path(&map);
     init_game(&game, &map);
     load_sprites(&game, &map);
-    // draw_map(&game, &map);
-    draw_background(&game);
-    draw_player(&game);
+    draw_map(&game, &map);
     update_player(&game.player, &map);
-    // mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.background, 0, 0);
-    // mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.mario_l, 0, 0);
     mlx_hooks(&game);
 }
 
+    // draw_map(&game, &map);
+    // mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.wall, 0, 0);
+
+    // mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.background, 0, 0);
+    // mlx_put_image_to_window(game.mlx, game.window, game.player.sprites.mario_l, 0, 0);
 // int main(int argc, char *argv[])
 // {
 //     t_game      game;

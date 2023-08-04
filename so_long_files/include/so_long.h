@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 17:22:01 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:15:21 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 //########################### GAME CONFIG #####################################
 
-# define SPRITE_SIZE 64
+# define SPRITE_SIZE 44
 # define GRAVITY 1
 # define GROUND_HEIGHT 9
 
@@ -43,10 +43,10 @@
 // # define MARIO_R "../sprites/mario_r.xpm"
 // # define MARIO_U "./sprites/mario_u.xpm"
 // # define MARIO_D "./sprites/mario_d.xpm"
-# define IDLE_L "../sprites/idle.xpm"
-// # define WALL "./sprites/wall.xpm"
-// # define COLLECTIBLE "./sprites/collectible.xpm"
-// # define EXIT "./sprites/exit.xpm"
+# define IDLE_L "../sprites/mario_left_idle.xpm"
+# define WALL "../sprites/wall.xpm"
+# define COINS "../sprites/coins_1.xpm"
+# define EXIT "../sprites/exit.xpm"
 // # define VICTORY "./sprites/victory.xpm"
 # define BACKGROUND "../sprites/background-u.xpm"
 
@@ -168,6 +168,9 @@ void 	draw_map(t_game *game, t_map *map);
 void 	draw_background(t_game *game);			//TEMPORARIO
 void 	draw_player(t_game *game); 				//TEMPORARIO
 void 	draw_game(t_game *game);				//TEMPORARIO
+void 	draw_wall(t_game *game, int x, int y);
+void 	draw_collectible(t_game *game, int x, int y);
+void 	draw_exit(t_game *game, int x, int y);
 void 	mlx_hooks(t_game *game);
 int 	game_loop(t_game *game);				//TEMPORARIO
 
@@ -179,9 +182,9 @@ int 	close_window(t_game *game);
 void	exit_game(t_game *game);
 void 	jump(t_player *player, t_map *map);
 void	mario_move_up(t_player *player);
-void 	mario_move_down(t_player *player);
-void 	mario_move_left(t_player *player);
-void 	mario_move_right(t_player *player);
+void 	mario_move_down(t_map *map, t_player *player);
+void 	mario_move_left(t_map *map, t_player *player);
+void 	mario_move_right(t_map *map, t_player *player);
 void 	update_player(t_player *player, t_map *map);
 
 //########################## MAP ##############################################
@@ -193,6 +196,15 @@ int 	check_size(t_map *map);
 int 	check_wall(t_map *map);
 void	count_collectibles(t_map *map);
 int		valid_char(t_map *map);
+
+//########################## ALGORITHM ########################################
+
+void 	check_path(t_map *map);
+int		flood_fill(t_map *map, int x, int y);
+void	find_start_position(t_map *map, int *player_x, int *player_y);
+char	**copy_matriz(char **original, int rows, int columns);
+int		**visited_matriz(int rows, int columns);
+
 
 //########################## MEMORY ###########################################
 
