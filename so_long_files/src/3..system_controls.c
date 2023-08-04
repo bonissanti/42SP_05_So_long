@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 11:40:18 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 17:13:43 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:39:52 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int key_press(int keycode, t_game *game)
 int game_loop(t_game *game)
 {
     mlx_clear_window(game->mlx, game->window);
-    draw_game(game);
+    draw_game(game, &game->map);
     return (0);
 }
 

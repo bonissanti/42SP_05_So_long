@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 17:15:21 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:20:32 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@
 //########################### WINDOW CONFIG ###################################
 
 # define WIN_TITLE "Super Mario World - 42 edition"
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 880
+# define WIN_HEIGHT 700
 
 //########################### GAME CONFIG #####################################
 
 # define SPRITE_SIZE 44
+# define MARIO_SIZE 100
+# define BG_SIZE 10
 # define GRAVITY 1
 # define GROUND_HEIGHT 9
 
@@ -164,13 +166,13 @@ typedef struct s_color
 
 void	init_game(t_game *game, t_map *map);
 void	load_sprites(t_game *game, t_map *map);
-void 	draw_map(t_game *game, t_map *map);
-void 	draw_background(t_game *game);			//TEMPORARIO
-void 	draw_player(t_game *game); 				//TEMPORARIO
-void 	draw_game(t_game *game);				//TEMPORARIO
-void 	draw_wall(t_game *game, int x, int y);
-void 	draw_collectible(t_game *game, int x, int y);
-void 	draw_exit(t_game *game, int x, int y);
+void 	draw_game(t_game *game, t_map *map);
+// void 	draw_background(t_game *game);			//TEMPORARIO
+// void 	draw_player(t_game *game); 				//TEMPORARIO
+// void 	draw_game(t_game *game);				//TEMPORARIO
+// void 	draw_wall(t_game *game, int x, int y);
+// void 	draw_collectible(t_game *game, int x, int y);
+// void 	draw_exit(t_game *game, int x, int y);
 void 	mlx_hooks(t_game *game);
 int 	game_loop(t_game *game);				//TEMPORARIO
 

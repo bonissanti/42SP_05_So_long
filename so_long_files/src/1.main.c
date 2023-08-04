@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:00:47 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 17:14:26 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/04 17:36:00 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(void)
     check_path(&map);
     init_game(&game, &map);
     load_sprites(&game, &map);
-    draw_map(&game, &map);
+    draw_game(&game, &map);
     update_player(&game.player, &map);
     mlx_hooks(&game);
 }
