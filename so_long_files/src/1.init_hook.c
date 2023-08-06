@@ -39,29 +39,15 @@ void load_sprites(t_game *game, t_map *map)
         printf("Error loading sprites\n");
         exit(1);
     }
-    find_start_position(map, &map->player_x, &map->player_y);
     draw_game(game, map);
     // change_bg_color(game, game->player.sprites.mario_l, width, height);
 }
 
 
-void draw_game(t_game *game, t_map *map)
+void draw_mario(t_game *game, t_map *map)
 {
     int row;
     int col;
-
-    row = 0;
-    mlx_clear_window(game->mlx, game->window);
-    while (row <= map->rows)
-    {
-        col = 0;
-        while (col <= map->columns)
-        {
-            mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, col * BG_SIZE, row * BG_SIZE);
-            col++;
-        }
-        row++;
-    }
 
     row = 0;
     while (row < map->rows)
@@ -69,13 +55,7 @@ void draw_game(t_game *game, t_map *map)
         col = 0;
         while (col < map->columns)
         {
-            if (map->matriz[row][col] == '1')
-                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.wall, col * SPRITE_SIZE, row * SPRITE_SIZE);
-            else if (map->matriz[row][col] == 'C')
-                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, col * SPRITE_SIZE, row * SPRITE_SIZE);
-            else if (map->matriz[row][col] == 'E')
-                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * SPRITE_SIZE, row * SPRITE_SIZE);
-            else if (map->matriz[row][col] == 'P')
+            if (map->matriz[row][col] == 'P')
             {
                 game->player.x = col * MARIO_SIZE;
                 game->player.y = row * MARIO_SIZE;
@@ -87,6 +67,92 @@ void draw_game(t_game *game, t_map *map)
     }
 }
 
+void draw_background(t_game *game, t_map *map)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while (row < map->rows)
+    {
+        col = 0;
+        while (col < map->columns)
+        {
+            mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, col * BG_SIZE, row * BG_SIZE);
+            col++;
+        }
+        row++;
+    }
+}
+
+void draw_wall(t_game *game, t_map *map)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while (row < map->rows)
+    {
+        col = 0;
+        while (col < map->columns)
+        {
+            if (map->matriz[row][col] == '1')
+                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.wall, col * SPRITE_SIZE, row * SPRITE_SIZE);
+            col++;
+        }
+        row++;
+    }
+}
+
+void draw_collectible(t_game *game, t_map *map)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while (row < map->rows)
+    {
+        col = 0;
+        while (col < map->columns)
+        {
+            if (map->matriz[row][col] == 'C')
+                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, col * SPRITE_SIZE, row * SPRITE_SIZE);
+            col++;
+        }
+        row++;
+    }
+}
+
+void draw_exit(t_game *game, t_map *map)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while (row < map->rows)
+    {
+        col = 0;
+        while (col < map->columns)
+        {
+            if (map->matriz[row][col] == 'E')
+                mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * SPRITE_SIZE, row * SPRITE_SIZE);
+            col++;
+        }
+        row++;
+    }
+}
+
+
+
+void draw_game(t_game *game, t_map *map)
+{
+    draw_background(game, map);
+    draw_exit(game, map);
+    draw_wall(game, map);
+    draw_collectible(game, map);
+    draw_mario(game, map);
+}
+
 int no_event(t_game *game)
 {
     (void)game;
@@ -96,7 +162,7 @@ int no_event(t_game *game)
 void mlx_hooks(t_game *game)
 {
     mlx_loop_hook(game->mlx, no_event, game);
-    mlx_hook(game->window, 2, 1L << 0, key_press, game);
+    mlx_key_hook(game->window, key_press, game);
     mlx_hook(game->window, 17, 1L << 17, close_window, game);
     mlx_loop(game->mlx);
 }
@@ -107,44 +173,44 @@ void mlx_hooks(t_game *game)
     // else
     //     mlx_string_put(game->mlx, game->window, 10, 10, 0x00FFFFFF, ft_itoa(map->moves));
 
-
-//     void draw_background(t_game *game)
+// void draw_game(t_game *game, t_map *map)
 // {
-//     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, 0, -50);
-// }
+//     int row;
+//     int col;
 
-// void draw_player(t_game *game)
-// {
-//     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_l, game->player.x, game->player.y);
-// }
+//     row = 0;
+//     mlx_clear_window(game->mlx, game->window);
+//     while (row <= map->rows)
+//     {
+//         col = 0;
+//         while (col <= map->columns)
+//         {
+//             mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, col * BG_SIZE, row * BG_SIZE);
+//             col++;
+//         }
+//         row++;
+//     }
 
-
-// void draw_wall(t_game *game, int x, int y)
-// {
-//     // printf("Drawing wall at x: %d, y: %d\n", x, y);
-//     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.wall, x, y);
-// }
-
-
-// void draw_collectible(t_game *game, int x, int y)
-// {
-//     // printf("Drawing collectible at x: %d, y: %d\n", x, y);
-//     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, x, y);
-// }
-
-// void draw_exit(t_game *game, int x, int y)
-// {   
-//     // printf("Drawing exit at x: %d, y: %d\n", x, y);
-//     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, x, y);
-// }
-
-// void draw_game(t_game *game)
-// {
-//     draw_background(game);
-//     draw_map(game, &game->map);
-//     draw_player(game);
-//     draw_wall(game, 0, 0);
-//     draw_collectible(game, 0, 0);
-//     draw_exit(game, 0, 0);
-
+//     row = 0;
+//     while (row < map->rows)
+//     {
+//         col = 0;
+//         while (col < map->columns)
+//         {
+//             if (map->matriz[row][col] == '1')
+//                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.wall, col * SPRITE_SIZE, row * SPRITE_SIZE);
+//             else if (map->matriz[row][col] == 'C')
+//                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.collectible, col * SPRITE_SIZE, row * SPRITE_SIZE);
+//             else if (map->matriz[row][col] == 'E')
+//                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.exit, col * SPRITE_SIZE, row * SPRITE_SIZE);
+//             else if (map->matriz[row][col] == 'P')
+//             {
+//                 game->player.x = col * MARIO_SIZE;
+//                 game->player.y = row * MARIO_SIZE;
+//                 mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_l, col * SPRITE_SIZE, row * SPRITE_SIZE);
+//             }
+//             col++;
+//         }
+//         row++;
+//     }
 // }

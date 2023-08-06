@@ -110,12 +110,12 @@ typedef struct s_player
 
 }		t_player;
 
-typedef enum e_game_state
+typedef enum e_state;
 {
 	PLAYING,
 	VICTORY,
 	DEFEAT
-}			t_game_state;
+}			t_state;
 
 
 typedef struct s_map
@@ -146,7 +146,7 @@ typedef struct s_game
 	// int			moves;
 	t_map		map;
 	t_player	player;
-	t_game_state state;
+	t_state		state;
 	t_sprites	sprites;
 }				t_game;
 
@@ -167,14 +167,7 @@ typedef struct s_color
 void	init_game(t_game *game, t_map *map);
 void	load_sprites(t_game *game, t_map *map);
 void 	draw_game(t_game *game, t_map *map);
-// void 	draw_background(t_game *game);			//TEMPORARIO
-// void 	draw_player(t_game *game); 				//TEMPORARIO
-// void 	draw_game(t_game *game);				//TEMPORARIO
-// void 	draw_wall(t_game *game, int x, int y);
-// void 	draw_collectible(t_game *game, int x, int y);
-// void 	draw_exit(t_game *game, int x, int y);
 void 	mlx_hooks(t_game *game);
-int 	game_loop(t_game *game);				//TEMPORARIO
 
 
 //########################## CONTROLS #########################################
@@ -182,12 +175,10 @@ int 	game_loop(t_game *game);				//TEMPORARIO
 int		key_press(int keycode, t_game *game);
 int 	close_window(t_game *game);
 void	exit_game(t_game *game);
-void 	jump(t_player *player, t_map *map);
-void	mario_move_up(t_player *player);
-void 	mario_move_down(t_map *map, t_player *player);
-void 	mario_move_left(t_map *map, t_player *player);
-void 	mario_move_right(t_map *map, t_player *player);
-void 	update_player(t_player *player, t_map *map);
+void 	mario_move_right(t_game *game);
+void 	mario_move_left(t_game *game);
+void 	mario_move_down(t_game *game);
+void 	mario_move_up(t_game *game);
 
 //########################## MAP ##############################################
 
@@ -219,6 +210,16 @@ void	free_game(t_game *game, t_map *map);
 
 int 	check_bg_color(t_color *color);
 void 	change_bg_color(t_game *game, void *sprites, int width, int height);
+int game_loop(t_game *game);
+
+
+void draw_exit(t_game *game, t_map *map);
+void draw_background(t_game *game, t_map *map);
+void draw_wall(t_game *game, t_map *map);
+void draw_collectible(t_game *game, t_map *map);
+void draw_exit(t_game *game, t_map *map);
+void draw_mario(t_game *game, t_map *map);
+
 
 
 

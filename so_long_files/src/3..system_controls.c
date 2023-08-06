@@ -21,50 +21,28 @@ int key_press(int keycode, t_game *game)
         exit(EXIT_SUCCESS);
     }
     else if (keycode == KEY_UP)
-        jump(&game->player, &game->map);
+    {
+        printf("up\n");
+        mario_move_up(game);
+    }
     else if (keycode == KEY_RIGHT)
-        mario_move_right(&game->map, &game->player);
+        mario_move_right(game);
     else if (keycode == KEY_LEFT)
-        mario_move_left(&game->map, &game->player);
+        mario_move_left(game);
     else if (keycode == KEY_DOWN)
-        mario_move_down(&game->map, &game->player);
-    return (0);
-}
-// int key_press(int keycode, t_game *game)
-// {
-//     if (keycode == KEY_ESC)
-//     {
-//         mlx_destroy_window(game->mlx, game->window);
-//         exit(EXIT_SUCCESS);
-//     }
-//     else if (keycode == KEY_UP)
-//         jump(&game->map, &game->player);
-//     else if (keycode == KEY_RIGHT)
-//         mario_move_right(&game->map, &game->player);
-//     else if (keycode == KEY_LEFT)
-//         mario_move_left(&game->map, &game->player);
-//     else if (keycode == KEY_DOWN)
-//         mario_move_down(&game->map, &game->player);
-//     return (0);
-// }
-
-int game_loop(t_game *game)
-{
-    mlx_clear_window(game->mlx, game->window);
-    draw_game(game, &game->map);
+        mario_move_down(game);
     return (0);
 }
 
-// function to close the game through X button
+
 
 int close_window(t_game *game)
 {
     mlx_destroy_window(game->mlx, game->window);
-    // mlx_destroy_display(game->mlx);
-    // free(game->mlx);
     exit(EXIT_SUCCESS);
     return (0);
 }
 
-
+    // mlx_destroy_display(game->mlx);
+    // free(game->mlx);
 

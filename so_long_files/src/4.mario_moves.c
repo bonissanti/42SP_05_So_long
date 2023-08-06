@@ -14,52 +14,134 @@
 # include <mlx.h>
 #include "../include/so_long.h"
 
-void update_player(t_player *player, t_map *map)
-{
-    if (player->jumping)
-    {
-        player->y += player->direction_y;
-        player->direction_y -= 1;
 
-        if (player->y <= 0)
-        {
-            player->y = 0;
-            player->jumping = 0;
-            player->on_ground = 1;
-        }
-    }
+void mario_move_right(t_game *game)
+{
+    game->player.x += 1;
+    game->player.direction_x = 1;
+    game->player.direction_y = 0;
+
+    game->map.moves++;
+    printf("moves: %d\n", game->map.moves);
+    draw_game(game, &game->map);
+
+    if (game->map.matriz[game->player.y][game->player.x] == 'E')
+        game->state = VICTORY;
+    else if (game->map.matriz[game->player.y][game->player.x] == '1')
+        game->state = DEFEAT;
+    else
+        game->state = PLAYING;
 }
 
-void mario_move_right(t_map *map, t_player *player) // juntar os 3 movimentos em uma função só
+
+void mario_move_left(t_game *game)
 {
-    // if (map->matriz[player->y][player->x + 1] != '1')
-    player->x += 5;
-    player->direction_y = 0;    
+    game->player.x -= 1;
+    game->player.direction_x = -1;
+    game->player.direction_y = 0;
+
+    game->map.moves++;
+    printf("moves: %d\n", game->map.moves);
+    draw_game(game, &game->map);
+
+    if (game->map.matriz[game->player.y][game->player.x] == 'E')
+        game->state = VICTORY;
+    else if (game->map.matriz[game->player.y][game->player.x] == '1')
+        game->state = DEFEAT;
+    else
+        game->state = PLAYING;
 }
 
-void mario_move_left(t_map *map, t_player *player)
+void mario_move_down(t_game *game)
 {
-    // if (map->matriz[player->y][player->x - 1] != '1')
-    player->x -= 5;
-    player->direction_y = 0;
+    game->player.y += 1;
+    game->player.direction_y = 1;
+    game->player.direction_x = 0;
+
+    game->map.moves++;
+    printf("moves: %d\n", game->map.moves);
+    draw_game(game, &game->map);
+
+    if (game->map.matriz[game->player.y][game->player.x] == 'E')
+        game->state = VICTORY;
+    else if (game->map.matriz[game->player.y][game->player.x] == '1')
+        game->state = DEFEAT;
+    else
+        game->state = PLAYING;
+
+    if (game->map.matriz[game->player.y][game->player.x] == 'E')
+        game->state = VICTORY;
+    else if (game->map.matriz[game->player.y][game->player.x] == '1')
+        game->state = DEFEAT;
+    else
+        game->state = PLAYING;
 }
 
-void mario_move_down(t_map *map, t_player *player)
+void mario_move_up(t_game *game)
 {
-    // if (map->matriz[player->y + 1][player->x] != '1')
-    player->y += 5;
-    player->direction_y = 1;
+    game->player.y -= 1;
+    game->player.direction_y = -1;
+    game->player.direction_x = 0;
+
+    game->map.moves++;
+    printf("moves: %d\n", game->map.moves);
+    draw_game(game, &game->map);
+
+    if (game->map.matriz[game->player.y][game->player.x] == 'E')
+        game->state = VICTORY;
+    else if (game->map.matriz[game->player.y][game->player.x] == '1')
+        game->state = DEFEAT;
+    else
+        game->state = PLAYING;
+}   
+
+void update_player_sprite(t_game *game)
+{
+    void *sprite;
+
+    sprite = NULL;
+    if (game->player.direction_x == 1)
+        sprite = game->player.sprites.mario_r;
+    else if (game->player.direction_x == -1)
+        sprite = game->player.sprites.mario_l;
+    else if (game->player.direction_y == 1)
+        sprite = game->player.sprites.mario_d;
+    else if (game->player.direction_y == -1)
+        sprite = game->player.sprites.mario_u;
+    mlx_put_image_to_window(game->mlx, game->window, sprite, game->player.x, game->player.y);
 }
 
-void jump(t_player *player, t_map *map)
+void redraw_mario(t_game *game, int new_x, int new_y)
 {
-    if (player->on_ground)
-    {
-        player->direction_y = -10;
-        player->jumping = 5;
-        player->on_ground = 0;
-    }
+    game->player.x = new_x;
+    game->player.y = new_y;
+    if (new_x < game->player.x)
+        game->player.direction_x = -1;
+    else if (new_x > game->player.x)
+        game->player.direction_x = 1;
+    else if (new_y < game->player.y)
+        game->player.direction_y = -1;
+    else if (new_y > game->player.y)
+        game->player.direction_y = 1;
+
+    update_player_sprite(game);
+
+    game->map.matriz[game->player.y][game->player.x] = '0';
+    game->map.matriz[new_y][new_x] = 'P';
+    draw_game(game, &game->map);
 }
+
+
+
+// void jump(t_player *player)
+// {
+//     if (player->on_ground)
+//     {
+//         player->direction_y = -10;
+//         player->jumping = 5;
+//         player->on_ground = 0;
+//     }
+// }
 
 
 // void update_player(t_player *player, t_map *map)
@@ -78,6 +160,7 @@ void jump(t_player *player, t_map *map)
 //     }
 // }
 
+    // if (map->matriz[player->y][player->x - 1] != '1')
 
 
 // void jump(t_map *map, t_player *player)
