@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 15:03:35 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:44:52 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,19 @@ void call_checks(t_map *map)
 	}
 }
 
-void check_path(t_map *map)
+void check_path(t_game *game, int x, int y)
 {
-	find_start_position(map, &map->player_x, &map->player_y);
-	if (map->player_x == -1 || map->player_y == -1)
+	find_start_position(&game->map, &x, &y);
+	if (x == -1 || y == -1)
 	{
 		printf("Error\nMap must have one player\n");
 		exit(1);
 	}
 
-	map->c_count = 0;
-	map->visited = visited_matriz(map->rows, map->columns);
+	game->map.c_count = 0;
+	game->map.visited = visited_matriz(game->map.rows, game->map.columns);
 
-	if (!flood_fill(map, map->player_x, map->player_y))
+	if (!flood_fill(&game->map, x, y))
 	{
 		printf("Error\nMap must have a path from P to C and E\n");
 		exit(1);
