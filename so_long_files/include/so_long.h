@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/04 18:33:50 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:47:56 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 //########################### GAME CONFIG #####################################
 
-# define BG_SIZE 2
 # define SPRITE_SIZE 44
 # define MARIO_SIZE 0
 # define GRAVITY 1
@@ -59,11 +58,11 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+
 # define KEY_LEFT 65361
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define KEY_SPACE 32
 
 //########################## ERROR MESSAGES ###################################
 
@@ -104,13 +103,12 @@ typedef struct s_player
 	int y;
 	int direction_x;
 	int direction_y;
+	int player_idle;
 	t_sprites sprites;
-	int jumping;
-	int on_ground;
 
 }		t_player;
 
-typedef enum e_state;
+typedef enum e_state
 {
 	PLAYING,
 	VICTORY,
@@ -131,8 +129,8 @@ typedef struct s_map
 	int				exit;
 	int				empty;
 	int				wall;
-	int				player_x;
-	int 			player_y;
+	// int				player_x;
+	// int 			player_y;
 	int				target;
 	int				replacement;
 	int				count;
@@ -175,10 +173,7 @@ void 	mlx_hooks(t_game *game);
 int		key_press(int keycode, t_game *game);
 int 	close_window(t_game *game);
 void	exit_game(t_game *game);
-void 	mario_move_right(t_game *game);
-void 	mario_move_left(t_game *game);
-void 	mario_move_down(t_game *game);
-void 	mario_move_up(t_game *game);
+
 
 //########################## MAP ##############################################
 
@@ -192,7 +187,7 @@ int		valid_char(t_map *map);
 
 //########################## ALGORITHM ########################################
 
-void 	check_path(t_map *map);
+void 	check_path(t_game *game);
 int		flood_fill(t_map *map, int x, int y);
 void	find_start_position(t_map *map, int *player_x, int *player_y);
 char	**copy_matriz(char **original, int rows, int columns);
@@ -210,8 +205,8 @@ void	free_game(t_game *game, t_map *map);
 
 int 	check_bg_color(t_color *color);
 void 	change_bg_color(t_game *game, void *sprites, int width, int height);
-int game_loop(t_game *game);
-
+void 	update_game(t_game *game);
+int 	game_loop(t_game *game);
 
 void draw_exit(t_game *game, t_map *map);
 void draw_background(t_game *game, t_map *map);

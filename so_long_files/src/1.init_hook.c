@@ -45,7 +45,7 @@ void load_sprites(t_game *game, t_map *map)
     find_start_position(&game->map, &x, &y);
     game->player.x = x * SPRITE_SIZE;
     game->player.y = y * SPRITE_SIZE;
-    printf("%i %i\n", map->player_x, map->player_y);
+    printf("%i %i\n", game->player.x, game->player.y);
     draw_game(game, map);
 }
 

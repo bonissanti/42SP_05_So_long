@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/08 13:44:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:47:35 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,12 @@ void call_checks(t_map *map)
 	}
 }
 
-void check_path(t_game *game, int x, int y)
+void check_path(t_game *game)
 {
+	int x;
+	int y;
+
+	
 	find_start_position(&game->map, &x, &y);
 	if (x == -1 || y == -1)
 	{
