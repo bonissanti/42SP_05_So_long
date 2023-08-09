@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 14:11:50 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:47:42 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void check_path(t_map *map)
 		printf("Error\nMap must have a path from P to C and E\n");
 		exit(1);
 	}
+	free_matriz(map->visited, map->rows);
 }
 
 int	check_size(t_map *map) // Function ok

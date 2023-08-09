@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:00:47 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 14:12:49 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:43:38 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(void)
     //game.map = map;
 
     game.map.file = "../maps/map-test.ber";
+    init_structs(&game);
     get_map(&game.map);
     call_checks(&game.map);
     check_path(&game.map);

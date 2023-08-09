@@ -1,6 +1,29 @@
 #include "../../my_libft/include/libft.h"
 #include "../include/so_long.h"
 
+void init_structs(t_game *game)
+{
+    game->map.rows = 0;
+    game->map.columns = 0;
+    game->map.matriz = NULL;
+    game->map.position_x = 0;
+    game->map.position_y = 0;
+    game->map.moves = 0;
+    game->player.x = 0;
+    game->player.y = 0;
+    game->player.direction_x = 0;
+    game->player.direction_y = 0;
+    game->player.sprites.background = NULL;
+    game->player.sprites.mario_l = NULL;
+    game->player.sprites.mario_r = NULL;
+    game->player.sprites.mario_u = NULL;
+    game->player.sprites.mario_d = NULL;
+    game->player.sprites.wall = NULL;
+    game->player.sprites.collectible = NULL;
+    game->player.sprites.exit = NULL;
+    game->player.sprites.victory = NULL;
+}
+
 void init_game(t_game *game, t_map *map)
 {
     game->mlx = mlx_init();
@@ -14,6 +37,7 @@ void init_game(t_game *game, t_map *map)
     if (!game->window)
     {
         printf("Error creating window\n");
+        free(game->mlx);
         exit(1);
     }
 }
@@ -33,10 +57,10 @@ void load_sprites(t_game *game, t_map *map)
     game->player.sprites.collectible = mlx_xpm_file_to_image(game->mlx, COINS, &width, &height);
     game->player.sprites.exit = mlx_xpm_file_to_image(game->mlx, EXIT, &width, &height);
     // game->player.sprites.victory = mlx_xpm_file_to_image(game->mlx, "./sprites/victory.xpm", &width, &height);
-
     if (!game->player.sprites.background || !game->player.sprites.mario_l || !game->player.sprites.wall || !game->player.sprites.collectible || !game->player.sprites.exit)
     {
         printf("Error loading sprites\n");
+        free_game(game);
         exit(1);
     }
     find_start_position(&game->map, &game->map.position_x, &game->map.position_y);
@@ -152,7 +176,6 @@ void draw_game(t_game *game, t_map *map)
     draw_wall(game, map);
     draw_collectible(game, map);
     draw_mario(game, map);
-    printf("Drawing Mario at x: %d, y: %d\n", game->player.x / 46, game->player.y / 46);
 }
 
 
@@ -164,11 +187,11 @@ int no_event(t_game *game)
 
 void mlx_hooks(t_game *game)
 {
-    // mlx_key_hook(game->window, &key_press, game);
     mlx_loop_hook(game->mlx, &no_event, game);
     mlx_hook(game->window, 2, 1L << 0, &key_press, game);
     mlx_hook(game->window, 17, 1L << 17, &close_window, game);
     mlx_loop(game->mlx);
+    // free_game(game, &game->map);
 }
 
 

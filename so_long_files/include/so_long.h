@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 14:12:13 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:57:52 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ typedef struct s_color
 //########################## FUNCTIONS ########################################
 //########################## INIT GAME ########################################
 
+void 	init_structs(t_game *game);
 void	init_game(t_game *game, t_map *map);
 void	load_sprites(t_game *game, t_map *map);
 void 	draw_game(t_game *game, t_map *map);
@@ -196,8 +197,9 @@ int		**visited_matriz(int rows, int columns);
 //########################## MEMORY ###########################################
 
 void	free_map(t_map *map);
+void 	free_matriz(int **visited, int rows);
 void	free_sprites(t_game *game);
-void	free_game(t_game *game, t_map *map);
+void 	free_game(t_game *game);
 
 
 //########################## UTILS ############################################

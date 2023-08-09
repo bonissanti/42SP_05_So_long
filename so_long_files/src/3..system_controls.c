@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 11:40:18 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 14:40:36 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:24:07 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int key_press(int keycode, t_game *game)
 
     if (keycode == KEY_ESC)
     {
-        mlx_destroy_window(game->mlx, game->window);
-        exit(EXIT_SUCCESS);
+        printf("You closed the window!\n");
+        free_game(game);
     }
 
     if (keycode == KEY_A || keycode == KEY_LEFT)
