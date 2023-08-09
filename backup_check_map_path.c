@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map_path.c                                   :+:      :+:    :+:   */
+/*   backup_check_map_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:35:38 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/28 18:47:47 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:26:31 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 //Algorithm 'flood fill' to check if the 'P' is able to reach the 'E' in the map
 
-void find_start_position(t_map *map, int *player_x, int *player_y);
+void find_start_position(t_map *map, int *position_x, int *position_y);
 void count_collectibles(t_map *map);
 int flood_fill(t_game *game, int x, int y, char target, char replacement, int *count, int **visited);
 
@@ -83,7 +83,7 @@ int flood_fill(t_game *game, int x, int y, char target, char replacement, int *c
 	return (result);
 }
 
-void find_start_position(t_map *map, int *player_x, int *player_y)
+void find_start_position(t_map *map, int *position_x, int *position_y)
 {
 	int row;
 	int col;
@@ -96,8 +96,8 @@ void find_start_position(t_map *map, int *player_x, int *player_y)
 		{
 			if (map->map_matriz[row][col] == 'P')
 			{
-				*player_x = row;
-				*player_y = col;
+				*position_x = row;
+				*position_y = col;
 				return ;
 			}
 			col++;
@@ -218,9 +218,9 @@ int main(void)
 	game.map.columns = ft_strlen(zone[0]);
 	game.map.map_matriz = copy_map_matriz(zone, game.map.rows, game.map.columns);
 		
-	find_start_position(&game.map, &game.map.player_x, &game.map.player_y);
+	find_start_position(&game.map, &game.map.position_x, &game.map.position_y);
 
-	if (game.map.player_x == -1 || game.map.player_y == -1)
+	if (game.map.position_x == -1 || game.map.position_y == -1)
 	{
 		printf("Error\nMap must have one player\n");
 		return (0);
@@ -229,7 +229,7 @@ int main(void)
 	count_collectibles(&game.map);
 	game.map.c_count = 0;
 	int **visited = visited_matriz(game.map.rows, game.map.columns);
-	int result = flood_fill(&game, game.map.player_x, game.map.player_y, 'E', 'X', &game.map.c_count, visited);
+	int result = flood_fill(&game, game.map.position_x, game.map.position_y, 'E', 'X', &game.map.c_count, visited);
 	print_map(game);
 
 

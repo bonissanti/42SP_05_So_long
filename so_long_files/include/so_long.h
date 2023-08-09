@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/08 13:47:56 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:21:22 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@
 //########################### WINDOW CONFIG ###################################
 
 # define WIN_TITLE "Super Mario World - 42 edition"
-# define WIN_WIDTH 880
-# define WIN_HEIGHT 700
+# define WIN_WIDTH 920
+# define WIN_HEIGHT 780
 
 //########################### GAME CONFIG #####################################
 
-# define SPRITE_SIZE 44
-# define MARIO_SIZE 0
+# define SPRITE_SIZE 46
 # define GRAVITY 1
 # define GROUND_HEIGHT 9
 
@@ -129,8 +128,8 @@ typedef struct s_map
 	int				exit;
 	int				empty;
 	int				wall;
-	// int				player_x;
-	// int 			player_y;
+	int				position_x;
+	int 			position_y;
 	int				target;
 	int				replacement;
 	int				count;
@@ -141,7 +140,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*window;
-	// int			moves;
+	int			moves;
 	t_map		map;
 	t_player	player;
 	t_state		state;
@@ -189,7 +188,7 @@ int		valid_char(t_map *map);
 
 void 	check_path(t_game *game);
 int		flood_fill(t_map *map, int x, int y);
-void	find_start_position(t_map *map, int *player_x, int *player_y);
+void	find_start_position(t_map *map, int *position_x, int *position_y);
 char	**copy_matriz(char **original, int rows, int columns);
 int		**visited_matriz(int rows, int columns);
 
@@ -205,7 +204,7 @@ void	free_game(t_game *game, t_map *map);
 
 int 	check_bg_color(t_color *color);
 void 	change_bg_color(t_game *game, void *sprites, int width, int height);
-void 	update_game(t_game *game);
+// void 	update_game(t_game *game);
 int 	game_loop(t_game *game);
 
 void draw_exit(t_game *game, t_map *map);
@@ -214,6 +213,7 @@ void draw_wall(t_game *game, t_map *map);
 void draw_collectible(t_game *game, t_map *map);
 void draw_exit(t_game *game, t_map *map);
 void draw_mario(t_game *game, t_map *map);
+int 	check_next_position(int next_x, int next_y, t_game *game);
 
 
 

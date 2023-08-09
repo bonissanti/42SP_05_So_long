@@ -20,21 +20,18 @@ void init_game(t_game *game, t_map *map)
 
 void load_sprites(t_game *game, t_map *map)
 {
-    // int width;
-    // int height;
-    int x;
-    int y;
+    int width;
+    int height;
     
     map->moves = 0;
-
-    game->player.sprites.background = mlx_xpm_file_to_image(game->mlx, BACKGROUND, &x, &y);
+    game->player.sprites.background = mlx_xpm_file_to_image(game->mlx, BACKGROUND, &width, &height);
     // game->player.sprites.mario_r = mlx_xpm_file_to_image(game->mlx, "./sprites/mario_r.xpm", &width, &height);
-    game->player.sprites.mario_l = mlx_xpm_file_to_image(game->mlx, IDLE_L, &x, &y);
+    game->player.sprites.mario_l = mlx_xpm_file_to_image(game->mlx, IDLE_L, &width, &height);
     // game->player.sprites.mario_u = mlx_xpm_file_to_image(game->mlx, "./sprites/mario_u.xpm", &width, &height);
     // game->player.sprites.mario_d = mlx_xpm_file_to_image(game->mlx, "./sprites/mario_d.xpm", &width, &height);
-    game->player.sprites.wall = mlx_xpm_file_to_image(game->mlx, WALL, &x, &y);
-    game->player.sprites.collectible = mlx_xpm_file_to_image(game->mlx, COINS, &x, &y);
-    game->player.sprites.exit = mlx_xpm_file_to_image(game->mlx, EXIT, &x, &y);
+    game->player.sprites.wall = mlx_xpm_file_to_image(game->mlx, WALL, &width, &height);
+    game->player.sprites.collectible = mlx_xpm_file_to_image(game->mlx, COINS, &width, &height);
+    game->player.sprites.exit = mlx_xpm_file_to_image(game->mlx, EXIT, &width, &height);
     // game->player.sprites.victory = mlx_xpm_file_to_image(game->mlx, "./sprites/victory.xpm", &width, &height);
 
     if (!game->player.sprites.background || !game->player.sprites.mario_l || !game->player.sprites.wall || !game->player.sprites.collectible || !game->player.sprites.exit)
@@ -42,10 +39,9 @@ void load_sprites(t_game *game, t_map *map)
         printf("Error loading sprites\n");
         exit(1);
     }
-    find_start_position(&game->map, &x, &y);
-    game->player.x = x * SPRITE_SIZE;
-    game->player.y = y * SPRITE_SIZE;
-    printf("%i %i\n", game->player.x, game->player.y);
+    find_start_position(&game->map, &game->map.position_x, &game->map.position_y);
+    game->player.x = game->map.position_x * SPRITE_SIZE;
+    game->player.y = game->map.position_y * SPRITE_SIZE;
     draw_game(game, map);
 }
 
@@ -156,6 +152,7 @@ void draw_game(t_game *game, t_map *map)
     draw_wall(game, map);
     draw_collectible(game, map);
     draw_mario(game, map);
+    printf("Drawing Mario at x: %d, y: %d\n", game->player.x / 46, game->player.y / 46);
 }
 
 

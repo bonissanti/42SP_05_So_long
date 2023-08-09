@@ -343,7 +343,7 @@
 //         return (1);
 //     }
 
-//     if (flood_fill(map, map->player_y, map->player_x, '0', 'X', &map->count, map->visited))
+//     if (flood_fill(map, map->position_y, map->position_x, '0', 'X', &map->count, map->visited))
 //             printf("True: P can reach E and collect all C\n");
 //         else
 //             printf("False: P can't reach E or didn't collect all C\n");

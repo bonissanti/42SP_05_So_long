@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:35:38 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/03 11:28:24 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:26:31 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int flood_fill(t_game *game, int x, int y, char target, char replacement, int *c
 	return (result);
 }
 
-void find_start_position(t_map *map, int *player_x, int *player_y)
+void find_start_position(t_map *map, int *position_x, int *position_y)
 {
 	int row;
 	int col;
@@ -94,8 +94,8 @@ void find_start_position(t_map *map, int *player_x, int *player_y)
 		{
 			if (map->matriz[row][col] == 'P')
 			{
-				*player_x = row;
-				*player_y = col;
+				*position_x = row;
+				*position_y = col;
 				return ;
 			}
 			col++;

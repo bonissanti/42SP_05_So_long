@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/08 13:47:35 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:07:23 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ void	get_map(t_map *map) //Function ok
 		i++;
 	}
 	map->columns = ft_strlen(map->matriz[0]);
+	// i = 0;
+	// while (i < map->rows * map->columns)
+	// {
+	// 	printf("%c", map->matriz[i / map->columns][i % map->columns]);
+	// 	i++;
+	// }
 	close(fd);
 }
 
@@ -104,12 +110,9 @@ void call_checks(t_map *map)
 
 void check_path(t_game *game)
 {
-	int x;
-	int y;
-
 	
-	find_start_position(&game->map, &x, &y);
-	if (x == -1 || y == -1)
+	find_start_position(&game->map, &game->map.position_x, &game->map.position_y);
+	if (game->map.position_x == -1 || game->map.position_y == -1)
 	{
 		printf("Error\nMap must have one player\n");
 		exit(1);
@@ -118,7 +121,7 @@ void check_path(t_game *game)
 	game->map.c_count = 0;
 	game->map.visited = visited_matriz(game->map.rows, game->map.columns);
 
-	if (!flood_fill(&game->map, x, y))
+	if (!flood_fill(&game->map, game->map.position_x, game->map.position_y))
 	{
 		printf("Error\nMap must have a path from P to C and E\n");
 		exit(1);
@@ -254,7 +257,7 @@ int	flood_fill(t_map *map, int x, int y)
 	
 }
 
-void	find_start_position(t_map *map, int *player_x, int *player_y)
+void	find_start_position(t_map *map, int *position_x, int *position_y)
 {
 	int	row;
 	int	col;
@@ -267,8 +270,8 @@ void	find_start_position(t_map *map, int *player_x, int *player_y)
 		{
 			if (map->matriz[row][col] == 'P')
 			{
-				*player_x = row;
-				*player_y = col;
+				*position_y = row;
+				*position_x = col;
 				return ;
 			}
 			col++;
