@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 15:57:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:20:03 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@
 
 //########################### SPRITES #########################################
 
-// # define MARIO_L "./sprites/mario_l.xpm"
-// # define MARIO_R "../sprites/mario_r.xpm"
-// # define MARIO_U "./sprites/mario_u.xpm"
-// # define MARIO_D "./sprites/mario_d.xpm"
-# define IDLE_L "../sprites/mario_left_idle.xpm"
+# define MARIO_R1 "../sprites/mario_r1.xpm"
+# define MARIO_U1 "../sprites/mario_u1.xpm"
+# define MARIO_D1 "../sprites/mario_d1.xpm"
+# define MARIO_L1 "../sprites/mario_l1.xpm"
 # define WALL "../sprites/wall.xpm"
 # define COINS "../sprites/coins_1.xpm"
 # define EXIT "../sprites/exit.xpm"

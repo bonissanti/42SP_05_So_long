@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   6.memory_free.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 16:01:48 by brunrodr          #+#    #+#             */
+/*   Updated: 2023/08/09 18:20:11 by brunrodr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../my_libft/include/libft.h"
 #include "../include/so_long.h"
 
@@ -14,7 +26,6 @@ void free_matriz(int **visited, int rows)
     }
     free(visited);
 }
-
 
 void free_map(t_map *map)
 {
@@ -33,14 +44,12 @@ void free_sprites(t_game *game)
 {
     mlx_destroy_image(game->mlx, game->player.sprites.background);
     mlx_destroy_image(game->mlx, game->player.sprites.mario_l);
-    // mlx_destroy_image(game->mlx, game->player.sprites.mario_r);
-    // mlx_destroy_image(game->mlx, game->player.sprites.mario_u);
-    // mlx_destroy_image(game->mlx, game->player.sprites.mario_d);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_r);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_u);
+    mlx_destroy_image(game->mlx, game->player.sprites.mario_d);
     mlx_destroy_image(game->mlx, game->player.sprites.wall);
     mlx_destroy_image(game->mlx, game->player.sprites.collectible);
-    mlx_destroy_image(game->mlx, game->player.sprites.exit);
-
-    
+    mlx_destroy_image(game->mlx, game->player.sprites.exit);    
 }
 
 void free_game(t_game *game)
