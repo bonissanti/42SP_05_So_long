@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 13:07:23 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:11:50 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ void	get_map(t_map *map) //Function ok
 		i++;
 	}
 	map->columns = ft_strlen(map->matriz[0]);
-	// i = 0;
-	// while (i < map->rows * map->columns)
-	// {
-	// 	printf("%c", map->matriz[i / map->columns][i % map->columns]);
-	// 	i++;
-	// }
 	close(fd);
 }
 
@@ -108,20 +102,19 @@ void call_checks(t_map *map)
 	}
 }
 
-void check_path(t_game *game)
+void check_path(t_map *map)
 {
-	
-	find_start_position(&game->map, &game->map.position_x, &game->map.position_y);
-	if (game->map.position_x == -1 || game->map.position_y == -1)
+	find_start_position(map, &map->position_x, &map->position_y);
+	if (map->position_x == -1 || map->position_y == -1)
 	{
 		printf("Error\nMap must have one player\n");
 		exit(1);
 	}
 
-	game->map.c_count = 0;
-	game->map.visited = visited_matriz(game->map.rows, game->map.columns);
+	map->c_count = 0;
+	map->visited = visited_matriz(map->rows, map->columns);
 
-	if (!flood_fill(&game->map, game->map.position_x, game->map.position_y))
+	if (!flood_fill(map, map->position_x, map->position_y))
 	{
 		printf("Error\nMap must have a path from P to C and E\n");
 		exit(1);
@@ -270,8 +263,8 @@ void	find_start_position(t_map *map, int *position_x, int *position_y)
 		{
 			if (map->matriz[row][col] == 'P')
 			{
-				*position_y = row;
-				*position_x = col;
+				*position_x = row;
+				*position_y = col;
 				return ;
 			}
 			col++;

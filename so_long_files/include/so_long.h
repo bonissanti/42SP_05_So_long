@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 12:21:22 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:12:13 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int		valid_char(t_map *map);
 
 //########################## ALGORITHM ########################################
 
-void 	check_path(t_game *game);
+void 	check_path(t_map *map);
 int		flood_fill(t_map *map, int x, int y);
 void	find_start_position(t_map *map, int *position_x, int *position_y);
 char	**copy_matriz(char **original, int rows, int columns);
