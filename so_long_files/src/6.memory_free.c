@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:01:48 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 18:20:11 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:28:53 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,35 @@ void free_map(t_map *map)
 
 void free_sprites(t_game *game)
 {
-    mlx_destroy_image(game->mlx, game->player.sprites.background);
-    mlx_destroy_image(game->mlx, game->player.sprites.mario_l);
-    mlx_destroy_image(game->mlx, game->player.sprites.mario_r);
-    mlx_destroy_image(game->mlx, game->player.sprites.mario_u);
-    mlx_destroy_image(game->mlx, game->player.sprites.mario_d);
-    mlx_destroy_image(game->mlx, game->player.sprites.wall);
-    mlx_destroy_image(game->mlx, game->player.sprites.collectible);
-    mlx_destroy_image(game->mlx, game->player.sprites.exit);    
+    if (game->player.sprites.background)
+        mlx_destroy_image(game->mlx, game->player.sprites.background);
+    
+    if (game->player.sprites.mario_l)
+        mlx_destroy_image(game->mlx, game->player.sprites.mario_l);
+    
+    if (game->player.sprites.mario_r)
+        mlx_destroy_image(game->mlx, game->player.sprites.mario_r);
+    
+    if (game->player.sprites.mario_u)
+        mlx_destroy_image(game->mlx, game->player.sprites.mario_u);
+    
+    if (game->player.sprites.mario_d)
+        mlx_destroy_image(game->mlx, game->player.sprites.mario_d);
+
+    if (game->player.sprites.wall)    
+        mlx_destroy_image(game->mlx, game->player.sprites.wall);
+    
+    if (game->player.sprites.exit)
+        mlx_destroy_image(game->mlx, game->player.sprites.exit);    
+    
+    if (game->player.sprites.coins[0]) 
+        mlx_destroy_image(game->mlx, game->player.sprites.coins[0]);
+    
+    if (game->player.sprites.coins[1])
+        mlx_destroy_image(game->mlx, game->player.sprites.coins[1]);
+    
+    if (game->player.sprites.coins[2])
+        mlx_destroy_image(game->mlx, game->player.sprites.coins[2]);
 }
 
 void free_game(t_game *game)

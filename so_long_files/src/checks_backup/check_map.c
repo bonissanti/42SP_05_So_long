@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:33 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/07/27 15:39:29 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 10:49:57 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void initialize_map(t_map *map, int rows, int columns, char **map_matriz)
 	map->rows = rows;
 	map->columns = columns;
 	map->player = 0;
-	map->collectible = 0;
+	map->coins = 0;
 	map->exit = 0;
 	map->empty = 0;
 	map->wall = 0;
@@ -49,7 +49,7 @@ int	is_valid_map(t_map *map)
 			else if (map->matriz[row][col] == 'P')
 				map->player++;
 			else if (map->matriz[row][col] == 'C')
-				map->collectible++;
+				map->coins++;
 			else if (map->matriz[row][col] == 'E')
 				map->exit++;
 			else if (map->matriz[row][col] == '0')
@@ -64,7 +64,7 @@ int	is_valid_map(t_map *map)
 	}
 	if (map->player != 1)
 		return (0);
-	if (map->collectible < 1)
+	if (map->coins < 1)
 		return (0);
 	if (map->exit < 1)
 		return (0);
@@ -107,7 +107,7 @@ int main(void)
 // 			else if (map->map_matriz[row][col] == 'P')
 // 				map->player++;
 // 			else if (map->map_matriz[row][col] == 'C')
-// 				map->collectible++;
+// 				map->coins++;
 // 			else if (map->map_matriz[row][col] == 'E')
 // 				map->exit++;
 // 			else if (map->map_matriz[row][col] == '0')

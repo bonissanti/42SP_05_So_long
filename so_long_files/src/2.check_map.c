@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 15:47:42 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 10:49:57 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void call_checks(t_map *map)
 		printf("Error\nMap must have valid characters\n");
 		exit(1);
 	}
-	count_collectibles(map);
-	if (map->collectible == 0)
+	count_coinss(map);
+	if (map->coins == 0)
 	{
-		printf("Error\nMap must have at least one collectible\n");
+		printf("Error\nMap must have at least one coins\n");
 		exit(1);
 	}
 }
@@ -172,20 +172,20 @@ int	check_wall(t_map *map) // Function ok
 	return (1);
 }
 
-void	count_collectibles(t_map *map)
+void	count_coinss(t_map *map)
 {
 	int	row;
 	int	col;
 
 	row = 0;
-	map->collectible = 0;
+	map->coins = 0;
 	while (row < map->rows)
 	{
 		col = 0;
 		while (col < map->columns)
 		{
 			if (map->matriz[row][col] == 'C')
-				map->collectible++;
+				map->coins++;
 			col++;
 		}
 		row++;
@@ -230,7 +230,7 @@ int	flood_fill(t_map *map, int x, int y)
 	map->visited[x][y] = 1;
 	if (map->matriz[x][y] == 'E')
 	{
-		if (map->c_count == map->collectible)
+		if (map->c_count == map->coins)
 			return (1);
 		else
 			return (0);

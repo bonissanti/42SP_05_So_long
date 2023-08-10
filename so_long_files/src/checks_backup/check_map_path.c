@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:35:38 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/09 11:26:31 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 10:49:57 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@
 //Algorithm 'flood fill' to check if the 'P' is able to reach the 'E' in the map
 
 
-void count_collectibles(t_map *map)
+void count_coinss(t_map *map)
 {
 	int row;
 	int col;
 
 	row = 0;
-	map->collectible = 0;
+	map->coins = 0;
 	while (row < map->rows)
 	{
 		col = 0;
 		while (col < map->columns)
 		{
 			if (map->matriz[row][col] == 'C')
-				map->collectible++;
+				map->coins++;
 			col++;
 		}
 		row++;
@@ -55,7 +55,7 @@ int flood_fill(t_game *game, int x, int y, char target, char replacement, int *c
 
 	if (game->map.matriz[x][y] == 'E')
 	{
-		if (*count < game->map.collectible)
+		if (*count < game->map.coins)
 			return (0);
 		else
 			return (1);
@@ -224,7 +224,7 @@ int main(void)
 		return (0);
 	}
 
-	count_collectibles(&game.map);
+	count_coinss(&game.map);
 	game.map.c_count = 0;
 	int **visited = visited_matriz(game.map.rows, game.map.columns);
 	int result = flood_fill(&game, game.player.x, game.player.y, 'E', 'X', &game.map.c_count, visited);

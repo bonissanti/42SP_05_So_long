@@ -143,20 +143,20 @@
 //     return (NULL);
 // }
 
-// void	count_collectibles(t_map *map)
+// void	count_coinss(t_map *map)
 // {
 // 	int	row;
 // 	int	col;
 
 // 	row = 0;
-// 	map->collectible = 0;
+// 	map->coins = 0;
 // 	while (row < map->rows)
 // 	{
 // 		col = 0;
 // 		while (col < map->columns)
 // 		{
 // 			if (map->matriz[row][col] == 'C')
-// 				map->collectible++;
+// 				map->coins++;
 // 			col++;
 // 		}
 // 		row++;
@@ -230,7 +230,7 @@
 
 // 	if (map->matriz[x][y] == 'E')
 // 	{
-// 		if (*count < map->collectible)
+// 		if (*count < map->coins)
 // 			return (0);
 // 		else
 // 			return (1);
@@ -322,8 +322,8 @@
 //         printf("Error: Invalid map\n");
 //         return (1);
 //     }
-//     count_collectibles(map);
-//     if (map->collectible < 1)
+//     count_coinss(map);
+//     if (map->coins < 1)
 //     {
 //         printf("Error coins: Invalid map\n");
 //         return (1);
@@ -384,7 +384,7 @@
 // // 			else if (map->matriz[row][col] == 'P')
 // // 				map->player++;
 // // 			else if (map->matriz[row][col] == 'C')
-// // 				map->collectible++;
+// // 				map->coins++;
 // // 			else if (map->matriz[row][col] == 'E')
 // // 				map->exit++;
 // // 			else if (map->matriz[row][col] == '0')
@@ -399,7 +399,7 @@
 // // 	}
 // // 	if (map->player != 1)
 // // 		return (0);
-// // 	if (map->collectible < 1)
+// // 	if (map->coins < 1)
 // // 		return (0);
 // // 	if (map->exit < 1)
 // // 		return (0);
