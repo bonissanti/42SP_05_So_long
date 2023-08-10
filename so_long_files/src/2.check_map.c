@@ -6,12 +6,13 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 10:49:57 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:20:39 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../my_libft/include/libft.h"
 #include "../../my_libft/src/ft_strlen.c"
+#include "../../my_libft/src/ft_strncmp.c"
 #include "../../my_libft/src/get_next_line.c"
 #include "../../my_libft/src/get_next_line_utils.c"
 #include "../include/so_long.h"
@@ -46,12 +47,32 @@ int	count_lines(t_map *map)
 	return (line_count);
 }
 
+int	check_file(char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (len < 4)
+		return (0);
+	else if (ft_strncmp(file + len - 4, ".ber", 4) != 0)
+	{
+		printf("Error\nFile must be .ber\n");
+		exit(1);
+	}
+	return (1);
+}
+
 void	get_map(t_map *map) //Function ok
 {
 	int fd;
 	char *line;
 	int i;
-
+	
+	if (!check_file(map->file))
+	{
+		printf("Error\nFile must be .ber\n");
+		exit(1);
+	}
 	map->rows = count_lines(map);
 	map->matriz = malloc(sizeof(char *) * (map->rows));
 	if (!map->matriz)
@@ -67,10 +88,7 @@ void	get_map(t_map *map) //Function ok
 	}
 	i = 0;
 	while (i < map->rows)
-	{
-		map->matriz[i] = get_next_line(fd);
-		i++;
-	}
+		map->matriz[i++] = get_next_line(fd);
 	map->columns = ft_strlen(map->matriz[0]);
 	close(fd);
 }
@@ -79,21 +97,16 @@ void	get_map(t_map *map) //Function ok
 
 void call_checks(t_map *map)
 {
-	if (!check_size(map))
-	{
-		printf("Error\nMap must be rectangular\n");
-		exit(1);
-	}
+	get_map(map);
+	check_size(map);
+	
 	if (!check_wall(map))
 	{
 		printf("Error\nMap must be surrounded by walls\n");
 		exit(1);
 	}
-	if (!valid_char(map))
-	{
-		printf("Error\nMap must have valid characters\n");
-		exit(1);
-	}
+	valid_char(map);
+	
 	count_coinss(map);
 	if (map->coins == 0)
 	{
@@ -134,7 +147,10 @@ int	check_size(t_map *map) // Function ok
 		while (map->matriz[row][col] != '\0')
 			col++;
 		if (col != map->columns)
-			return (0);
+		{
+			printf("Error\nMap must be rectangular\n");
+			exit(1);
+		}
 		row++;
 	}
 	return (1);
@@ -160,10 +176,7 @@ int	check_wall(t_map *map) // Function ok
 					|| col == map->columns - 1))
 			{
 				if (map->matriz[row][col] != '1')
-				{
-					printf("Last row: %d\n", map->rows - 1);
 					return (0);
-				}
 			}
 			col++;
 		}
@@ -207,7 +220,10 @@ int	valid_char(t_map *map)
 				&& map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E'
 				&& map->matriz[row][col] != 'P'
 				&& map->matriz[row][col] != '\n')
-				return (0);
+			{
+				printf("Error\nMap must have valid characters\n");
+				exit(1);
+			}
 			col++;
 		}
 		row++;

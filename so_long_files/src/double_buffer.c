@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1.main.c                                           :+:      :+:    :+:   */
+/*   double_buffer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 12:00:47 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 18:21:56 by brunrodr         ###   ########.fr       */
+/*   Created: 2023/08/10 15:12:14 by brunrodr          #+#    #+#             */
+/*   Updated: 2023/08/10 17:23:39 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
 #include "../../my_libft/include/libft.h"
+#include "../include/so_long.h"
 
+// void *double_buffering(t_game *game)
+// {
+// 	int bits_per_pixel;
+// 	int line_length;
+// 	int endian;
 
-int main(void)
-{
-    t_game      game;
-    //t_map       map;
+// 	game->buffer = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+// 	game->addr = mlx_get_data_addr(game->buffer, &bits_per_pixel, &line_length, &endian);
 
-    //game.map = map;
-
-    game.map.file = "../maps/invalid_chars.ber";
-    init_structs(&game);
-    // get_map(&game.map);
-    call_checks(&game.map);
-    check_path(&game.map);
-    init_game(&game, &game.map);
-    load_sprites(&game, &game.map);
-    mlx_hooks(&game);
-}
+// 	return(game->buffer);
+// }

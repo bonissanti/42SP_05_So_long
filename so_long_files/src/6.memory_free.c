@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:01:48 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 13:28:53 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:59:58 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void free_map(t_map *map)
 
 void free_sprites(t_game *game)
 {
-    if (game->player.sprites.background)
-        mlx_destroy_image(game->mlx, game->player.sprites.background);
+    if (game->player.sprites.background[0])
+        mlx_destroy_image(game->mlx, game->player.sprites.background[0]);
     
     if (game->player.sprites.mario_l)
         mlx_destroy_image(game->mlx, game->player.sprites.mario_l);

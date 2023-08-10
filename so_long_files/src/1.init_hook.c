@@ -15,7 +15,7 @@ void init_structs(t_game *game)
     game->player.y = 0;
     game->player.direction_x = 0;
     game->player.direction_y = 0;
-    game->player.sprites.background = NULL;
+    game->player.sprites.background[0] = NULL;
     game->player.sprites.mario_l = NULL;
     game->player.sprites.mario_r = NULL;
     game->player.sprites.mario_u = NULL;
@@ -44,6 +44,14 @@ void init_game(t_game *game, t_map *map)
         free(game->mlx);
         exit(1);
     }
+    // game->buffer = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+    // if (!game->buffer)
+    // {
+    //     printf("Error creating buffer\n");
+    //     free(game->mlx);
+    //     free(game->window);
+    //     exit(1);
+    // }
 }
 
 void load_sprites(t_game *game, t_map *map)
@@ -52,7 +60,8 @@ void load_sprites(t_game *game, t_map *map)
     int height;
     
     map->moves = 0;
-    game->player.sprites.background = mlx_xpm_file_to_image(game->mlx, BACKGROUND, &width, &height);
+    game->player.sprites.background[0] = mlx_xpm_file_to_image(game->mlx, BACKGROUND, &width, &height);
+
     game->player.sprites.mario_r = mlx_xpm_file_to_image(game->mlx, MARIO_R1, &width, &height);
     game->player.sprites.mario_l = mlx_xpm_file_to_image(game->mlx, MARIO_L1, &width, &height);
     game->player.sprites.mario_u = mlx_xpm_file_to_image(game->mlx, MARIO_U1, &width, &height);
@@ -63,7 +72,7 @@ void load_sprites(t_game *game, t_map *map)
     game->player.sprites.coins[2] = mlx_xpm_file_to_image(game->mlx, COINS3, &width, &height);
     game->player.sprites.exit = mlx_xpm_file_to_image(game->mlx, EXIT, &width, &height);
     // game->player.sprites.victory = mlx_xpm_file_to_image(game->mlx, "./sprites/victory.xpm", &width, &height);
-    if (!game->player.sprites.background || !game->player.sprites.mario_r  || !game->player.sprites.mario_l || !game->player.sprites.mario_u || !game->player.sprites.mario_d || !game->player.sprites.wall || !game->player.sprites.coins[0] || !game->player.sprites.exit)
+    if (!game->player.sprites.background[0] || !game->player.sprites.mario_r  || !game->player.sprites.mario_l || !game->player.sprites.mario_u || !game->player.sprites.mario_d || !game->player.sprites.wall || !game->player.sprites.coins[0] || !game->player.sprites.exit)
     {
         printf("Error loading sprites\n");
         free_game(game);
@@ -82,7 +91,6 @@ void draw_mario(t_game *game, t_map *map)
     int col;
 
     row = 0;
-    // printf("%i %i\n", map->rows, map->columns);
     while (row < map->rows)
     {
         col = 0;
@@ -90,9 +98,6 @@ void draw_mario(t_game *game, t_map *map)
         {
             if (map->matriz[row][col] == 'P')
             {
-                // printf("1. Drawing Mario at x: %d, y: %d\n", game->player.x, game->player.y);
-
-
                 if (game->player.direction_x < 0)
                     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_l, game->player.x, game->player.y);
                 else if (game->player.direction_x > 0)
@@ -102,8 +107,7 @@ void draw_mario(t_game *game, t_map *map)
                 else if (game->player.direction_y > 0)
                     mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_d, game->player.x, game->player.y);
                 else
-                    mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_l, game->player.x, game->player.y);
-                // printf("2. Drawing Mario at x: %d, y: %d\n", game->player.x, game->player.y);
+                    mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.mario_r, game->player.x, game->player.y);
             }
             col++;
         }
@@ -113,7 +117,7 @@ void draw_mario(t_game *game, t_map *map)
 
 void draw_background(t_game *game, t_map *map)
 {
-    mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background, 0, 0);
+    mlx_put_image_to_window(game->mlx, game->window, game->player.sprites.background[0], 0, 0);
 }
 
 void draw_wall(t_game *game, t_map *map)
@@ -194,10 +198,13 @@ int no_event(t_game *game)
 
 int animation_loop(t_game *game)
 {
+    // game->buffer = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
     if (game->frame_counter % 150 == 0)
         game->current_coins = (game->current_coins + 1) % 3;
     game->frame_counter++;
     draw_game(game, &game->map);
+    // mlx_put_image_to_window(game->mlx, game->window, game->buffer, 0, 0);
+    // mlx_destroy_image(game->mlx, game->buffer);
     return (0);
 }
 

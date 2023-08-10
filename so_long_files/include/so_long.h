@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 11:39:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 17:29:52 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@
 
 # define EXIT "../sprites/exit.xpm"
 // # define VICTORY "./sprites/victory.xpm"
-# define BACKGROUND "../sprites/background-u.xpm"
+
+# define BACKGROUND "../sprites/background_1.xpm"
+# define BACKGROUND2 "../sprites/background_2.xpm"
+# define BACKGROUND3 "../sprites/background_3.xpm"
+# define BACKGROUND4 "../sprites/background_4.xpm"
 
 //########################## KEY CONFIG #######################################
 
@@ -96,7 +100,7 @@ typedef struct s_sprites
 	void	*coins[3];
 	void	*exit;
 	void	*victory;
-	void	*background;
+	void	*background[4];
 }			t_sprites;
 
 typedef struct s_player
@@ -143,6 +147,8 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*window;
+	void		*buffer;
+	char		*addr;
 	int			moves;
 	int			current_coins;
 	int			frame_counter;
@@ -170,6 +176,7 @@ void 	init_structs(t_game *game);
 void	init_game(t_game *game, t_map *map);
 void	load_sprites(t_game *game, t_map *map);
 void 	draw_game(t_game *game, t_map *map);
+int 	animation_loop(t_game *game);
 void 	mlx_hooks(t_game *game);
 
 
@@ -209,16 +216,16 @@ void 	free_game(t_game *game);
 
 //########################## UTILS ############################################
 
-// void 	update_game(t_game *game);
-int 	game_loop(t_game *game);
 
 void draw_exit(t_game *game, t_map *map);
 void draw_background(t_game *game, t_map *map);
 void draw_wall(t_game *game, t_map *map);
 void draw_coins(t_game *game, t_map *map);
-void draw_exit(t_game *game, t_map *map);
 void draw_mario(t_game *game, t_map *map);
 int 	check_next_position(int next_x, int next_y, t_game *game);
+
+
+void *double_buffering(t_game *game);
 
 
 
