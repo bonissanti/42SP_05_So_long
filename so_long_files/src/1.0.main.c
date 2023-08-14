@@ -17,13 +17,9 @@
 int main(void)
 {
     t_game      game;
-    //t_map       map;
-
-    //game.map = map;
 
     game.map.file = "../maps/mandatory_basic.ber";
     init_structs(&game);
-    // get_map(&game.map);
     init_map(&game.map);
     flood_fill(&game.map);
     init_game(&game, &game.map);

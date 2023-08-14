@@ -14,7 +14,7 @@ NAME 			= so_long
 
 # VPATH			= ./so_long_files/src/base ./so_long_files/src/draw
 SRCS			= $(addprefix ./so_long_files/src/base/, color.c keycode.c main.c render.c) \
-				 $(addprefix ./so_long_files/src/draw/, background.c)
+				 $(addprefix ./so_long_files/src/draw/, bg.c)
 
 OBJS			= $(SRCS:.%.c=.%.o)
 HEADER			= ./so_long/include/

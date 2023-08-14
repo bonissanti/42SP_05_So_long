@@ -143,7 +143,7 @@
 //     return (NULL);
 // }
 
-// void	count_coinss(t_map *map)
+// void	count_coins(t_map *map)
 // {
 // 	int	row;
 // 	int	col;
@@ -322,7 +322,7 @@
 //         printf("Error: Invalid map\n");
 //         return (1);
 //     }
-//     count_coinss(map);
+//     count_coins(map);
 //     if (map->coins < 1)
 //     {
 //         printf("Error coins: Invalid map\n");
@@ -343,7 +343,7 @@
 //         return (1);
 //     }
 
-//     if (flood_fill(map, map->position_y, map->position_x, '0', 'X', &map->count, map->visited))
+//     if (flood_fill(map, map->pos_y, map->pos_x, '0', 'X', &map->count, map->visited))
 //             printf("True: P can reach E and collect all C\n");
 //         else
 //             printf("False: P can't reach E or didn't collect all C\n");

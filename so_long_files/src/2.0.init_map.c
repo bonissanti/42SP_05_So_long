@@ -17,22 +17,23 @@
 #include "../../my_libft/src/get_next_line_utils.c"
 #include "../include/so_long.h"
 
+void	init_map(t_map *map);
+int		count_lines(t_map *map);
+void	get_map(t_map *map);
 
-void init_map(t_map *map)
+void	init_map(t_map *map)
 {
 	get_map(map);
 	check_players(map);
 	check_exit(map);
 	check_size(map);
-	
 	if (!check_wall(map))
 	{
 		printf("Error\nMap must be surrounded by walls\n");
 		exit(1);
 	}
 	valid_char(map);
-	
-	count_coinss(map);
+	count_coins(map);
 	if (map->coins == 0)
 	{
 		printf("Error\nMap must have at least one coins\n");
@@ -40,15 +41,13 @@ void init_map(t_map *map)
 	}
 }
 
-
-
 int	count_lines(t_map *map)
 {
-	int fd;
-	char buffer[4096];
-	int bytes_read;
-	int line_count;
-	int i;
+	int		fd;
+	char	buffer[4096];
+	int		bytes_read;
+	int		line_count;
+	int		i;
 
 	fd = open(map->file, O_RDONLY);
 	if (fd < 0)
@@ -56,33 +55,27 @@ int	count_lines(t_map *map)
 		printf("Error opening file\n");
 		exit(1);
 	}
-
 	line_count = 0;
 	while ((bytes_read = read(fd, buffer, 4096)))
 	{
 		i = 0;
 		while (i < bytes_read)
 		{
-			if (buffer[i] == '\n' || buffer[i] == '\0')
+			if (buffer[i++] == '\n' || buffer[i] == '\0')
 				line_count++;
-			i++;
 		}
 	}
 	close(fd);
 	return (line_count);
 }
 
-void	get_map(t_map *map) //Function ok
+void	get_map(t_map *map)
 {
-	int fd;
-	char *line;
-	int i;
-	
-	if (!check_file(map->file))
-	{
-		printf("Error\nFile must be .ber\n");
-		exit(1);
-	}
+	int		fd;
+	char	*line;
+	int		i;
+
+	check_file(map->file);
 	map->rows = count_lines(map);
 	map->matriz = malloc(sizeof(char *) * (map->rows));
 	if (!map->matriz)
@@ -117,8 +110,3 @@ int	check_file(char *file)
 	}
 	return (1);
 }
-
-
-
-
-

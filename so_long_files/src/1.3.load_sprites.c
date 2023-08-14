@@ -1,0 +1,99 @@
+#include "../../my_libft/include/libft.h"
+#include "../include/so_long.h"
+
+void	load_bg_sprites(t_game *game);
+void	load_mario_sprites(t_game *game);
+void	load_others_sprites(t_game *game);
+void    load_error(t_game *game);
+
+void	load_sprites(t_game *game, t_map *map)
+{
+	load_bg_sprites(game);
+	load_mario_sprites(game);
+	load_others_sprites(game);
+	if (!game->player.sprites.bg[0] || !game->player.sprites.bg[1]
+		|| !game->player.sprites.bg[2] || !game->player.sprites.bg[3]
+		|| !game->player.sprites.mario_r[0] || !game->player.sprites.mario_r[1]
+		|| !game->player.sprites.mario_r[2] || !game->player.sprites.mario_d[0]
+		|| !game->player.sprites.mario_d[1] || !game->player.sprites.mario_d[2]
+		|| !game->player.sprites.mario_l[0] || !game->player.sprites.mario_l[1]
+		|| !game->player.sprites.mario_l[2] || !game->player.sprites.mario_u[0]
+		|| !game->player.sprites.mario_u[1] || !game->player.sprites.mario_u[2]
+		|| !game->player.sprites.wall || !game->player.sprites.coins[0]
+		|| !game->player.sprites.coins[1] || !game->player.sprites.coins[2]
+		|| !game->player.sprites.exit)
+	{
+		load_error(game);
+	}
+	find_start_position(&game->map, &game->map.pos_x, &game->map.pos_y);
+	game->player.x = game->map.pos_x * SPRITE_SIZE;
+	game->player.y = game->map.pos_y * SPRITE_SIZE;
+	draw_game(game, map);
+}
+
+void	load_bg_sprites(t_game *game)
+{
+	int	width;
+	int	height;
+
+	game->player.sprites.bg[0] = mlx_xpm_file_to_image(game->mlx, BG, &width,
+			&height);
+	game->player.sprites.bg[1] = mlx_xpm_file_to_image(game->mlx, BG2, &width,
+			&height);
+	game->player.sprites.bg[2] = mlx_xpm_file_to_image(game->mlx, BG3, &width,
+			&height);
+	game->player.sprites.bg[3] = mlx_xpm_file_to_image(game->mlx, BG4, &width,
+			&height);
+}
+
+void	load_mario_sprites(t_game *game)
+{
+	game->player.sprites.mario_r[0] = mlx_xpm_file_to_image(game->mlx, MARIO_R1,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_r[1] = mlx_xpm_file_to_image(game->mlx, MARIO_R2,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_r[2] = mlx_xpm_file_to_image(game->mlx, MARIO_R3,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_l[0] = mlx_xpm_file_to_image(game->mlx, MARIO_L1,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_l[1] = mlx_xpm_file_to_image(game->mlx, MARIO_L2,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_l[2] = mlx_xpm_file_to_image(game->mlx, MARIO_L3,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_u[0] = mlx_xpm_file_to_image(game->mlx, MARIO_U1,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_u[1] = mlx_xpm_file_to_image(game->mlx, MARIO_U2,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_u[2] = mlx_xpm_file_to_image(game->mlx, MARIO_U3,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_d[0] = mlx_xpm_file_to_image(game->mlx, MARIO_D1,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_d[1] = mlx_xpm_file_to_image(game->mlx, MARIO_D2,
+			&game->sprites.width, &game->sprites.height);
+	game->player.sprites.mario_d[2] = mlx_xpm_file_to_image(game->mlx, MARIO_D3,
+			&game->sprites.width, &game->sprites.height);
+}
+
+void	load_others_sprites(t_game *game)
+{
+	int	width;
+	int	height;
+
+	game->player.sprites.wall = mlx_xpm_file_to_image(game->mlx, WALL, &width,
+			&height);
+	game->player.sprites.coins[0] = mlx_xpm_file_to_image(game->mlx, COINS,
+			&width, &height);
+	game->player.sprites.coins[1] = mlx_xpm_file_to_image(game->mlx, COINS2,
+			&width, &height);
+	game->player.sprites.coins[2] = mlx_xpm_file_to_image(game->mlx, COINS3,
+			&width, &height);
+	game->player.sprites.exit = mlx_xpm_file_to_image(game->mlx, EXIT, &width,
+			&height);
+}
+
+void	load_error(t_game *game)
+{
+	printf("Error loading sprites\n");
+	free_game(game);
+	exit(1);
+}

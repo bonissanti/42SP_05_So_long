@@ -66,10 +66,10 @@
 # define EXIT "../textures/exit.xpm"
 // # define VICTORY "./textures/victory.xpm"
 
-# define BACKGROUND "../textures/background_1.xpm"
-# define BACKGROUND2 "../textures/background_2.xpm"
-# define BACKGROUND3 "../textures/background_3.xpm"
-# define BACKGROUND4 "../textures/background_4.xpm"
+# define BG "../textures/background_1.xpm"
+# define BG2 "../textures/background_2.xpm"
+# define BG3 "../textures/background_3.xpm"
+# define BG4 "../textures/background_4.xpm"
 
 //########################## KEY CONFIG #######################################
 
@@ -114,7 +114,9 @@ typedef struct s_sprites
 	void	*coins[3];
 	void	*exit;
 	void	*victory;
-	void	*background[4];
+	void	*bg[4];
+	int		height;
+	int		width;
 }			t_sprites;
 
 typedef struct s_player
@@ -144,8 +146,8 @@ typedef struct s_map
 	int				exit_count;
 	int				empty;
 	int				wall;
-	int				position_x;
-	int 			position_y;
+	int				pos_x;
+	int 			pos_y;
 	int				target;
 	int				replacement;
 	int				count;
@@ -196,11 +198,32 @@ typedef struct s_game
 
 
 //########################## FUNCTIONS ########################################
-//########################## INIT GAME ########################################
+//########################## INIT STRUCTS #####################################
 
 void 	init_structs(t_game *game);
+void 	init_map_defaults(t_game *game);
+void 	init_player_defaults(t_player *player);
+void 	init_sprites_defaults(t_sprites *sprites);
+
+ //########################## INIT GAME ########################################
+
 void	init_game(t_game *game, t_map *map);
 void	load_sprites(t_game *game, t_map *map);
+void	load_bg_sprites(t_game *game);
+void	load_mario_sprites(t_game *game);
+void	load_others_sprites(t_game *game);
+void    load_error(t_game *game);
+
+//############################ DRAW #############################################
+
+void	draw_background(t_game *game, t_map *map);
+void	draw_exit(t_game *game, t_map *map);
+void	draw_wall(t_game *game, t_map *map);
+void	draw_coins(t_game *game, t_map *map);
+void	draw_mario(t_game *game, t_map *map);
+void 	draw_sprite(t_game *game, void *sprite, int x, int y);
+void 	set_mario_sprite(t_game *game, int direction_x, int direction_y);
+
 void 	draw_game(t_game *game, t_map *map);
 int 	animation_loop(t_game *game);
 void 	mlx_hooks(t_game *game);
@@ -209,9 +232,17 @@ void 	mlx_hooks(t_game *game);
 //########################## CONTROLS #########################################
 
 int		key_press(int keycode, t_game *game);
+void	l_key(int *next_x, int *direction_x, int *direction_y);
+void	r_key(int *next_x, int *direction_x, int *direction_y);
+void	u_key(int *next_y, int *direction_x, int *direction_y);
+void	d_key(int *next_y, int *direction_x, int *direction_y);
 int 	close_window(t_game *game);
-void	exit_game(t_game *game);
 
+//########################## CONTROLS UTILS ###################################
+
+int		check_next_position(int next_x, int next_y, t_game *game);
+int 	won_or_lost(t_game *game, char next_pos);
+void	exit_game(t_game *game);
 
 //########################## MAP ##############################################
 
@@ -223,7 +254,7 @@ void 	check_players(t_map *map);
 void 	check_exit(t_map *map);
 int 	check_size(t_map *map);
 int 	check_wall(t_map *map);
-void	count_coinss(t_map *map);
+void	count_coins(t_map *map);
 int		valid_char(t_map *map);
 
 //########################## ALGORITHM ########################################
@@ -231,7 +262,7 @@ int		valid_char(t_map *map);
 void	flood_fill(t_map *map);
 void 	fill(t_map *map, int x, int y);
 int check_path(t_map *map);
-void	find_start_position(t_map *map, int *position_x, int *position_y);
+void	find_start_position(t_map *map, int *pos_x, int *pos_y);
 char	**copy_matriz(char **original, int rows, int columns);
 int		**visited_matriz(int rows, int columns);
 
@@ -247,13 +278,6 @@ void 	free_game(t_game *game);
 
 //########################## UTILS ############################################
 
-
-void draw_exit(t_game *game, t_map *map);
-void draw_background(t_game *game, t_map *map);
-void draw_wall(t_game *game, t_map *map);
-void draw_coins(t_game *game, t_map *map);
-void draw_mario(t_game *game, t_map *map);
-int 	check_next_position(int next_x, int next_y, t_game *game);
 
 
 void *double_buffering(t_game *game);

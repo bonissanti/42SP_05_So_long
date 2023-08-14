@@ -20,7 +20,7 @@
 //Algorithm 'flood fill' to check if the 'P' is able to reach the 'E' in the map
 
 
-void count_coinss(t_map *map)
+void count_coins(t_map *map)
 {
 	int row;
 	int col;
@@ -81,7 +81,7 @@ int flood_fill(t_game *game, int x, int y, char target, char replacement, int *c
 	return (result);
 }
 
-void find_start_position(t_map *map, int *position_x, int *position_y)
+void find_start_position(t_map *map, int *pos_x, int *pos_y)
 {
 	int row;
 	int col;
@@ -94,8 +94,8 @@ void find_start_position(t_map *map, int *position_x, int *position_y)
 		{
 			if (map->matriz[row][col] == 'P')
 			{
-				*position_x = row;
-				*position_y = col;
+				*pos_x = row;
+				*pos_y = col;
 				return ;
 			}
 			col++;
@@ -224,7 +224,7 @@ int main(void)
 		return (0);
 	}
 
-	count_coinss(&game.map);
+	count_coins(&game.map);
 	game.map.c_count = 0;
 	int **visited = visited_matriz(game.map.rows, game.map.columns);
 	int result = flood_fill(&game, game.player.x, game.player.y, 'E', 'X', &game.map.c_count, visited);

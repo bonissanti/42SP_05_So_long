@@ -1,10 +1,7 @@
 #include "../../my_libft/include/libft.h"
 #include "../include/so_long.h"
 
-
-
-
-int	check_size(t_map *map) // Function ok
+int	check_size(t_map *map)
 {
 	int row;
 	int col;
@@ -26,7 +23,7 @@ int	check_size(t_map *map) // Function ok
 	return (1);
 }
 
-int	check_wall(t_map *map) // Function ok
+int	check_wall(t_map *map)
 {
 	int row;
 	int col;
@@ -53,26 +50,6 @@ int	check_wall(t_map *map) // Function ok
 		row++;
 	}
 	return (1);
-}
-
-void	count_coinss(t_map *map)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	map->coins = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (col < map->columns)
-		{
-			if (map->matriz[row][col] == 'C')
-				map->coins++;
-			col++;
-		}
-		row++;
-	}
 }
 
 void check_players(t_map *map)
@@ -127,32 +104,4 @@ void check_exit(t_map *map)
 		free_map(map);
 		exit(1);
 	}
-}
-
-
-int	valid_char(t_map *map)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < map->rows)
-	{
-		col = 0;
-		while (col < map->columns)
-		{
-			if (map->matriz[row][col] != '0' && map->matriz[row][col] != '1'
-				&& map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E'
-				&& map->matriz[row][col] != 'P'
-				&& map->matriz[row][col] != '\n')
-			{
-				printf("Error\nMap must have valid characters\n");
-				free_map(map);
-				exit(1);
-			}
-			col++;
-		}
-		row++;
-	}
-	return (1);
 }

@@ -1,5 +1,5 @@
 /* XPM */
-static char * background_2_xpm[] = {
+static char * bg_2_xpm[] = {
 "920 780 4984 2",
 "  	c #0060B8",
 ". 	c #165BB5",
