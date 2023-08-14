@@ -30,25 +30,25 @@ int key_press(int keycode, t_game *game)
 
     if (keycode == KEY_A || keycode == KEY_LEFT)
     {
-        next_x -= 5;
+        next_x -= 46;
         game->player.direction_x = -1;
         game->player.direction_y = 0;
     }
     else if (keycode == KEY_D || keycode == KEY_RIGHT)
     {
-        next_x += 5;
+        next_x += 46;
         game->player.direction_x = 1;
         game->player.direction_y = 0;
     }
     else if (keycode == KEY_W || keycode == KEY_UP)
     {
-        next_y -= 5;
+        next_y -= 46;
         game->player.direction_x = 0;
         game->player.direction_y = -1;
     }
     else if (keycode == KEY_S || keycode == KEY_DOWN)
     {
-        next_y += 5;
+        next_y += 46;
         game->player.direction_x = 0;
         game->player.direction_y = 1;
     }
@@ -88,6 +88,7 @@ int check_next_position(int next_x, int next_y, t_game *game)
         if (game->map.c_count == 0)
         {
             printf("You win!\n");
+            free_game(game);
             exit(EXIT_SUCCESS);
         }
         else

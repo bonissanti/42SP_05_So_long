@@ -39,23 +39,37 @@
 
 //########################### SPRITES #########################################
 
-# define MARIO_R1 "../sprites/mario_r1.xpm"
-# define MARIO_U1 "../sprites/mario_u1.xpm"
-# define MARIO_D1 "../sprites/mario_d1.xpm"
-# define MARIO_L1 "../sprites/mario_l1.xpm"
-# define WALL "../sprites/wall.xpm"
+# define MARIO_R1 "../textures/mario_r1.xpm"
+# define MARIO_R2 "../textures/mario_r2.xpm"
+# define MARIO_R3 "../textures/mario_r3.xpm"
 
-# define COINS "../sprites/coins_1.xpm"
-# define COINS2 "../sprites/coins_2.xpm"
-# define COINS3 "../sprites/coins_3.xpm"
+# define MARIO_U1 "../textures/mario_u1.xpm"
+# define MARIO_U2 "../textures/mario_u2.xpm"
+# define MARIO_U3 "../textures/mario_u3.xpm"
 
-# define EXIT "../sprites/exit.xpm"
-// # define VICTORY "./sprites/victory.xpm"
+# define MARIO_D1 "../textures/mario_d1.xpm"
+# define MARIO_D2 "../textures/mario_d2.xpm"
+# define MARIO_D3 "../textures/mario_d3.xpm"
 
-# define BACKGROUND "../sprites/background_1.xpm"
-# define BACKGROUND2 "../sprites/background_2.xpm"
-# define BACKGROUND3 "../sprites/background_3.xpm"
-# define BACKGROUND4 "../sprites/background_4.xpm"
+
+# define MARIO_L1 "../textures/mario_l1.xpm"
+# define MARIO_L2 "../textures/mario_l2.xpm"
+# define MARIO_L3 "../textures/mario_l3.xpm"
+
+
+# define WALL "../textures/wall.xpm"
+
+# define COINS "../textures/coins_1.xpm"
+# define COINS2 "../textures/coins_2.xpm"
+# define COINS3 "../textures/coins_3.xpm"
+
+# define EXIT "../textures/exit.xpm"
+// # define VICTORY "./textures/victory.xpm"
+
+# define BACKGROUND "../textures/background_1.xpm"
+# define BACKGROUND2 "../textures/background_2.xpm"
+# define BACKGROUND3 "../textures/background_3.xpm"
+# define BACKGROUND4 "../textures/background_4.xpm"
 
 //########################## KEY CONFIG #######################################
 
@@ -92,10 +106,10 @@
 
 typedef struct s_sprites
 {
-	void	*mario_l;
-	void	*mario_r;
-	void	*mario_u;
-	void	*mario_d;
+	void	*mario_l[3];
+	void	*mario_r[3];
+	void	*mario_u[3];
+	void	*mario_d[3];
 	void	*wall;
 	void	*coins[3];
 	void	*exit;
@@ -114,13 +128,6 @@ typedef struct s_player
 
 }		t_player;
 
-typedef enum e_state
-{
-	PLAYING,
-	VICTORY,
-	DEFEAT
-}			t_state;
-
 
 typedef struct s_map
 {
@@ -129,10 +136,12 @@ typedef struct s_map
     char			*file;
 	int				rows;
 	int				columns;
+	int				**visited;
 	int				player;
 	int				coins;
 	int				c_count;
 	int				exit;
+	int				exit_count;
 	int				empty;
 	int				wall;
 	int				position_x;
@@ -140,8 +149,15 @@ typedef struct s_map
 	int				target;
 	int				replacement;
 	int				count;
-	int				**visited;
 }					t_map;
+
+typedef struct s_animation
+{
+	void **sprites;
+	int current_sprite;
+	int frame_counter;
+	int frame_rate;
+} t_animation;
 
 typedef struct s_game
 {
@@ -152,9 +168,19 @@ typedef struct s_game
 	int			moves;
 	int			current_coins;
 	int			frame_counter;
+	int			current_bg;
+	int			frame_bg;
+	int			current_mario_l;
+	int			frame_mario_l;
+	int			current_mario_r;
+	int			frame_mario_r;
+	int			current_mario_u;
+	int			frame_mario_u;
+	int			current_mario_d;
+	int			frame_mario_d;
 	t_map		map;
 	t_player	player;
-	t_state		state;
+	// t_state		state;
 	t_sprites	sprites;
 }				t_game;
 
@@ -189,9 +215,12 @@ void	exit_game(t_game *game);
 
 //########################## MAP ##############################################
 
-int		count_lines(t_map *map);
+void 	init_map(t_map *map);
 void 	get_map(t_map *map);
-void 	call_checks(t_map *map);
+int		count_lines(t_map *map);
+int		check_file(char *file);
+void 	check_players(t_map *map);
+void 	check_exit(t_map *map);
 int 	check_size(t_map *map);
 int 	check_wall(t_map *map);
 void	count_coinss(t_map *map);
@@ -199,11 +228,13 @@ int		valid_char(t_map *map);
 
 //########################## ALGORITHM ########################################
 
-void 	check_path(t_map *map);
-int		flood_fill(t_map *map, int x, int y);
+void	flood_fill(t_map *map);
+void 	fill(t_map *map, int x, int y);
+int check_path(t_map *map);
 void	find_start_position(t_map *map, int *position_x, int *position_y);
 char	**copy_matriz(char **original, int rows, int columns);
 int		**visited_matriz(int rows, int columns);
+
 
 
 //########################## MEMORY ###########################################
@@ -226,6 +257,8 @@ int 	check_next_position(int next_x, int next_y, t_game *game);
 
 
 void *double_buffering(t_game *game);
+int is_valid_char(char c);
+void print_map(t_map map);
 
 
 
