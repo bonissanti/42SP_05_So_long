@@ -13,11 +13,17 @@
 #include "../include/so_long.h"
 #include "../../my_libft/include/libft.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
     t_game      game;
 
-    game.map.file = "../maps/mandatory_basic.ber";
+    game.map.file = argv[1];
+    if (argc != 2)
+    {
+        printf("Error\nWrong number of arguments\n");
+        return (1);
+    }
+
     init_structs(&game);
     init_map(&game.map);
     flood_fill(&game.map);

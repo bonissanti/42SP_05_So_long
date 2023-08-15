@@ -16,11 +16,6 @@
 void	flood_fill(t_map *map)
 {
 	find_start_position(map, &map->pos_x, &map->pos_y);
-	if (map->pos_x == -1 || map->pos_y == -1)
-	{
-		printf("Error\nMap must have one player\n");
-		exit(1);
-	}
 	map->c_count = 0;
 	map->visited = visited_matriz(map->rows, map->columns);
 	fill(map, map->pos_x, map->pos_y);
@@ -79,20 +74,22 @@ int	**visited_matriz(int rows, int columns)
 void	fill(t_map *map, int x, int y)
 {
 	if (x < 0 || x >= map->rows || y < 0 || y >= map->columns
-		|| (map->visited[x][y] != 0 && map->visited[x][y] != 'P'
-			&& map->visited[x][y] != 'E' && map->visited[x][y] != 'C'))
+		|| map->visited[x][y] == 1 || map->matriz[x][y] == '1' || map->matriz[x][y] == 'X')
 		return ;
+
 	map->visited[x][y] = 1;
+
 	fill(map, x + 1, y);
 	fill(map, x - 1, y);
 	fill(map, x, y + 1);
 	fill(map, x, y - 1);
 }
 
-int	check_path(t_map *map)
+
+void	check_path(t_map *map)
 {
-	int	row;
-	int	col;
+	int row;
+	int col;
 
 	row = 0;
 	while (row < map->rows)
@@ -102,17 +99,41 @@ int	check_path(t_map *map)
 		{
 			if ((map->matriz[row][col] == 'E' || map->matriz[row][col] == 'C')
 				&& map->visited[row][col] == 0)
-			{
-				printf("Error\nMap must have a path from P to all C and E\n");
-				free_matriz(map->visited, map->rows);
-				exit(1);
-			}
+				cleanup_and_exit(map, 1);
+			
 			if (map->matriz[row][col] == 'C' && map->visited[row][col] == 1)
 				map->c_count++;
 			col++;
 		}
 		row++;
 	}
-	free_matriz(map->visited, map->rows);
-	return (1);
+	cleanup_and_exit(map, 0);
+}
+
+int cleanup_and_exit(t_map *map, int flag)
+{
+	int row;
+
+	row = 0;
+	if (flag == 1)
+	{
+		printf("Error\nMap must have a path from P to all C and E\n");
+		while (row < map->rows)
+		{
+			free(map->visited[row]);
+			row++;
+		}
+		free(map->visited);
+		exit(1);
+	}
+	else
+	{
+		while (row < map->rows)
+		{
+			free(map->visited[row]);
+			row++;
+		}
+		free(map->visited);
+		return (0);
+	}
 }

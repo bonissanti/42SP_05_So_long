@@ -241,12 +241,15 @@ int					valid_char(t_map *map);
 
 //########################## ALGORITHM ########################################
 
+// void print_map(t_map *map, int x, int y);
+
 void				flood_fill(t_map *map);
 void				fill(t_map *map, int x, int y);
-int					check_path(t_map *map);
+void	check_path(t_map *map);
 void				find_start_position(t_map *map, int *pos_x, int *pos_y);
 char				**copy_matriz(char **original, int rows, int columns);
 int					**visited_matriz(int rows, int columns);
+int cleanup_and_exit(t_map *map, int flag);
 
 //########################## MEMORY ###########################################
 
@@ -255,5 +258,6 @@ void				free_matriz(int **visited, int rows);
 void				free_sprites(t_game *game);
 void				free_player_sprites(t_game *game);
 void				free_game(t_game *game);
+
 
 #endif

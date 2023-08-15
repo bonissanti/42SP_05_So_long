@@ -24,20 +24,22 @@ void	get_map(t_map *map);
 void	init_map(t_map *map)
 {
 	get_map(map);
-	valid_char(map);
-	check_wall(map);
-	check_size(map);
-	check_players(map);
-	check_exit(map);
 	if (!check_wall(map))
 	{
 		printf("Error\nMap must be surrounded by walls\n");
+		free_map(map);
 		exit(1);
 	}
+	check_size(map);
+	valid_char(map);
+	check_players(map);
+	check_exit(map);
+	
 	count_coins(map);
 	if (map->coins == 0)
 	{
 		printf("Error\nMap must have at least one coins\n");
+		free_map(map);
 		exit(1);
 	}
 }
@@ -50,6 +52,7 @@ int	count_lines(t_map *map)
 	int		line_count;
 	int		i;
 
+	bytes_read = 0;
 	fd = open(map->file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -119,6 +122,11 @@ int	check_file(char *file)
 	int	len;
 
 	len = ft_strlen(file);
+	if (file == NULL)
+	{
+		printf("Error\nNo file\n");
+		exit(1);
+	}
 	if (len < 4)
 		return (0);
 	else if (ft_strncmp(file + len - 4, ".ber", 4) != 0)
