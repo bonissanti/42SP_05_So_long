@@ -38,6 +38,8 @@ int	check_next_position(int next_x, int next_y, t_game *game)
 	if (next_x < 0 || next_x >= game->map.columns * SPRITE_SIZE || next_y < 0
 		|| next_y >= game->map.rows * SPRITE_SIZE)
 		return (0);
+	game->map.moves += 1;
+	printf("Moves: %d\n", game->map.moves);
 	next_pos = game->map.matriz[next_y / SPRITE_SIZE][next_x / SPRITE_SIZE];
 	if (next_pos == '1')
 	{
@@ -73,6 +75,7 @@ int won_or_lost(t_game *game, char next_pos)
 	else if (next_pos == 'X')
 	{
 		printf("You hit an enemy! Game over.\n");
+		free_game(game);
 		exit(EXIT_FAILURE);
 	}
 	return (1);

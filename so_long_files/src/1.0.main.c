@@ -13,7 +13,6 @@
 #include "../include/so_long.h"
 #include "../../my_libft/include/libft.h"
 
-
 int main(void)
 {
     t_game      game;

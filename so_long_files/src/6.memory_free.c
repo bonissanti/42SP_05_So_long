@@ -39,50 +39,57 @@ void	free_map(t_map *map)
 	free(map->matriz);
 }
 
+void free_player_sprites(t_game *game)
+{
+	if (game->sprites.mario_l[0])
+		mlx_destroy_image(game->mlx, game->sprites.mario_l[0]);
+	if (game->sprites.mario_l[1])
+		mlx_destroy_image(game->mlx, game->sprites.mario_l[1]);
+	if (game->sprites.mario_l[2])
+		mlx_destroy_image(game->mlx, game->sprites.mario_l[2]);
+	if (game->sprites.mario_r[0])
+		mlx_destroy_image(game->mlx, game->sprites.mario_r[0]);
+	if (game->sprites.mario_r[1])
+		mlx_destroy_image(game->mlx, game->sprites.mario_r[1]);
+	if (game->sprites.mario_r[2])
+		mlx_destroy_image(game->mlx, game->sprites.mario_r[2]);
+	if (game->sprites.mario_u[0])
+		mlx_destroy_image(game->mlx, game->sprites.mario_u[0]);
+	if (game->sprites.mario_u[1])
+		mlx_destroy_image(game->mlx, game->sprites.mario_u[1]);
+	if (game->sprites.mario_u[2])
+		mlx_destroy_image(game->mlx, game->sprites.mario_u[2]);
+	if (game->sprites.mario_d[0])
+		mlx_destroy_image(game->mlx, game->sprites.mario_d[0]);
+	if (game->sprites.mario_d[1])
+		mlx_destroy_image(game->mlx, game->sprites.mario_d[1]);
+	if (game->sprites.mario_d[2])
+		mlx_destroy_image(game->mlx, game->sprites.mario_d[2]);
+}
+
 void	free_sprites(t_game *game)
 {
-	if (game->player.sprites.bg[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.bg[0]);
-	if (game->player.sprites.bg[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.bg[1]);
-	if (game->player.sprites.bg[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.bg[2]);
-	if (game->player.sprites.bg[3])
-		mlx_destroy_image(game->mlx, game->player.sprites.bg[3]);
-	if (game->player.sprites.mario_l[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_l[0]);
-	if (game->player.sprites.mario_l[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_l[1]);
-	if (game->player.sprites.mario_l[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_l[2]);
-	if (game->player.sprites.mario_r[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_r[0]);
-	if (game->player.sprites.mario_r[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_r[1]);
-	if (game->player.sprites.mario_r[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_r[2]);
-	if (game->player.sprites.mario_u[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_u[0]);
-	if (game->player.sprites.mario_u[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_u[1]);
-	if (game->player.sprites.mario_u[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_u[2]);
-	if (game->player.sprites.mario_d[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_d[0]);
-	if (game->player.sprites.mario_d[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_d[1]);
-	if (game->player.sprites.mario_d[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.mario_d[2]);
-	if (game->player.sprites.wall)
-		mlx_destroy_image(game->mlx, game->player.sprites.wall);
-	if (game->player.sprites.exit)
-		mlx_destroy_image(game->mlx, game->player.sprites.exit);
-	if (game->player.sprites.coins[0])
-		mlx_destroy_image(game->mlx, game->player.sprites.coins[0]);
-	if (game->player.sprites.coins[1])
-		mlx_destroy_image(game->mlx, game->player.sprites.coins[1]);
-	if (game->player.sprites.coins[2])
-		mlx_destroy_image(game->mlx, game->player.sprites.coins[2]);
+	if (game->sprites.bg[0])
+		mlx_destroy_image(game->mlx, game->sprites.bg[0]);
+	if (game->sprites.bg[1])
+		mlx_destroy_image(game->mlx, game->sprites.bg[1]);
+	if (game->sprites.bg[2])
+		mlx_destroy_image(game->mlx, game->sprites.bg[2]);
+	if (game->sprites.bg[3])
+		mlx_destroy_image(game->mlx, game->sprites.bg[3]);
+	if (game->sprites.wall)
+		mlx_destroy_image(game->mlx, game->sprites.wall);
+	if (game->sprites.exit)
+		mlx_destroy_image(game->mlx, game->sprites.exit);
+	if (game->sprites.coins[0])
+		mlx_destroy_image(game->mlx, game->sprites.coins[0]);
+	if (game->sprites.coins[1])
+		mlx_destroy_image(game->mlx, game->sprites.coins[1]);
+	if (game->sprites.coins[2])
+		mlx_destroy_image(game->mlx, game->sprites.coins[2]);
+	if (game->sprites.enemy)
+		mlx_destroy_image(game->mlx, game->sprites.enemy);
+	free_player_sprites(game);
 }
 
 void	free_game(t_game *game)

@@ -2,7 +2,7 @@
 #include "../include/so_long.h"
 
 void	draw_background(t_game *game, t_map *map);
-void	draw_exit(t_game *game, t_map *map);
+void	draw_exit_enemy(t_game *game, t_map *map);
 void	draw_wall(t_game *game, t_map *map);
 void	draw_coins(t_game *game, t_map *map);
 void	draw_mario(t_game *game, t_map *map);
@@ -10,7 +10,7 @@ void	draw_mario(t_game *game, t_map *map);
 void	draw_background(t_game *game, t_map *map)
 {
 	mlx_put_image_to_window(game->mlx, game->window,
-			game->player.sprites.bg[game->current_bg], 0, 0);
+			game->sprites.bg[game->current_bg], 0, 0);
 }
 
 void	draw_mario(t_game *game, t_map *map)
@@ -45,7 +45,7 @@ void	draw_wall(t_game *game, t_map *map)
 		while (col < map->columns)
 		{
 			if (map->matriz[row][col] == '1')
-				draw_sprite(game, game->player.sprites.wall, col * SPRITE_SIZE,
+				draw_sprite(game, game->sprites.wall, col * SPRITE_SIZE,
                         row * SPRITE_SIZE);
 			col++;
 		}
@@ -65,7 +65,7 @@ void	draw_coins(t_game *game, t_map *map)
 		while (col < map->columns)
 		{
 			if (map->matriz[row][col] == 'C')
-				draw_sprite(game, game->player.sprites.coins[game->current_coins],
+				draw_sprite(game, game->sprites.coins[game->current_coins],
                         col * SPRITE_SIZE, row * SPRITE_SIZE);
 			col++;
 		}
@@ -73,7 +73,7 @@ void	draw_coins(t_game *game, t_map *map)
 	}
 }
 
-void	draw_exit(t_game *game, t_map *map)
+void	draw_exit_enemy(t_game *game, t_map *map)
 {
 	int	row;
 	int	col;
@@ -85,8 +85,11 @@ void	draw_exit(t_game *game, t_map *map)
 		while (col < map->columns)
 		{
 			if (map->matriz[row][col] == 'E')
-				draw_sprite(game, game->player.sprites.exit, col * SPRITE_SIZE,
+				draw_sprite(game, game->sprites.exit, col * SPRITE_SIZE,
                         row * SPRITE_SIZE);
+			else if (map->matriz[row][col] == 'X')
+				draw_sprite(game, game->sprites.enemy, col * SPRITE_SIZE,
+						row * SPRITE_SIZE);
 			col++;
 		}
 		row++;

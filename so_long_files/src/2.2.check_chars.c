@@ -34,7 +34,7 @@ int	valid_char(t_map *map)
 		{
 			if (map->matriz[row][col] != '0' && map->matriz[row][col] != '1'
 				&& map->matriz[row][col] != 'C' && map->matriz[row][col] != 'E'
-				&& map->matriz[row][col] != 'P'
+				&& map->matriz[row][col] != 'P' && map->matriz[row][col] != 'X'
 				&& map->matriz[row][col] != '\n')
 			{
 				printf("Error\nMap must have valid characters\n");

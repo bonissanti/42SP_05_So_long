@@ -10,15 +10,15 @@ void set_mario_sprite(t_game *game, int direction_x, int direction_y)
     void *sprite;
 
     if (game->player.direction_x < 0)
-        sprite = game->player.sprites.mario_l[game->current_mario_l];
+        sprite = game->sprites.mario_l[game->current_mario_l];
 	else if (game->player.direction_x > 0)
-        sprite = game->player.sprites.mario_r[game->current_mario_r];
+        sprite = game->sprites.mario_r[game->current_mario_r];
 	else if (game->player.direction_y < 0)
-        sprite = game->player.sprites.mario_u[game->current_mario_u];
+        sprite = game->sprites.mario_u[game->current_mario_u];
 	else if (game->player.direction_y > 0)
-        sprite = game->player.sprites.mario_d[game->current_mario_d];
+        sprite = game->sprites.mario_d[game->current_mario_d];
 	else
-        sprite = game->player.sprites.mario_r[game->current_mario_r];
+        sprite = game->sprites.mario_r[game->current_mario_r];
     draw_sprite(game, sprite, game->player.x, game->player.y);
 }
 
@@ -31,7 +31,7 @@ void	draw_game(t_game *game, t_map *map)
 {
 	mlx_clear_window(game->mlx, game->window);
 	draw_background(game, map);
-	draw_exit(game, map);
+	draw_exit_enemy(game, map);
 	draw_wall(game, map);
 	draw_coins(game, map);
 	draw_mario(game, map);

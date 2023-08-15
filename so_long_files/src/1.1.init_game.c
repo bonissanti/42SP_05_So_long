@@ -7,8 +7,8 @@ void	init_game(t_game *game, t_map *map);
 void	init_structs(t_game *game)
 {
 	init_map_defaults(game);
-	init_player_defaults(&game->player);
-	init_sprites_defaults(&game->player.sprites);
+	init_sprites_defaults(&game->sprites);
+	init_player_defaults(&game->player, &game->sprites);
 }
 
 void	init_game(t_game *game, t_map *map)

@@ -24,15 +24,16 @@ void	get_map(t_map *map);
 void	init_map(t_map *map)
 {
 	get_map(map);
+	valid_char(map);
+	check_wall(map);
+	check_size(map);
 	check_players(map);
 	check_exit(map);
-	check_size(map);
 	if (!check_wall(map))
 	{
 		printf("Error\nMap must be surrounded by walls\n");
 		exit(1);
 	}
-	valid_char(map);
 	count_coins(map);
 	if (map->coins == 0)
 	{
@@ -61,8 +62,9 @@ int	count_lines(t_map *map)
 		i = 0;
 		while (i < bytes_read)
 		{
-			if (buffer[i++] == '\n' || buffer[i] == '\0')
+			if (buffer[i] == '\n' || buffer[i] == '\0')
 				line_count++;
+			i++;
 		}
 	}
 	close(fd);
@@ -87,11 +89,27 @@ void	get_map(t_map *map)
 	if (fd < 0)
 	{
 		printf("Error opening file\n");
+		free_map(map);
 		exit(1);
 	}
 	i = 0;
 	while (i < map->rows)
-		map->matriz[i++] = get_next_line(fd);
+	{
+		map->matriz[i] = get_next_line(fd);
+		if (map->matriz[i] == NULL)
+		{
+			printf("Error\nMap cannot be empty\n");
+			free_map(map);
+			exit(1);
+		}
+		i++;
+	}
+	if (map->matriz[0] == NULL)
+	{
+		printf("Error\nMap cannot be empty\n");
+		free_map(map);
+		exit(1);
+	}
 	map->columns = ft_strlen(map->matriz[0]);
 	close(fd);
 }
