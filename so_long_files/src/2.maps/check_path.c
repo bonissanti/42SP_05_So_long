@@ -74,22 +74,20 @@ int	**visited_matriz(int rows, int columns)
 void	fill(t_map *map, int x, int y)
 {
 	if (x < 0 || x >= map->rows || y < 0 || y >= map->columns
-		|| map->visited[x][y] == 1 || map->matriz[x][y] == '1' || map->matriz[x][y] == 'X')
+		|| map->visited[x][y] == 1 || map->matriz[x][y] == '1'
+		|| map->matriz[x][y] == 'X')
 		return ;
-
 	map->visited[x][y] = 1;
-
 	fill(map, x + 1, y);
 	fill(map, x - 1, y);
 	fill(map, x, y + 1);
 	fill(map, x, y - 1);
 }
 
-
 void	check_path(t_map *map)
 {
-	int row;
-	int col;
+	int	row;
+	int	col;
 
 	row = 0;
 	while (row < map->rows)
@@ -100,7 +98,6 @@ void	check_path(t_map *map)
 			if ((map->matriz[row][col] == 'E' || map->matriz[row][col] == 'C')
 				&& map->visited[row][col] == 0)
 				cleanup_and_exit(map, 1);
-			
 			if (map->matriz[row][col] == 'C' && map->visited[row][col] == 1)
 				map->c_count++;
 			col++;
@@ -110,9 +107,9 @@ void	check_path(t_map *map)
 	cleanup_and_exit(map, 0);
 }
 
-int cleanup_and_exit(t_map *map, int flag)
+int	cleanup_and_exit(t_map *map, int flag)
 {
-	int row;
+	int	row;
 
 	row = 0;
 	if (flag == 1)
