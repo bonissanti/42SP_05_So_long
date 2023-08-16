@@ -10,8 +10,8 @@ int	key_press(int keycode, t_game *game)
 	int	next_x;
 	int	next_y;
 
-	next_x = game->player.x;
-	next_y = game->player.y;
+	next_x = game->object->x;
+	next_y = game->object->y;
 	if (keycode == KEY_ESC)
         close_window(game);
 	if (keycode == KEY_A || keycode == KEY_LEFT)
@@ -24,8 +24,8 @@ int	key_press(int keycode, t_game *game)
         d_key(&next_y, &game->player.direction_x, &game->player.direction_y);
 	if (check_next_position(next_x, next_y, game))
 	{
-		game->player.x = next_x;
-		game->player.y = next_y;
+		game->object->x = next_x;
+		game->object->y = next_y;
 	}
 	draw_game(game, &game->map);
 	return (0);

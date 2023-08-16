@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 17:29:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:29:43 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,29 @@ typedef struct s_sprites
 	void			*exit;
 	void			*enemy;
 	void			*bg[4];
-	int				height;
-	int				width;
 }					t_sprites;
+
+
+typedef struct s_object	t_object;
+struct s_object
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+};
+
+typedef struct s_buffer
+{
+	void			*buffer;
+	char			*buffer_addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	
+	
+}				t_buffer;
+
 
 typedef struct s_player
 {
@@ -147,20 +167,11 @@ typedef struct s_map
 	int				count;
 }					t_map;
 
-typedef struct s_animation
-{
-	void			**sprites;
-	int				current_sprite;
-	int				frame_counter;
-	int				frame_rate;
-}					t_animation;
 
 typedef struct s_game
 {
 	void			*mlx;
 	void			*window;
-	void			*buffer;
-	char			*addr;
 	int				moves;
 	int				current_coins;
 	int				frame_counter;
@@ -177,7 +188,19 @@ typedef struct s_game
 	t_map			map;
 	t_player		player;
 	t_sprites		sprites;
+	t_object		object[5];
+	t_buffer		*buffer;
 }					t_game;
+
+typedef struct s_pixel	t_pixel;
+struct s_pixel{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+};
+
+
 
 //########################## FUNCTIONS ########################################
 //########################## INIT STRUCTS #####################################
@@ -186,6 +209,10 @@ void				init_structs(t_game *game);
 void				init_map_defaults(t_game *game);
 void				init_sprites_defaults(t_sprites *sprites);
 void				init_player_defaults(t_player *player, t_sprites *sprites);
+
+//########################## OBJECTS ##########################################
+
+void				object_set(t_object *object, int x, int y, int widht, int height);
 
 //########################## INIT GAME ########################################
 
@@ -203,7 +230,7 @@ void				draw_exit_enemy(t_game *game, t_map *map);
 void				draw_wall(t_game *game, t_map *map);
 void				draw_coins(t_game *game, t_map *map);
 void				draw_mario(t_game *game, t_map *map);
-void				draw_sprite(t_game *game, void *sprite, int x, int y);
+void				draw_sprite(t_game *game, void *sprite, t_object *obj);
 void				set_mario_sprite(t_game *game, int direction_x,
 						int direction_y);
 
@@ -250,6 +277,11 @@ void				find_start_position(t_map *map, int *pos_x, int *pos_y);
 char				**copy_matriz(char **original, int rows, int columns);
 int					**visited_matriz(int rows, int columns);
 int cleanup_and_exit(t_map *map, int flag);
+
+//########################## BUFFER ###########################################
+
+t_buffer *create_buffer(void *mlx, int width, int height);
+t_buffer	*load_buffer(void *mlx, char *path, int *width, int *height);
 
 //########################## MEMORY ###########################################
 

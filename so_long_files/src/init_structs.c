@@ -7,6 +7,8 @@ void	init_player_defaults(t_player *player, t_sprites *sprites);
 
 void	init_map_defaults(t_game *game)
 {
+	int	i;
+
 	game->map.rows = 0;
 	game->map.columns = 0;
 	game->map.matriz = NULL;
@@ -25,6 +27,9 @@ void	init_map_defaults(t_game *game)
 	game->current_mario_r = 0;
 	game->current_mario_u = 0;
 	game->current_mario_d = 0;
+	i = -1;
+	while (++i < 5)
+		object_set(&game->object[i], 0, 0, 0, 0);
 }
 
 void	init_player_defaults(t_player *player, t_sprites *sprites)
@@ -58,6 +63,5 @@ void	init_sprites_defaults(t_sprites *sprites)
 	sprites->coins[1] = NULL;
 	sprites->coins[2] = NULL;
 	sprites->exit = NULL;
-	sprites->height = 0;
-	sprites->width = 0;
 }
+
