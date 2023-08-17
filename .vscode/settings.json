@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "array": "c"
+        "array": "c",
+        "so_long.h": "c",
+        "libft.h": "c"
     }
 }
