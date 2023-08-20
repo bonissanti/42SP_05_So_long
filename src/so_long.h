@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 17:29:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:24:39 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+<<<<<<< HEAD
+=======
+#include "../my_libft/include/libft.h"
+
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 //########################### WINDOW CONFIG ###################################
 
 # define WIN_TITLE "Super Mario World - 42 edition"
@@ -34,6 +39,7 @@
 
 //########################### SPRITES #########################################
 
+<<<<<<< HEAD
 # define MARIO_R1 "./textures/mario_r1.xpm"
 # define MARIO_R2 "./textures/mario_r2.xpm"
 # define MARIO_R3 "./textures/mario_r3.xpm"
@@ -63,6 +69,37 @@
 # define BG2 "./textures/background_2.xpm"
 # define BG3 "./textures/background_3.xpm"
 # define BG4 "./textures/background_4.xpm"
+=======
+# define MARIO_R1 "textures/mario_r1.xpm"
+# define MARIO_R2 "textures/mario_r2.xpm"
+# define MARIO_R3 "textures/mario_r3.xpm"
+
+# define MARIO_U1 "textures/mario_u1.xpm"
+# define MARIO_U2 "textures/mario_u2.xpm"
+# define MARIO_U3 "textures/mario_u3.xpm"
+
+# define MARIO_D1 "textures/mario_d1.xpm"
+# define MARIO_D2 "textures/mario_d2.xpm"
+# define MARIO_D3 "textures/mario_d3.xpm"
+
+# define MARIO_L1 "textures/mario_l1.xpm"
+# define MARIO_L2 "textures/mario_l2.xpm"
+# define MARIO_L3 "textures/mario_l3.xpm"
+
+# define WALL "textures/wall.xpm"
+
+# define COINS "textures/coins_1.xpm"
+# define COINS2 "textures/coins_2.xpm"
+# define COINS3 "textures/coins_3.xpm"
+
+# define EXIT "textures/exit.xpm"
+#define ENEMY "textures/enemy.xpm"
+
+# define BG "textures/background_1.xpm"
+# define BG2 "textures/background_2.xpm"
+# define BG3 "textures/background_3.xpm"
+# define BG4 "textures/background_4.xpm"
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 
 //########################## KEY CONFIG #######################################
 
@@ -90,9 +127,24 @@ typedef struct s_sprites
 	void			*exit;
 	void			*enemy;
 	void			*bg[4];
-	int				height;
-	int				width;
 }					t_sprites;
+
+typedef struct s_object	
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+}					t_object;
+
+typedef struct s_buffer
+{
+	void			*buffer;
+	char			*buffer_addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;	
+}				t_buffer;
 
 typedef struct s_player
 {
@@ -101,8 +153,12 @@ typedef struct s_player
 	int				direction_x;
 	int				direction_y;
 	int				player_idle;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 }					t_player;
+
 
 typedef struct s_map
 {
@@ -126,6 +182,7 @@ typedef struct s_map
 	int				count;
 }					t_map;
 
+<<<<<<< HEAD
 typedef enum e_bool
 {
 	is_false,
@@ -140,13 +197,19 @@ typedef struct s_object
 	int				y;
 	t_bool			is_collected;
 }					t_object;
+=======
+
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 
 typedef struct s_game
 {
 	void			*mlx;
 	void			*window;
+<<<<<<< HEAD
 	int				num_obj;
 	int				max_obj;
+=======
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 	int				moves;
 	int				coin_frame;
 	int				coin_frame_counter;
@@ -160,8 +223,25 @@ typedef struct s_game
 	t_map			map;
 	t_player		player;
 	t_sprites		sprites;
+<<<<<<< HEAD
 	t_object		*objects;
+=======
+	t_object		object[5];
+	t_buffer		*buffer;
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 }					t_game;
+
+
+
+typedef struct s_pixel	
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+}					t_pixel;
+
+
 
 //########################## FUNCTIONS ########################################
 //########################## INIT STRUCTS #####################################
@@ -170,6 +250,10 @@ void				init_structs(t_game *game);
 void				init_map_defaults(t_game *game);
 void				init_sprites_defaults(t_sprites *sprites);
 void				init_player_defaults(t_player *player, t_sprites *sprites);
+
+//########################## OBJECTS ##########################################
+
+void				object_set(t_object *object, int x, int y, int widht, int height);
 
 //########################## INIT GAME ########################################
 
@@ -180,7 +264,18 @@ void				load_mario_sprites(t_game *game);
 void				load_others_sprites(t_game *game);
 void				load_error(t_game *game);
 
+<<<<<<< HEAD
 //############################ DRAW ############################################
+=======
+//########################## BUFFER ###########################################
+
+t_buffer *create_buffer(void *mlx, int width, int height);
+t_buffer	*load_buffer(void *mlx, char *path, int *width, int *height);
+void	object_set(t_object *object, int x, int y, int width, int height);
+
+
+//############################ DRAW #############################################
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 
 void				draw_background(t_game *game);
 ;
@@ -188,7 +283,11 @@ void				draw_exit_enemy(t_game *game, t_map *map);
 void				draw_wall(t_game *game, t_map *map);
 void				draw_coins(t_game *game, t_map *map);
 void				draw_mario(t_game *game, t_map *map);
+<<<<<<< HEAD
 void				draw_sprite(t_game *game, void *sprite, int x, int y);
+=======
+void				draw_sprite(t_game *game, void *sprite, t_object *obj);
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 void				set_mario_sprite(t_game *game);
 
 void				draw_game(t_game *game, t_map *map, t_object *object,
@@ -196,6 +295,12 @@ void				draw_game(t_game *game, t_map *map, t_object *object,
 int					no_event(t_game *game);
 void				animate_sprites(t_game *game);
 void				mlx_hooks(t_game *game);
+
+//########################## PIXEL ############################################
+
+void	get_pixel(t_buffer *buffer, int x, int y, t_pixel *color);
+unsigned int	pixel_to_int(t_pixel *set);
+void pixel_from_argb(t_pixel *set, unsigned int color);
 
 //########################## CONTROLS #########################################
 
@@ -238,13 +343,14 @@ void				find_start_position(t_map *map, int *pos_x, int *pos_y);
 int					**visited_matriz(int rows, int columns);
 int					cleanup_and_exit(t_map *map, int flag);
 
+
 //########################## MEMORY ###########################################
 
 void				free_map(t_map *map);
 void				free_matriz(int **visited, int rows);
 void				free_sprites(t_game *game);
 void				free_player_sprites(t_game *game);
-void				free_game(t_game *game);
+void	free_game(t_game *game);
 
 //########################## OBJECTS ##########################################
 

@@ -1,9 +1,14 @@
 {
     "files.associations": {
         "array": "c",
+<<<<<<< HEAD
         "libft.h": "c",
         "so_long.h": "c",
         "mlx.h": "c",
         "unistd.h": "c"
+=======
+        "so_long.h": "c",
+        "libft.h": "c"
+>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
     }
 }
