@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_free.c                                      :+:      :+:    :+:   */
+/*   6.memory_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:01:48 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/17 18:27:27 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:59:58 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,8 @@ void	free_sprites(t_game *game)
 }
 
 void	free_game(t_game *game)
-{	
+{
 	free_sprites(game);
-	if (game->buffer && game->buffer->buffer)
-	{
-		mlx_destroy_image(game->mlx, game->buffer->buffer);
-		free(game->buffer);
-	}
 	mlx_destroy_window(game->mlx, game->window);
 	mlx_destroy_display(game->mlx);
 	cleanup_objects(&game->objects);

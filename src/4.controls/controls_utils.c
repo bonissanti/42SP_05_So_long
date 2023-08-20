@@ -1,18 +1,3 @@
-<<<<<<<< HEAD:src/4.controls/controls_utils.c
-========
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   controls_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 17:03:02 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/17 17:03:04 by brunrodr         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
->>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4:src/5.controls/controls_utils.c
 #include "../so_long.h"
 
 int		key_press(int keycode, t_game *game);
@@ -26,8 +11,8 @@ int	key_press(int keycode, t_game *game)
 	int	next_x;
 	int	next_y;
 
-	next_x = game->object->x;
-	next_y = game->object->y;
+	next_x = game->player.x;
+	next_y = game->player.y;
 	if (keycode == KEY_ESC)
 		close_window(game);
 	if (keycode == KEY_A || keycode == KEY_LEFT)
@@ -40,14 +25,9 @@ int	key_press(int keycode, t_game *game)
 		d_key(&next_y, &game->player.direction_x, &game->player.direction_y);
 	if (check_next_position(next_x, next_y, game))
 	{
-<<<<<<<< HEAD:src/4.controls/controls_utils.c
 		game->player.x = next_x;
 		game->player.y = next_y;
 		animate_sprites(game);
-========
-		game->object->x = next_x;
-		game->object->y = next_y;
->>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4:src/5.controls/controls_utils.c
 	}
 	draw_game(game, &game->map, game->objects, game->num_obj);
 	return (0);

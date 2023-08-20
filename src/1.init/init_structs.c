@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-=======
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_structs.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 12:40:40 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/17 17:02:00 by brunrodr         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
->>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 #include "../so_long.h"
 
 void	init_map_defaults(t_game *game);
@@ -21,38 +6,18 @@ void	init_player_defaults(t_player *player, t_sprites *sprites);
 
 void	init_map_defaults(t_game *game)
 {
-	int	i;
-
 	game->map.rows = 0;
 	game->map.columns = 0;
 	game->map.matriz = NULL;
 	game->map.pos_x = 0;
 	game->map.pos_y = 0;
 	game->map.moves = 0;
-<<<<<<< HEAD
 	game->coin_frame = 0;
 	game->bg_frame = 0;
 	game->mario_l_frame = 0;
 	game->mario_r_frame = 0;
 	game->mario_u_frame = 0;
 	game->mario_d_frame = 0;
-=======
-	game->frame_counter = 0;
-	game->frame_bg = 0;
-	game->frame_mario_l = 0;
-	game->frame_mario_r = 0;
-	game->frame_mario_u = 0;
-	game->frame_mario_d = 0;
-	game->current_coins = 0;
-	game->current_bg = 0;
-	game->current_mario_l = 0;
-	game->current_mario_r = 0;
-	game->current_mario_u = 0;
-	game->current_mario_d = 0;
-	i = -1;
-	while (++i < 5)
-		object_set(&game->object[i], 0, 0, 0, 0);
->>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4
 }
 
 void	init_player_defaults(t_player *player, t_sprites *sprites)
@@ -86,5 +51,6 @@ void	init_sprites_defaults(t_sprites *sprites)
 	sprites->coins[1] = NULL;
 	sprites->coins[2] = NULL;
 	sprites->exit = NULL;
+	sprites->height = 0;
+	sprites->width = 0;
 }
-

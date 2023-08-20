@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_map.c                                         :+:      :+:    :+:   */
+/*   2.check_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/17 17:05:00 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:20:39 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,6 @@ void	allocate_map(t_map *map)
 		ft_printf("Error\nMap cannot be empty\n");
 		exit(1);
 	}
-<<<<<<<< HEAD:src/1.init/get_map.c
-========
-	line_count = 0;
-	while ((bytes_read = read(fd, buffer, 4096)))
-	{
-		i = 0;
-		while (i < bytes_read)
-		{
-			if (buffer[i] == '\n' || buffer[i] == '\0')
-				line_count++;
-			i++;
-		}
-	}
-	close(fd);
-	return (line_count);
-}
-
-void	get_map(t_map *map)
-{
-	int		fd;
-	int		i;
-
-	check_file(map->file);
-	map->rows = count_lines(map);
->>>>>>>> 1c6e2679b2a3b698d740db3ddc3eecf76b3250a4:src/1.init/init_map.c
 	map->matriz = malloc(sizeof(char *) * (map->rows));
 	if (!map->matriz)
 	{
