@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animation_sprites.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 10:49:27 by brunrodr          #+#    #+#             */
+/*   Updated: 2023/08/21 11:57:18 by brunrodr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 int		no_event(t_game *game);
@@ -6,6 +18,7 @@ void	mlx_hooks(t_game *game);
 int	no_event(t_game *game)
 {
 	(void)game;
+	print_steps_to_screen(game);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 17:04:34 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 17:29:52 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/21 11:21:41 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void				r_key(int *next_x, int *direction_x, int *direction_y);
 void				u_key(int *next_y, int *direction_x, int *direction_y);
 void				d_key(int *next_y, int *direction_x, int *direction_y);
 int					close_window(t_game *game);
+void				print_steps_to_screen(t_game *game);
 
 //########################## CONTROLS UTILS ###################################
 

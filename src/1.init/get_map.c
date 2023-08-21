@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2.check_map.c                                      :+:      :+:    :+:   */
+/*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 18:20:39 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:15:05 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-void	init_map(t_map *map);
-int		read_lines(t_map *map);
-void	get_map(t_map *map);
-void	allocate_map(t_map *map);
-void	read_map(t_map *map, int fd);
-int		check_file(char *file);
 
 void	init_map(t_map *map)
 {
@@ -39,6 +32,21 @@ void	init_map(t_map *map)
 		free_map(map);
 		exit(1);
 	}
+}
+
+void	get_map(t_map *map)
+{
+	int	fd;
+
+	allocate_map(map);
+	fd = open(map->file, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error opening file\n");
+		exit(1);
+	}
+	read_map(map, fd);
+	close(fd);
 }
 
 void	allocate_map(t_map *map)
@@ -81,21 +89,6 @@ void	read_map(t_map *map, int fd)
 		exit(1);
 	}
 	map->columns = ft_strlen(map->matriz[0]);
-}
-
-void	get_map(t_map *map)
-{
-	int	fd;
-
-	allocate_map(map);
-	fd = open(map->file, O_RDONLY);
-	if (fd < 0)
-	{
-		ft_printf("Error opening file\n");
-		exit(1);
-	}
-	read_map(map, fd);
-	close(fd);
 }
 
 int	check_file(char *file)

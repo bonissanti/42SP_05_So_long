@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controls_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 10:49:14 by brunrodr          #+#    #+#             */
+/*   Updated: 2023/08/21 12:08:54 by brunrodr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
 int		key_press(int keycode, t_game *game);
@@ -101,4 +113,14 @@ void	mark_as_collected(t_object **objects, int num_obj, int next_x,
 		}
 		i++;
 	}
+}
+
+void	print_steps_to_screen(t_game *game)
+{
+	char	*steps;
+
+	steps = ft_itoa(game->map.moves);
+	mlx_string_put(game->mlx, game->window, 20, 20, 0x00000000,
+		steps);
+	free(steps);
 }

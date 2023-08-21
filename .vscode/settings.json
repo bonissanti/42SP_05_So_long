@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "array": "c",
-        "libft.h": "c",
-        "so_long.h": "c",
-        "mlx.h": "c",
-        "unistd.h": "c"
-    }
-}

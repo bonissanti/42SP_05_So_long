@@ -55,7 +55,7 @@ $(LIBFT_LIB):
 	@echo "$(GREEN)Libft compiled$(RESET)"
 
 src/%.o: src/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER) -gdwarf-4
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER)
 
 ############################# Norm rules ####################################
 
