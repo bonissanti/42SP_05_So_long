@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:49:32 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 10:49:33 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:35:27 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 void	draw_background(t_game *game);
 void	draw_mario(t_game *game, t_map *map);
+
+/**
+ * Function: Draw background
+ * -----------------
+ * This is a function draws background of the game. It will draw the background
+ * of the game, according to the frame of the background.
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	draw_background(t_game *game)
 {
@@ -23,11 +35,38 @@ void	draw_background(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->window, sprite, 0, 0);
 }
 
+/**
+ * Function: Mlx hooks
+ * -----------------
+ * This is a function that calls the mlx_loop_hook function and the mlx_hook
+ * function. The mlx_loop_hook function is used to looping the game, mlx_hook
+ * function is used to handle the events, like key press and close window.
+ * 
+ * @param: *game - Pointer to the game struct.
+ * @param: *object - Pointer to the object struct.
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	draw_object(t_game *game, t_object *object)
 {
 	mlx_put_image_to_window(game->mlx, game->window, object->sprite, object->x
 		* SPRITE_SIZE, object->y * SPRITE_SIZE);
 }
+
+/**
+ * Function: Mlx hooks
+ * -----------------
+ * This is a function that calls the mlx_loop_hook function and the mlx_hook
+ * function. The mlx_loop_hook function is used to looping the game, mlx_hook
+ * function is used to handle the events, like key press and close window.
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	draw_mario(t_game *game, t_map *map)
 {
@@ -48,6 +87,19 @@ void	draw_mario(t_game *game, t_map *map)
 	}
 }
 
+/**
+ * Function: Draw wall
+ * -----------------
+ * This is a function draws wall of the game. It will draw the wall of the game,
+ * according to the frame of the wall.
+ * 
+ * @param: *game - Pointer to the game struct.
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: This is a void function.
+ *
+ */
+
 void	draw_wall(t_game *game, t_map *map)
 {
 	int	row;
@@ -67,6 +119,21 @@ void	draw_wall(t_game *game, t_map *map)
 		row++;
 	}
 }
+
+/**
+ * Function: Draw map objects
+ * -----------------
+ * This is a function draws the objects of the game. It will draw the objects of
+ * the game, according to the frame of the object, the x and y coordinates of the
+ * object, and the symbol of the object.
+ * 
+ * @param: *game - Pointer to the game struct.
+ * @param: *objects - Pointer to the object struct.
+ * @param: num_obj - Number of objects.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	draw_map_objects(t_game *game, t_object *objects, int num_obj)
 {
@@ -89,6 +156,8 @@ void	draw_map_objects(t_game *game, t_object *objects, int num_obj)
 			else if (object->symbol == 'X')
 				draw_sprite(game, game->sprites.enemy, object->x * SPRITE_SIZE,
 					object->y * SPRITE_SIZE);
+			else if (object->symbol == '0')
+				draw_background(game);
 		}
 		i++;
 	}

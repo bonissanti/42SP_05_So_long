@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:49:37 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 10:49:38 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:46:45 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@ void	load_bg_sprites(t_game *game);
 void	load_mario_sprites(t_game *game);
 void	load_others_sprites(t_game *game);
 void	load_error(t_game *game);
+
+/**
+ * Function: Load sprites
+ * -----------------
+ * This function calls the functions to load the sprites. It will load the
+ * background sprites, mario sprites and other sprites. If any sprite is not
+ * loaded, it will call the load_error function.
+ * 
+ * @param: *game - Pointer to the game struct.
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	load_sprites(t_game *game, t_map *map)
 {
@@ -42,6 +56,17 @@ void	load_sprites(t_game *game, t_map *map)
 	draw_game(game, map, game->objects, game->num_obj);
 }
 
+/**
+ * Function: Load bg sprites
+ * -----------------
+ * This function loads the background sprites.
+ * 
+ * @param: *game - Pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	load_bg_sprites(t_game *game)
 {
 	int	width;
@@ -55,6 +80,17 @@ void	load_bg_sprites(t_game *game)
 	game->sprites.bg[3] = mlx_xpm_file_to_image(game->mlx, BG4, &width,
 			&height);
 }
+
+/**
+ * Function: Load mario sprites
+ * -----------------
+ * This function loads the mario sprites.
+ * 
+ * @param: *game - Pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	load_mario_sprites(t_game *game)
 {
@@ -84,6 +120,18 @@ void	load_mario_sprites(t_game *game)
 			&game->sprites.width, &game->sprites.height);
 }
 
+/**
+ * Function: Load other sprites
+ * -----------------
+ * This function loads the other sprites, like the wall, coins, exit and
+ * enemy.
+ * 
+ * @param: *game - Pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	load_others_sprites(t_game *game)
 {
 	int	width;
@@ -102,6 +150,18 @@ void	load_others_sprites(t_game *game)
 	game->sprites.enemy = mlx_xpm_file_to_image(game->mlx, ENEMY, &width,
 			&height);
 }
+
+/**
+ * Function: Load error
+ * -----------------
+ * This function is called when any sprite is not loaded. It will print an
+ * error message and free the game struct.
+ * 
+ * @param: *game - Pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	load_error(t_game *game)
 {

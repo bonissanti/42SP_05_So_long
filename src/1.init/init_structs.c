@@ -6,11 +6,24 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 11:00:02 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 11:00:03 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:22:20 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+/**
+ * Function: init_map_defaults
+ * -----------------
+ * Initializes all values of the map struct with default values.
+ * This is important because if we don't initialize the values,
+ * they will be random and we will have problems with the program.
+ *
+ * @param: game -  A pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	init_map_defaults(t_game *game);
 void	init_sprites_defaults(t_sprites *sprites);
@@ -32,6 +45,19 @@ void	init_map_defaults(t_game *game)
 	game->mario_d_frame = 0;
 }
 
+/**
+ * Function: init_player_defaults
+ * -----------------
+ * Initializes all values of the player struct and Mario sprites with 
+ * default values. This is important because if we don't initialize 
+ * the values, they will be random and we will have problems with the program.
+ *
+ * @param: game -  A pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	init_player_defaults(t_player *player, t_sprites *sprites)
 {
 	player->x = 0;
@@ -51,6 +77,19 @@ void	init_player_defaults(t_player *player, t_sprites *sprites)
 	sprites->mario_d[1] = NULL;
 	sprites->mario_d[2] = NULL;
 }
+
+/**
+ * Function: init_sprites_defaults
+ * -----------------
+ * Initializes all values of the sprites struct with default values.
+ * This is important because if we don't initialize the values,
+ * they will be random and we will have problems with the program.
+ *
+ * @param: game -  A pointer to the game struct.
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	init_sprites_defaults(t_sprites *sprites)
 {

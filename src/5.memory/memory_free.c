@@ -1,29 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   6.memory_free.c                                    :+:      :+:    :+:   */
+/*   memory_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:01:48 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/10 16:59:58 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:46:45 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+/**
+ * Function: Free matriz
+ * -----------------
+ * This functions frees the matriz visited, which is used to check if the player
+ * is in a valid position.
+ * 
+ * @param: **visited - Pointer to the matriz visited.
+ * @param: rows - Number of rows of the matriz.
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	free_matriz(int **visited, int rows)
 {
-	int	row;
+	int	i;
 
-	row = 0;
-	while (row < rows)
+	i = 0;
+	while (i < rows)
 	{
-		free(visited[row]);
-		row++;
+		free(visited[i]);
+		i++;
 	}
 	free(visited);
 }
+
+/**
+ * Function: Free map
+ * -----------------
+ * This functions frees the matriz map, which is used to store the map.
+ * 
+ * @param: *map
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	free_map(t_map *map)
 {
@@ -37,6 +61,17 @@ void	free_map(t_map *map)
 	}
 	free(map->matriz);
 }
+
+/**
+ * Function: Free player sprites
+ * -----------------
+ * This functions frees the sprites of the player, if they are not NULL.
+ * 
+ * @param: *map
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	free_player_sprites(t_game *game)
 {
@@ -66,6 +101,17 @@ void	free_player_sprites(t_game *game)
 		mlx_destroy_image(game->mlx, game->sprites.mario_d[2]);
 }
 
+/**
+ * Function: Free sprites
+ * -----------------
+ * This functions frees the sprites of the game, if they are not NULL.
+ * 
+ * @param: *map
+ *
+ * @return: Is a void function.
+ *
+ */
+
 void	free_sprites(t_game *game)
 {
 	if (game->sprites.bg[0])
@@ -88,8 +134,21 @@ void	free_sprites(t_game *game)
 		mlx_destroy_image(game->mlx, game->sprites.coins[2]);
 	if (game->sprites.enemy)
 		mlx_destroy_image(game->mlx, game->sprites.enemy);
-	free_player_sprites(game);
 }
+
+/**
+ * Function: Free game
+ * -----------------
+ * This functions frees the memory allocated for the game struct, being the
+ * sprites, the window, the display, the objects and the map. It also exits the
+ * program. Free game is called by the close_window function when the user
+ * presses the ESC key or closes the window.
+ * 
+ * @param: *map
+ *
+ * @return: Is a void function.
+ *
+ */
 
 void	free_game(t_game *game)
 {

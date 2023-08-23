@@ -6,11 +6,24 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:51:00 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 10:51:01 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:14:54 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+/**
+ * Function: get_lines
+ * -----------------
+ * Reads the map file and counts the number of lines in it.
+ *
+ * @param: map -  The map struct.
+ *
+ * @return: Returns the number of lines in the map file.
+ *
+ * Note: This function opens the file, reads the buffer and counts the number of
+ * lines in it, and then closes the file. 
+ */
 
 int	get_lines(t_map *map)
 {
@@ -36,6 +49,19 @@ int	get_lines(t_map *map)
 	close(fd);
 	return (line_count);
 }
+
+/**
+ * Function: count_lines
+ * -----------------
+ * Count the number of lines in the buffer.
+ *
+ * @param: buffer -  A pointer to the buffer that contains the file.
+ * @param: bytes_read -  The number of bytes read from the file.
+ *
+ * @return: Returns the number of lines in the buffer.
+ *
+ * Note: This function r
+ */
 
 int	count_lines(char *buffer, int bytes_read)
 {

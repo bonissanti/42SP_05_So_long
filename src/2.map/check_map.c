@@ -6,11 +6,24 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:50:53 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 10:50:54 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:26:21 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+/**
+ * Function: Check size
+ * -----------------
+ * This is a function that will check if the map is rectangular.
+ * It will check if the map is rectangular, comparing the number of columns of
+ * each row. If the map is not rectangular, the program will exit with an error.
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: This function will return 1 if the map is rectangular.
+ *
+ */
 
 int	check_size(t_map *map)
 {
@@ -33,6 +46,19 @@ int	check_size(t_map *map)
 	}
 	return (1);
 }
+
+/**
+ * Function: Check wall
+ * -----------------
+ * This is a function that will check if the map has walls, 
+ * comparing the first and last row and column of the map.
+ * If the map doesn't have walls, the program will exit with an error. 
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: This function will return 1 if the map has walls.
+ *
+ */
 
 int	check_wall(t_map *map)
 {
@@ -63,6 +89,19 @@ int	check_wall(t_map *map)
 	return (1);
 }
 
+/**
+ * Function: Check players
+ * -----------------
+ * This is a function that will check if the map has one player.
+ * If the map doesn't have players or has more than one player, the program will
+ * exit with an error.
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: This is a void function.
+ *
+ */
+
 void	check_players(t_map *map)
 {
 	int	row;
@@ -89,6 +128,19 @@ void	check_players(t_map *map)
 		exit(1);
 	}
 }
+
+/**
+ * Function: Check exit
+ * -----------------
+ * This is a function that will check if the map has one exit.
+ * If the map doesn't have exits or has more than one exit, the program will
+ * exit with an error.
+ * 
+ * @param: *map - Pointer to the map struct.
+ *
+ * @return: This is a void function.
+ *
+ */
 
 void	check_exit(t_map *map)
 {

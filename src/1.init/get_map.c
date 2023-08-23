@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:13:57 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/21 12:15:05 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:13:44 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,29 @@ void	allocate_map(t_map *map)
 	}
 }
 
+int	check_file(char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (file == NULL)
+	{
+		ft_printf("Error\nNo file\n");
+		exit(1);
+	}
+	if (len < 4)
+	{
+		ft_printf("Error\nFile must be .ber\n");
+		exit(1);
+	}
+	else if (ft_strncmp(file + len - 4, ".ber", 4) != 0)
+	{
+		ft_printf("Error\nFile must be .ber\n");
+		exit(1);
+	}
+	return (1);
+}
+
 void	read_map(t_map *map, int fd)
 {
 	int	i;
@@ -89,24 +112,4 @@ void	read_map(t_map *map, int fd)
 		exit(1);
 	}
 	map->columns = ft_strlen(map->matriz[0]);
-}
-
-int	check_file(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (file == NULL)
-	{
-		ft_printf("Error\nNo file\n");
-		exit(1);
-	}
-	if (len < 4)
-		return (0);
-	else if (ft_strncmp(file + len - 4, ".ber", 4) != 0)
-	{
-		ft_printf("Error\nFile must be .ber\n");
-		exit(1);
-	}
-	return (1);
 }
