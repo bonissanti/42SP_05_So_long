@@ -5,10 +5,10 @@
 </div>
 
 # :trophy: Score
-> Na 42, os projetos mandatórios são avaliados de 0 a 100. Caso a pessoa faça o bônus, a nota será de 101 a 125. 
+> Na 42, a parte mandatória dos projetos são avaliadas de 0 a 100, há uma nota mínima necessária para que a pessoa seja aprovada, mas que varia dependendo da dificuldade do projeto. Caso a pessoa faça o bônus, a nota será de 101 a 125.
 
 <div align="center" >
-  <img src="./grade.png" alt="grade"
+  <img src="./grade.png" alt="grade">
 
 </div>
 
