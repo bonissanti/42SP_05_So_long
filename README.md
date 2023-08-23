@@ -25,7 +25,7 @@
 > Pró-tip #3: **Pense em todas as verificações possíveis para o seu mapa, sério, uma pessoa que já fez o so_long será completamente capaz de fazer testes de fogo do seu mapa!**
 
 
-# :test_tube: How to play
+# :video_game: How to play
 > Para jogar o So_long, você precisa certificar-se de ter a Minilibx instalada, caso não tenha, acesse esse repositório e instale-o:
 
 > Após ter a Minilibx instalada, basta clonar o repositório do So_long, entrar na pasta e executar o comando make. Após isso, ele irá compilar a libft e o projeto so_long, gerando o arquivo executável '.o'. A partir disso, você pode executar o programa executável e passar um mapa a sua escola como segundo argumento. O comando para isso será assim:
