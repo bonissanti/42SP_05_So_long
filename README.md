@@ -5,7 +5,12 @@
 </div>
 
 # :trophy: Score
-> A pontuação máxima que um projeto pode atingir na 42sp, considerando apenas a parte mandatório, é de 100 pontos. Caso seja realizado o bônus do projeto, a pontuação pode ser de 101 até 125. O objetivo do mandatório é recriar a função printf da biblioteca padrão do C, e o objetivo do bônus é adicionar algumas funcionalidades extras a função printf, as famigeradas flags.
+> Na 42, os projetos mandatórios são avaliados de 0 a 100. Caso a pessoa faça o bônus, a nota será de 101 a 125. 
+
+<div align="center" >
+  <img src="./grade.png" alt="grade"
+
+</div>
 
 
 # :information_source: About
