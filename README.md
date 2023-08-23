@@ -1,5 +1,5 @@
 <div align="center" >
-  <img src="https://game.42sp.org.br/static/assets/achievements/ft_printfm.png" alt="So_long" width="175" height="175">
+  <img src="https://game.42sp.org.br/static/assets/achievements/so_longm.png" alt="So_long" width="175" height="175">
   <h1><i>Fase 1</h1></i>
 
 </div>
