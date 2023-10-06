@@ -6,7 +6,7 @@
 /*   By: brunrodr <brunrodr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:49:21 by brunrodr          #+#    #+#             */
-/*   Updated: 2023/08/23 10:24:12 by brunrodr         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:36:40 by brunrodr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,28 @@ int		close_window(t_game *game);
 
 void	r_key(int *next_x, int *direction_x, int *direction_y)
 {
-	*next_x += 46;
+	*next_x += 10;
 	*direction_x = 1;
 	*direction_y = 0;
 }
 
 void	u_key(int *next_y, int *direction_x, int *direction_y)
 {
-	*next_y -= 46;
+	*next_y -= 10;
 	*direction_x = 0;
 	*direction_y = -1;
 }
 
 void	d_key(int *next_y, int *direction_x, int *direction_y)
 {
-	*next_y += 46;
+	*next_y += 10;
 	*direction_x = 0;
 	*direction_y = 1;
 }
 
 void	l_key(int *next_x, int *direction_x, int *direction_y)
 {
-	*next_x -= 46;
+	*next_x -= 10;
 	*direction_x = -1;
 	*direction_y = 0;
 }
